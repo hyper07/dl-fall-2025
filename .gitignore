@@ -1,0 +1,7 @@
+*.pyc
+/jupyter/.ipynb_checkpoints
+/jupyter/.cache
+/jupyter/.ipython
+/jupyter/.jupyter
+/jupyter/.local
+jupyter/.gitkeep

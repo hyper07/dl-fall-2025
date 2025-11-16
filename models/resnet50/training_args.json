@@ -1,0 +1,21 @@
+{
+  "data_dir": "./static/train_dataset",
+  "output_dir": "./models",
+  "architecture": "resnet50",
+  "model_name": "wound_classifier",
+  "epochs": 20,
+  "batch_size": 32,
+  "learning_rate": 0.001,
+  "validation_split": 0.2,
+  "feature_dim": 2000,
+  "augment": true,
+  "exact_rotations": true,
+  "progress_bar": true,
+  "quiet": false,
+  "fine_tune": false,
+  "fine_tune_epochs": 5,
+  "unfreeze_layers": 20,
+  "device": "mps",
+  "config": null,
+  "save_config": false
+}

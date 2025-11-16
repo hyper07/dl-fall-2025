@@ -1,0 +1,78 @@
+services:
+  dl-postgres:
+    container_name: dl-postgres
+    image: ankane/pgvector:latest
+    ports:
+      - 45432:5432
+    volumes:
+      - dl-postgres:/var/lib/postgresql/data
+      - ./backup:/backup
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: PassW0rd
+      POSTGRES_DB: db
+      PGDATA: /var/lib/postgresql/data
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - dl-net
+
+  dl-jupyter:
+    container_name: dl-jupyter
+    build: 
+      context: .
+      dockerfile: ./jupyter/Dockerfile
+      args:
+        REQUIREMENTS_PATH: ./jupyter/requirements.txt
+    volumes:
+      - ./workspace:/home/jovyan
+      - ./core:/home/jovyan/core
+      - ~/Documents:/home/jovyan/Documents
+      - ~/Downloads:/home/jovyan/Downloads
+    ports:
+      - 48888:8888
+      - 45001:5001
+    networks:
+      - dl-net
+    env_file:
+      - .env
+    command: "start-notebook.sh --NotebookApp.token="
+
+  dl-streamlit-app:
+    image: streamlit-python3.12:latest
+    container_name: dl-streamlit-app
+    build:
+      context: .
+      dockerfile: ./app-streamlit/Dockerfile
+      args:
+        REQUIREMENTS_PATH: ./app-streamlit/requirements.txt
+        REQUIREMENTS_DEV_PATH: ./app-streamlit/requirements-dev.txt
+    command: streamlit run Home.py --server.port 18501
+    networks:
+      - dl-net
+    volumes:
+      - ./app-streamlit:/usr/src/app
+      - ./workspace:/workspace
+      - ./core:/usr/src/app/core
+      - ./files:/usr/src/app/files
+    ports:
+      - 48501:18501
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=PassW0rd
+      - POSTGRES_DB=db
+      - POSTGRES_HOST=dl-postgres
+      - POSTGRES_PORT=5432
+      - DATABASE_URL=postgresql://admin:PassW0rd@dl-postgres:5432/db
+    depends_on:
+      - dl-postgres
+
+volumes:
+  dl-postgres:
+    driver: local
+
+networks:
+  dl-net:
+    driver: bridge

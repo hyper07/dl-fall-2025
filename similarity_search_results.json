@@ -1,0 +1,882 @@
+{
+  "Abrasions": {
+    "query_image": {
+      "id": 1,
+      "filename": "abrasions (1).jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999516820194928,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "24_0.jpg",
+        "db_id": 6391
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999365667603909,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (49).jpg",
+        "db_id": 3529
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999248377437862,
+        "class": "Abrasions",
+        "augmentation": "original",
+        "filename": "abrasions (54).jpg",
+        "db_id": 289
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999129847658335,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (21).jpg",
+        "db_id": 3355
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9999067602240288,
+        "class": "Abrasions",
+        "augmentation": "original",
+        "filename": "abrasions (52).jpg",
+        "db_id": 277
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999022811784748,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "24_0.jpg",
+        "db_id": 2209
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9998998119324434,
+        "class": "Burns",
+        "augmentation": "original",
+        "filename": "burns (39).jpg",
+        "db_id": 8977
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.999897672886496,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "25_0.jpg",
+        "db_id": 4813
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9998930514270037,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "43_0.jpg",
+        "db_id": 2359
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9998899433343554,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "25_2.jpg",
+        "db_id": 4825
+      }
+    ]
+  },
+  "Bruises": {
+    "query_image": {
+      "id": 3319,
+      "filename": "bruises (16).jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9997468778659594,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (106).jpg",
+        "db_id": 3187
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9997378296857636,
+        "class": "Cut",
+        "augmentation": "original",
+        "filename": "cut (13).jpg",
+        "db_id": 3889
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9997263856037927,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "12_0.jpg",
+        "db_id": 6295
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9997222629255951,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "73_0.jpg",
+        "db_id": 2623
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9997142682740265,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (54).jpg",
+        "db_id": 8713
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9996980525811792,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (47).jpg",
+        "db_id": 8665
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9996962653226492,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (35).jpg",
+        "db_id": 8587
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9996935157829996,
+        "class": "Abrasions",
+        "augmentation": "original",
+        "filename": "abrasions (51).jpg",
+        "db_id": 271
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.999690273183578,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "23_1.jpg",
+        "db_id": 2203
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9996900263989148,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (60).jpg",
+        "db_id": 8755
+      }
+    ]
+  },
+  "Burns": {
+    "query_image": {
+      "id": 8941,
+      "filename": "burns (33).jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999347056369823,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "150_0.jpg",
+        "db_id": 901
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999341720354955,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "10_0.jpg",
+        "db_id": 6253
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.999933658021472,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "88_0.jpg",
+        "db_id": 1507
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999331920659088,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "25_1.jpg",
+        "db_id": 6403
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.999930669765659,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "48_0.jpg",
+        "db_id": 2389
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999297591931823,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "32_0.jpg",
+        "db_id": 1057
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999295881190643,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "53_0.jpg",
+        "db_id": 1207
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.999929326181717,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "pressure-ulcer-on-foot-0020.jpg",
+        "db_id": 7387
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999251435716369,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "71_0.jpg",
+        "db_id": 5371
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999212830321746,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "27_0.jpg",
+        "db_id": 6439
+      }
+    ]
+  },
+  "Cut": {
+    "query_image": {
+      "id": 3889,
+      "filename": "cut (13).jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999170928651799,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "74_0.jpg",
+        "db_id": 6817
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999018636807646,
+        "class": "Abrasions",
+        "augmentation": "original",
+        "filename": "abrasions (2).jpg",
+        "db_id": 67
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9998941134050213,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "78_0.jpg",
+        "db_id": 1417
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9998912437501677,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "11_1.jpg",
+        "db_id": 6283
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9998903468686581,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "140_1.jpg",
+        "db_id": 4573
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9998804519475512,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "laseration (27).jpg",
+        "db_id": 8167
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.999880026306276,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (54).jpg",
+        "db_id": 8713
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9998796445638267,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "77_0.jpg",
+        "db_id": 1411
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9998776647019684,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "134_0.jpg",
+        "db_id": 751
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9998772135854421,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (106).jpg",
+        "db_id": 3187
+      }
+    ]
+  },
+  "Diabetic Wounds": {
+    "query_image": {
+      "id": 583,
+      "filename": "114_0.jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.99998900227604,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "18_0.jpg",
+        "db_id": 949
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999873166722568,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "laseration (4).jpg",
+        "db_id": 8251
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999872705496249,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "132_1.jpg",
+        "db_id": 739
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999868025977996,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "45_0.jpg",
+        "db_id": 1147
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9999863854101918,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "123_0.jpg",
+        "db_id": 649
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999862348684587,
+        "class": "Burns",
+        "augmentation": "original",
+        "filename": "burns (4).jpg",
+        "db_id": 8983
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999858552399353,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "82_1.jpg",
+        "db_id": 1471
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9999857527190127,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "52_0.jpg",
+        "db_id": 2437
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999854861344015,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "118_3.jpg",
+        "db_id": 4363
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999854622203995,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "137_0.jpg",
+        "db_id": 775
+      }
+    ]
+  },
+  "Laseration": {
+    "query_image": {
+      "id": 8479,
+      "filename": "mirrored_laseration (19).jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999911868651806,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "laseration (19).jpg",
+        "db_id": 8113
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999841569789625,
+        "class": "Abrasions",
+        "augmentation": "original",
+        "filename": "abrasions (20).jpg",
+        "db_id": 73
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999815999810239,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "61_0.jpg",
+        "db_id": 1285
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999813799505857,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "82_1.jpg",
+        "db_id": 1471
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9999810761100247,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "151_0.jpg",
+        "db_id": 4681
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999806662667845,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "32_0.jpg",
+        "db_id": 4879
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999801046391029,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "131_1.jpg",
+        "db_id": 727
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9999798460908716,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "93_0.jpg",
+        "db_id": 2815
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999797309117607,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "89_0.jpg",
+        "db_id": 2779
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999794144205427,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "10_0.jpg",
+        "db_id": 553
+      }
+    ]
+  },
+  "Normal": {
+    "query_image": {
+      "id": 5647,
+      "filename": "1.jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999993634679241,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "22.jpg",
+        "db_id": 5737
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999990454575663,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "94.jpg",
+        "db_id": 6211
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999989823590019,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "97.jpg",
+        "db_id": 6229
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999988229614547,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "34.jpg",
+        "db_id": 5815
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.99999860926819,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "60.jpg",
+        "db_id": 5989
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999984660796957,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (2).jpg",
+        "db_id": 3343
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999984367955106,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "10.jpg",
+        "db_id": 5653
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9999983890222173,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "77.jpg",
+        "db_id": 6097
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999983529163583,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "19.jpg",
+        "db_id": 5713
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999983114579375,
+        "class": "Normal",
+        "augmentation": "original",
+        "filename": "28.jpg",
+        "db_id": 5773
+      }
+    ]
+  },
+  "Pressure Wounds": {
+    "query_image": {
+      "id": 6289,
+      "filename": "11_2.jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999520187523655,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "32_1.jpg",
+        "db_id": 1063
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999446662629695,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "10_3.jpg",
+        "db_id": 6271
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999428494293606,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "10_0.jpg",
+        "db_id": 6253
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999382003672024,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "25_4.jpg",
+        "db_id": 6421
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9999373726474363,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "40_0.jpg",
+        "db_id": 4963
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999371095770653,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "88_0.jpg",
+        "db_id": 2773
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999354944498656,
+        "class": "Burns",
+        "augmentation": "original",
+        "filename": "burns (29).jpg",
+        "db_id": 8911
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9999347927925568,
+        "class": "Burns",
+        "augmentation": "original",
+        "filename": "burns (42).jpg",
+        "db_id": 9001
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999281758614826,
+        "class": "Burns",
+        "augmentation": "original",
+        "filename": "burns (37).jpg",
+        "db_id": 8965
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999268851259978,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "35_0.jpg",
+        "db_id": 1081
+      }
+    ]
+  },
+  "Surgical Wounds": {
+    "query_image": {
+      "id": 1975,
+      "filename": "113_0.jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9999389521752906,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "91_0.jpg",
+        "db_id": 1531
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9999271428524779,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "8_0.jpg",
+        "db_id": 6979
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9999252279176626,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (13).jpg",
+        "db_id": 8443
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9999169784167267,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "63_0.jpg",
+        "db_id": 1297
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9999146915812231,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "mirrored_laseration (56).jpg",
+        "db_id": 8725
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9999115246781493,
+        "class": "Cut",
+        "augmentation": "original",
+        "filename": "cut (40).jpg",
+        "db_id": 4069
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9999101313046974,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (57).jpg",
+        "db_id": 3583
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.9999096699664605,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "62_0.jpg",
+        "db_id": 1291
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9999092358439261,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "127_0.jpg",
+        "db_id": 673
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9999083769278779,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "135_0.jpg",
+        "db_id": 763
+      }
+    ]
+  },
+  "Venous Wounds": {
+    "query_image": {
+      "id": 4165,
+      "filename": "100_0.jpg"
+    },
+    "similar_images": [
+      {
+        "rank": 1,
+        "similarity_score": 0.9998169761653432,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (93).jpg",
+        "db_id": 3823
+      },
+      {
+        "rank": 2,
+        "similarity_score": 0.9998066212275899,
+        "class": "Pressure Wounds",
+        "augmentation": "original",
+        "filename": "50_0.jpg",
+        "db_id": 6643
+      },
+      {
+        "rank": 3,
+        "similarity_score": 0.9997923349905083,
+        "class": "Cut",
+        "augmentation": "original",
+        "filename": "cut (17).jpg",
+        "db_id": 3913
+      },
+      {
+        "rank": 4,
+        "similarity_score": 0.9997670983622788,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "7_0.jpg",
+        "db_id": 2713
+      },
+      {
+        "rank": 5,
+        "similarity_score": 0.9997573376134749,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "7_0.jpg",
+        "db_id": 1435
+      },
+      {
+        "rank": 6,
+        "similarity_score": 0.9997549915477014,
+        "class": "Laseration",
+        "augmentation": "original",
+        "filename": "laseration (36).jpg",
+        "db_id": 8227
+      },
+      {
+        "rank": 7,
+        "similarity_score": 0.9997449379219537,
+        "class": "Diabetic Wounds",
+        "augmentation": "original",
+        "filename": "7_1.jpg",
+        "db_id": 1441
+      },
+      {
+        "rank": 8,
+        "similarity_score": 0.999734498567206,
+        "class": "Surgical Wounds",
+        "augmentation": "original",
+        "filename": "117_0.jpg",
+        "db_id": 1999
+      },
+      {
+        "rank": 9,
+        "similarity_score": 0.9997271361674335,
+        "class": "Venous Wounds",
+        "augmentation": "original",
+        "filename": "42_0.jpg",
+        "db_id": 5029
+      },
+      {
+        "rank": 10,
+        "similarity_score": 0.9997185617968642,
+        "class": "Bruises",
+        "augmentation": "original",
+        "filename": "bruises (117).jpg",
+        "db_id": 3259
+      }
+    ]
+  }
+}

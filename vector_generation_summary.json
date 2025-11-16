@@ -1,0 +1,28 @@
+{
+  "model_type": "resnet50",
+  "total_vectors": 9186,
+  "total_original_images": 1531,
+  "augmentations_per_image": 6,
+  "expected_total_vectors": 9186,
+  "classes_processed": [
+    "Abrasions",
+    "Diabetic Wounds",
+    "Surgical Wounds",
+    "Bruises",
+    "Cut",
+    "Venous Wounds",
+    "Normal",
+    "Pressure Wounds",
+    "Laseration",
+    "Burns"
+  ],
+  "table_name": "images_features",
+  "augmentations": [
+    "original",
+    "rotate_90",
+    "rotate_180",
+    "rotate_270",
+    "flip_horizontal",
+    "flip_vertical"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "training_date": "2025-11-16T03:52:30.032043",
+  "model_name": "wound_classifier",
+  "architecture": "resnet50",
+  "num_classes": 10,
+  "class_counts": {
+    "Abrasions": 82,
+    "Diabetic Wounds": 231,
+    "Surgical Wounds": 210,
+    "Bruises": 121,
+    "Cut": 50,
+    "Venous Wounds": 247,
+    "Normal": 100,
+    "Pressure Wounds": 301,
+    "Laseration": 122,
+    "Burns": 67
+  },
+  "training_config": {
+    "epochs": 20,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "validation_split": 0.2,
+    "feature_dim": 2000,
+    "augmentation": true,
+    "fine_tuning": false
+  },
+  "final_metrics": {
+    "train_accuracy": -1,
+    "val_accuracy": -1,
+    "train_loss": -1,
+    "val_loss": -1
+  },
+  "model_paths": {
+    "model_file": "models/resnet50/wound_classifier.pkl",
+    "config_file": "models/resnet50/training_config.json"
+  }
+}

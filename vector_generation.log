@@ -1,0 +1,1528 @@
+2025-11-16 10:09:52,953 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:09:52,954 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:09:52,954 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:09:52,954 - INFO - Target vectors per class: 200
+2025-11-16 10:09:52,954 - INFO - Total target vectors: 2000
+2025-11-16 10:09:52,954 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:09:53,741 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:09:53,742 - INFO - Feature model recreated from loaded model
+2025-11-16 10:09:53,742 - INFO - Model loaded successfully
+2025-11-16 10:09:53,742 - INFO - Scanning dataset...
+2025-11-16 10:09:53,743 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:09:53,745 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:09:53,746 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:09:53,747 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:09:53,748 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:09:53,749 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:09:53,750 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:09:53,752 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:09:53,753 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:09:53,753 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:09:53,753 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:09:53,861 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:09:53,861 - ERROR - Vector generation failed: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:10:20,976 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:10:20,976 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:20,976 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:10:20,976 - INFO - Target vectors per class: 200
+2025-11-16 10:10:20,977 - INFO - Total target vectors: 2000
+2025-11-16 10:10:20,977 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:10:21,779 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:21,780 - INFO - Feature model recreated from loaded model
+2025-11-16 10:10:21,780 - INFO - Model loaded successfully
+2025-11-16 10:10:21,780 - INFO - Scanning dataset...
+2025-11-16 10:10:21,781 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:10:21,783 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:10:21,784 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:10:21,786 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:10:21,787 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:10:21,793 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:10:21,794 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:10:21,797 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:10:21,799 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:10:21,800 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:10:21,800 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:10:21,897 - ERROR - Failed to connect to database: vector type not found in the database
+2025-11-16 10:10:21,897 - ERROR - Vector generation failed: vector type not found in the database
+2025-11-16 10:10:40,752 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:10:40,752 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:40,752 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:10:40,752 - INFO - Target vectors per class: 200
+2025-11-16 10:10:40,752 - INFO - Total target vectors: 2000
+2025-11-16 10:10:40,752 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:10:41,427 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:41,429 - INFO - Feature model recreated from loaded model
+2025-11-16 10:10:41,429 - INFO - Model loaded successfully
+2025-11-16 10:10:41,429 - INFO - Scanning dataset...
+2025-11-16 10:10:41,430 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:10:41,431 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:10:41,433 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:10:41,434 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:10:41,434 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:10:41,436 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:10:41,436 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:10:41,439 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:10:41,440 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:10:41,440 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:10:41,440 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:10:41,490 - INFO - Database connection established
+2025-11-16 10:10:41,491 - INFO - Database connection closed
+2025-11-16 10:10:41,491 - ERROR - Vector generation failed: 'DatabaseConnection' object has no attribute 'cursor'
+2025-11-16 10:10:55,208 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:10:55,208 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:55,208 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:10:55,208 - INFO - Target vectors per class: 200
+2025-11-16 10:10:55,208 - INFO - Total target vectors: 2000
+2025-11-16 10:10:55,208 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:10:55,897 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:10:55,899 - INFO - Feature model recreated from loaded model
+2025-11-16 10:10:55,899 - INFO - Model loaded successfully
+2025-11-16 10:10:55,899 - INFO - Scanning dataset...
+2025-11-16 10:10:55,900 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:10:55,902 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:10:55,903 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:10:55,904 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:10:55,904 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:10:55,906 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:10:55,907 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:10:55,909 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:10:55,910 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:10:55,911 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:10:55,911 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:10:55,961 - INFO - Database connection established
+2025-11-16 10:10:55,972 - INFO - Created vector table: image_features_resnet50
+2025-11-16 10:10:55,972 - INFO - Database connection closed
+2025-11-16 10:10:55,972 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 10:11:09,086 - INFO - Generated 200 vectors for class 'Abrasions'
+2025-11-16 10:11:09,086 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 10:11:21,280 - INFO - Generated 200 vectors for class 'Diabetic Wounds'
+2025-11-16 10:11:21,281 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 10:11:33,682 - INFO - Generated 200 vectors for class 'Surgical Wounds'
+2025-11-16 10:11:33,682 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 10:11:46,276 - INFO - Generated 200 vectors for class 'Bruises'
+2025-11-16 10:11:46,277 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 10:11:58,994 - INFO - Generated 200 vectors for class 'Cut'
+2025-11-16 10:11:58,996 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 10:12:11,189 - INFO - Generated 200 vectors for class 'Venous Wounds'
+2025-11-16 10:12:11,190 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 10:12:23,374 - INFO - Generated 200 vectors for class 'Normal'
+2025-11-16 10:12:23,374 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 10:12:35,984 - INFO - Generated 200 vectors for class 'Pressure Wounds'
+2025-11-16 10:12:35,986 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 10:12:48,878 - INFO - Generated 200 vectors for class 'Laseration'
+2025-11-16 10:12:48,879 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 10:13:02,007 - INFO - Generated 200 vectors for class 'Burns'
+2025-11-16 10:13:02,008 - INFO - Storing 2000 vectors in database...
+2025-11-16 10:13:02,018 - INFO - Database connection established
+2025-11-16 10:13:02,024 - INFO - Database connection closed
+2025-11-16 10:13:02,024 - ERROR - Vector generation failed: can't adapt type 'dict'
+2025-11-16 10:13:14,984 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:13:14,984 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:13:14,984 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:13:14,984 - INFO - Target vectors per class: 200
+2025-11-16 10:13:14,984 - INFO - Total target vectors: 2000
+2025-11-16 10:13:14,984 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:13:15,788 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:13:15,790 - INFO - Feature model recreated from loaded model
+2025-11-16 10:13:15,790 - INFO - Model loaded successfully
+2025-11-16 10:13:15,790 - INFO - Scanning dataset...
+2025-11-16 10:13:15,791 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:13:15,792 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:13:15,794 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:13:15,795 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:13:15,795 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:13:15,797 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:13:15,797 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:13:15,799 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:13:15,800 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:13:15,801 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:13:15,801 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:13:15,857 - INFO - Database connection established
+2025-11-16 10:13:15,858 - INFO - Created vector table: image_features_resnet50
+2025-11-16 10:13:15,858 - INFO - Database connection closed
+2025-11-16 10:13:15,858 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 10:13:29,006 - INFO - Generated 200 vectors for class 'Abrasions'
+2025-11-16 10:13:29,006 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 10:13:41,368 - INFO - Generated 200 vectors for class 'Diabetic Wounds'
+2025-11-16 10:13:41,369 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 10:13:54,668 - INFO - Generated 200 vectors for class 'Surgical Wounds'
+2025-11-16 10:13:54,669 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 10:14:07,780 - INFO - Generated 200 vectors for class 'Bruises'
+2025-11-16 10:14:07,781 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 10:14:20,433 - INFO - Generated 200 vectors for class 'Cut'
+2025-11-16 10:14:20,434 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 10:14:32,722 - INFO - Generated 200 vectors for class 'Venous Wounds'
+2025-11-16 10:14:32,723 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 10:14:44,976 - INFO - Generated 200 vectors for class 'Normal'
+2025-11-16 10:14:44,977 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 10:14:57,487 - INFO - Generated 200 vectors for class 'Pressure Wounds'
+2025-11-16 10:14:57,488 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 10:15:10,256 - INFO - Generated 200 vectors for class 'Laseration'
+2025-11-16 10:15:10,256 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 10:15:22,562 - INFO - Generated 200 vectors for class 'Burns'
+2025-11-16 10:15:22,563 - INFO - Storing 2000 vectors in database...
+2025-11-16 10:15:22,578 - INFO - Database connection established
+2025-11-16 10:15:22,803 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:22,803 - INFO - Database connection closed
+2025-11-16 10:15:22,804 - INFO - Stored batch 1/20
+2025-11-16 10:15:22,813 - INFO - Database connection established
+2025-11-16 10:15:23,030 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:23,030 - INFO - Database connection closed
+2025-11-16 10:15:23,031 - INFO - Stored batch 2/20
+2025-11-16 10:15:23,039 - INFO - Database connection established
+2025-11-16 10:15:23,268 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:23,268 - INFO - Database connection closed
+2025-11-16 10:15:23,269 - INFO - Stored batch 3/20
+2025-11-16 10:15:23,277 - INFO - Database connection established
+2025-11-16 10:15:23,480 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:23,480 - INFO - Database connection closed
+2025-11-16 10:15:23,481 - INFO - Stored batch 4/20
+2025-11-16 10:15:23,489 - INFO - Database connection established
+2025-11-16 10:15:23,706 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:23,707 - INFO - Database connection closed
+2025-11-16 10:15:23,708 - INFO - Stored batch 5/20
+2025-11-16 10:15:23,717 - INFO - Database connection established
+2025-11-16 10:15:23,921 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:23,921 - INFO - Database connection closed
+2025-11-16 10:15:23,923 - INFO - Stored batch 6/20
+2025-11-16 10:15:23,931 - INFO - Database connection established
+2025-11-16 10:15:24,139 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:24,139 - INFO - Database connection closed
+2025-11-16 10:15:24,141 - INFO - Stored batch 7/20
+2025-11-16 10:15:24,149 - INFO - Database connection established
+2025-11-16 10:15:24,361 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:24,361 - INFO - Database connection closed
+2025-11-16 10:15:24,362 - INFO - Stored batch 8/20
+2025-11-16 10:15:24,371 - INFO - Database connection established
+2025-11-16 10:15:24,576 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:24,576 - INFO - Database connection closed
+2025-11-16 10:15:24,577 - INFO - Stored batch 9/20
+2025-11-16 10:15:24,585 - INFO - Database connection established
+2025-11-16 10:15:24,796 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:24,796 - INFO - Database connection closed
+2025-11-16 10:15:24,798 - INFO - Stored batch 10/20
+2025-11-16 10:15:24,806 - INFO - Database connection established
+2025-11-16 10:15:25,023 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:25,023 - INFO - Database connection closed
+2025-11-16 10:15:25,024 - INFO - Stored batch 11/20
+2025-11-16 10:15:25,032 - INFO - Database connection established
+2025-11-16 10:15:25,245 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:25,245 - INFO - Database connection closed
+2025-11-16 10:15:25,247 - INFO - Stored batch 12/20
+2025-11-16 10:15:25,255 - INFO - Database connection established
+2025-11-16 10:15:25,470 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:25,470 - INFO - Database connection closed
+2025-11-16 10:15:25,471 - INFO - Stored batch 13/20
+2025-11-16 10:15:25,480 - INFO - Database connection established
+2025-11-16 10:15:25,698 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:25,698 - INFO - Database connection closed
+2025-11-16 10:15:25,699 - INFO - Stored batch 14/20
+2025-11-16 10:15:25,708 - INFO - Database connection established
+2025-11-16 10:15:25,927 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:25,927 - INFO - Database connection closed
+2025-11-16 10:15:25,928 - INFO - Stored batch 15/20
+2025-11-16 10:15:25,936 - INFO - Database connection established
+2025-11-16 10:15:26,154 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:26,154 - INFO - Database connection closed
+2025-11-16 10:15:26,155 - INFO - Stored batch 16/20
+2025-11-16 10:15:26,164 - INFO - Database connection established
+2025-11-16 10:15:26,378 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:26,378 - INFO - Database connection closed
+2025-11-16 10:15:26,379 - INFO - Stored batch 17/20
+2025-11-16 10:15:26,387 - INFO - Database connection established
+2025-11-16 10:15:26,607 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:26,607 - INFO - Database connection closed
+2025-11-16 10:15:26,609 - INFO - Stored batch 18/20
+2025-11-16 10:15:26,618 - INFO - Database connection established
+2025-11-16 10:15:26,831 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:26,831 - INFO - Database connection closed
+2025-11-16 10:15:26,832 - INFO - Stored batch 19/20
+2025-11-16 10:15:26,842 - INFO - Database connection established
+2025-11-16 10:15:27,050 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:15:27,050 - INFO - Database connection closed
+2025-11-16 10:15:27,051 - INFO - Stored batch 20/20
+2025-11-16 10:15:27,059 - INFO - Database connection established
+2025-11-16 10:15:27,060 - INFO - Database connection closed
+2025-11-16 10:15:27,060 - INFO - Vector generation completed! Total vectors in database: 2000
+2025-11-16 10:15:27,060 - INFO - Summary saved to vector_generation_summary.json
+2025-11-16 10:22:24,031 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:22:24,031 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:22:24,031 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:22:24,031 - INFO - Target vectors per class: 200
+2025-11-16 10:22:24,031 - INFO - Total target vectors: 2000
+2025-11-16 10:22:24,031 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:22:24,793 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:22:24,793 - INFO - Model loaded successfully
+2025-11-16 10:22:24,793 - INFO - Scanning dataset...
+2025-11-16 10:22:24,794 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:22:24,796 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:22:24,797 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:22:24,798 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:22:24,799 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:22:24,801 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:22:24,801 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:22:24,803 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:22:24,804 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:22:24,805 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:22:24,805 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:22:24,836 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:22:24,836 - WARNING - Could not drop table image_features_resnet50: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:22:24,839 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:22:24,839 - ERROR - Vector generation failed: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:23:54,817 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:23:54,817 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:23:54,817 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:23:54,817 - INFO - Target vectors per class: 200
+2025-11-16 10:23:54,817 - INFO - Total target vectors: 2000
+2025-11-16 10:23:54,817 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:23:55,520 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:23:55,522 - INFO - Feature model recreated for extraction
+2025-11-16 10:23:55,522 - INFO - Model loaded successfully
+2025-11-16 10:23:55,522 - INFO - Scanning dataset...
+2025-11-16 10:23:55,524 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:23:55,526 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:23:55,528 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:23:55,529 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:23:55,530 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:23:55,531 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:23:55,532 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:23:55,534 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:23:55,535 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:23:55,535 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:23:55,535 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:23:55,546 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:23:55,546 - WARNING - Could not drop table image_features_resnet50: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:23:55,552 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:23:55,552 - ERROR - Vector generation failed: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:24:27,935 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:24:27,936 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:24:27,936 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:24:27,936 - INFO - Target vectors per class: 200
+2025-11-16 10:24:27,936 - INFO - Total target vectors: 2000
+2025-11-16 10:24:27,936 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:24:28,691 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:24:28,692 - INFO - Feature model recreated for extraction
+2025-11-16 10:24:28,692 - INFO - Model loaded successfully
+2025-11-16 10:24:28,692 - INFO - Scanning dataset...
+2025-11-16 10:24:28,693 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:24:28,695 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:24:28,697 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:24:28,698 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:24:28,698 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:24:28,700 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:24:28,701 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:24:28,703 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:24:28,704 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:24:28,704 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:24:28,704 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:24:28,710 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:24:28,710 - WARNING - Could not drop table image_features_resnet50: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:24:28,712 - ERROR - Failed to connect to database: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:24:28,713 - ERROR - Vector generation failed: could not translate host name "dl-postgres" to address: nodename nor servname provided, or not known
+
+2025-11-16 10:24:44,157 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:24:44,157 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:24:44,157 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:24:44,157 - INFO - Target vectors per class: 200
+2025-11-16 10:24:44,157 - INFO - Total target vectors: 2000
+2025-11-16 10:24:44,157 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:24:44,859 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:24:44,861 - INFO - Feature model recreated for extraction
+2025-11-16 10:24:44,861 - INFO - Model loaded successfully
+2025-11-16 10:24:44,861 - INFO - Scanning dataset...
+2025-11-16 10:24:44,863 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:24:44,864 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:24:44,866 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:24:44,867 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:24:44,867 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:24:44,869 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:24:44,869 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:24:44,872 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:24:44,873 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:24:44,873 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:24:44,873 - INFO - Initializing vector store with table 'image_features_resnet50'...
+2025-11-16 10:24:45,016 - INFO - Database connection established
+2025-11-16 10:24:45,026 - INFO - Dropped existing table 'image_features_resnet50'
+2025-11-16 10:24:45,026 - INFO - Database connection closed
+2025-11-16 10:24:45,035 - INFO - Database connection established
+2025-11-16 10:24:45,042 - INFO - Created vector table: image_features_resnet50
+2025-11-16 10:24:45,042 - INFO - Database connection closed
+2025-11-16 10:24:45,042 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 10:25:45,294 - INFO - Generated 200 vectors for class 'Abrasions'
+2025-11-16 10:25:45,295 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 10:27:52,210 - INFO - Generated 200 vectors for class 'Diabetic Wounds'
+2025-11-16 10:27:52,211 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 10:30:00,287 - INFO - Generated 200 vectors for class 'Surgical Wounds'
+2025-11-16 10:30:00,288 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 10:31:22,517 - INFO - Generated 200 vectors for class 'Bruises'
+2025-11-16 10:31:22,518 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 10:32:04,083 - INFO - Generated 200 vectors for class 'Cut'
+2025-11-16 10:32:04,083 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 10:34:23,939 - INFO - Generated 200 vectors for class 'Venous Wounds'
+2025-11-16 10:34:23,941 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 10:35:41,811 - INFO - Generated 200 vectors for class 'Normal'
+2025-11-16 10:35:41,812 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 10:37:56,213 - INFO - Generated 200 vectors for class 'Pressure Wounds'
+2025-11-16 10:37:56,215 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 10:39:18,566 - INFO - Generated 200 vectors for class 'Laseration'
+2025-11-16 10:39:18,567 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 10:40:10,688 - INFO - Generated 200 vectors for class 'Burns'
+2025-11-16 10:40:10,688 - INFO - Storing 2000 vectors in database...
+2025-11-16 10:40:10,703 - INFO - Database connection established
+2025-11-16 10:40:11,059 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:11,059 - INFO - Database connection closed
+2025-11-16 10:40:11,060 - INFO - Stored batch 1/20
+2025-11-16 10:40:11,068 - INFO - Database connection established
+2025-11-16 10:40:11,277 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:11,278 - INFO - Database connection closed
+2025-11-16 10:40:11,279 - INFO - Stored batch 2/20
+2025-11-16 10:40:11,287 - INFO - Database connection established
+2025-11-16 10:40:11,662 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:11,662 - INFO - Database connection closed
+2025-11-16 10:40:11,663 - INFO - Stored batch 3/20
+2025-11-16 10:40:11,671 - INFO - Database connection established
+2025-11-16 10:40:12,075 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:12,076 - INFO - Database connection closed
+2025-11-16 10:40:12,077 - INFO - Stored batch 4/20
+2025-11-16 10:40:12,086 - INFO - Database connection established
+2025-11-16 10:40:12,457 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:12,457 - INFO - Database connection closed
+2025-11-16 10:40:12,459 - INFO - Stored batch 5/20
+2025-11-16 10:40:12,466 - INFO - Database connection established
+2025-11-16 10:40:12,857 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:12,858 - INFO - Database connection closed
+2025-11-16 10:40:12,859 - INFO - Stored batch 6/20
+2025-11-16 10:40:12,867 - INFO - Database connection established
+2025-11-16 10:40:13,240 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:13,240 - INFO - Database connection closed
+2025-11-16 10:40:13,241 - INFO - Stored batch 7/20
+2025-11-16 10:40:13,248 - INFO - Database connection established
+2025-11-16 10:40:13,487 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:13,487 - INFO - Database connection closed
+2025-11-16 10:40:13,488 - INFO - Stored batch 8/20
+2025-11-16 10:40:13,496 - INFO - Database connection established
+2025-11-16 10:40:13,784 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:13,785 - INFO - Database connection closed
+2025-11-16 10:40:13,786 - INFO - Stored batch 9/20
+2025-11-16 10:40:13,794 - INFO - Database connection established
+2025-11-16 10:40:14,003 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:14,003 - INFO - Database connection closed
+2025-11-16 10:40:14,004 - INFO - Stored batch 10/20
+2025-11-16 10:40:14,012 - INFO - Database connection established
+2025-11-16 10:40:14,404 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:14,404 - INFO - Database connection closed
+2025-11-16 10:40:14,405 - INFO - Stored batch 11/20
+2025-11-16 10:40:14,413 - INFO - Database connection established
+2025-11-16 10:40:14,779 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:14,779 - INFO - Database connection closed
+2025-11-16 10:40:14,780 - INFO - Stored batch 12/20
+2025-11-16 10:40:14,788 - INFO - Database connection established
+2025-11-16 10:40:15,153 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:15,153 - INFO - Database connection closed
+2025-11-16 10:40:15,154 - INFO - Stored batch 13/20
+2025-11-16 10:40:15,163 - INFO - Database connection established
+2025-11-16 10:40:15,385 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:15,385 - INFO - Database connection closed
+2025-11-16 10:40:15,386 - INFO - Stored batch 14/20
+2025-11-16 10:40:15,395 - INFO - Database connection established
+2025-11-16 10:40:15,778 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:15,778 - INFO - Database connection closed
+2025-11-16 10:40:15,779 - INFO - Stored batch 15/20
+2025-11-16 10:40:15,787 - INFO - Database connection established
+2025-11-16 10:40:16,151 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:16,151 - INFO - Database connection closed
+2025-11-16 10:40:16,152 - INFO - Stored batch 16/20
+2025-11-16 10:40:16,161 - INFO - Database connection established
+2025-11-16 10:40:16,516 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:16,516 - INFO - Database connection closed
+2025-11-16 10:40:16,518 - INFO - Stored batch 17/20
+2025-11-16 10:40:16,526 - INFO - Database connection established
+2025-11-16 10:40:16,767 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:16,767 - INFO - Database connection closed
+2025-11-16 10:40:16,769 - INFO - Stored batch 18/20
+2025-11-16 10:40:16,780 - INFO - Database connection established
+2025-11-16 10:40:17,096 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:17,096 - INFO - Database connection closed
+2025-11-16 10:40:17,097 - INFO - Stored batch 19/20
+2025-11-16 10:40:17,105 - INFO - Database connection established
+2025-11-16 10:40:17,323 - INFO - Inserted 100 vectors into image_features_resnet50
+2025-11-16 10:40:17,323 - INFO - Database connection closed
+2025-11-16 10:40:17,324 - INFO - Stored batch 20/20
+2025-11-16 10:40:17,332 - INFO - Database connection established
+2025-11-16 10:40:17,333 - INFO - Database connection closed
+2025-11-16 10:40:17,333 - INFO - Vector generation completed! Total vectors in database: 2000
+2025-11-16 10:40:17,335 - INFO - Summary saved to vector_generation_summary.json
+2025-11-16 10:43:51,300 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:43:51,300 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:43:51,300 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:43:51,301 - INFO - Target vectors per class: 200
+2025-11-16 10:43:51,301 - INFO - Total target vectors: 2000
+2025-11-16 10:43:51,301 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:43:52,080 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:43:52,082 - INFO - Feature model recreated for extraction
+2025-11-16 10:43:52,082 - INFO - Model loaded successfully
+2025-11-16 10:43:52,082 - INFO - Scanning dataset...
+2025-11-16 10:43:52,082 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:43:52,084 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:43:52,085 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:43:52,086 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:43:52,087 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:43:52,088 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:43:52,089 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:43:52,091 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:43:52,091 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:43:52,092 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:43:52,092 - INFO - Initializing vector store with table 'images_features'...
+2025-11-16 10:43:52,158 - INFO - Database connection established
+2025-11-16 10:43:52,159 - INFO - Dropped existing table 'images_features'
+2025-11-16 10:43:52,159 - INFO - Database connection closed
+2025-11-16 10:43:52,167 - INFO - Database connection established
+2025-11-16 10:43:52,182 - INFO - Created vector table: images_features
+2025-11-16 10:43:52,182 - INFO - Database connection closed
+2025-11-16 10:43:52,182 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 10:44:52,016 - INFO - Generated 200 vectors for class 'Abrasions'
+2025-11-16 10:44:52,017 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 10:46:57,810 - INFO - Generated 200 vectors for class 'Diabetic Wounds'
+2025-11-16 10:46:57,810 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 10:49:03,354 - INFO - Generated 200 vectors for class 'Surgical Wounds'
+2025-11-16 10:49:03,355 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 10:50:24,681 - INFO - Generated 200 vectors for class 'Bruises'
+2025-11-16 10:50:24,682 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 10:51:06,168 - INFO - Generated 200 vectors for class 'Cut'
+2025-11-16 10:51:06,169 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 10:53:10,957 - INFO - Generated 200 vectors for class 'Venous Wounds'
+2025-11-16 10:53:10,958 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 10:54:20,098 - INFO - Generated 200 vectors for class 'Normal'
+2025-11-16 10:54:20,099 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 10:56:26,641 - INFO - Generated 200 vectors for class 'Pressure Wounds'
+2025-11-16 10:56:26,642 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 10:57:48,670 - INFO - Generated 200 vectors for class 'Laseration'
+2025-11-16 10:57:48,670 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 10:58:39,952 - INFO - Generated 200 vectors for class 'Burns'
+2025-11-16 10:58:39,953 - INFO - Storing 2000 vectors in database...
+2025-11-16 10:58:39,971 - INFO - Database connection established
+2025-11-16 10:58:40,308 - INFO - Inserted 100 vectors into images_features
+2025-11-16 10:58:40,308 - INFO - Database connection closed
+2025-11-16 10:58:40,310 - INFO - Stored batch 1/20
+2025-11-16 10:58:40,319 - INFO - Database connection established
+2025-11-16 10:58:40,531 - INFO - Inserted 100 vectors into images_features
+2025-11-16 10:58:40,531 - INFO - Database connection closed
+2025-11-16 10:58:40,532 - INFO - Stored batch 2/20
+2025-11-16 10:58:40,542 - INFO - Database connection established
+2025-11-16 10:58:40,543 - INFO - Database connection closed
+2025-11-16 10:58:40,543 - ERROR - Vector generation failed: not enough values to unpack (expected 6, got 3)
+2025-11-16 10:59:27,258 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 10:59:27,258 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:59:27,258 - INFO - Dataset: ./files/train_dataset
+2025-11-16 10:59:27,258 - INFO - Target vectors per class: 200
+2025-11-16 10:59:27,258 - INFO - Total target vectors: 2000
+2025-11-16 10:59:27,258 - INFO - Loading trained ResNet50 model...
+2025-11-16 10:59:27,990 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 10:59:27,992 - INFO - Feature model recreated for extraction
+2025-11-16 10:59:27,992 - INFO - Model loaded successfully
+2025-11-16 10:59:27,992 - INFO - Scanning dataset...
+2025-11-16 10:59:27,993 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 10:59:27,994 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 10:59:27,996 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 10:59:27,997 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 10:59:27,997 - INFO - Found 50 images in class 'Cut'
+2025-11-16 10:59:27,999 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 10:59:27,999 - INFO - Found 100 images in class 'Normal'
+2025-11-16 10:59:28,002 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 10:59:28,003 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 10:59:28,003 - INFO - Found 67 images in class 'Burns'
+2025-11-16 10:59:28,003 - INFO - Initializing vector store with table 'images_features'...
+2025-11-16 10:59:28,064 - INFO - Database connection established
+2025-11-16 10:59:28,069 - INFO - Dropped existing table 'images_features'
+2025-11-16 10:59:28,069 - INFO - Database connection closed
+2025-11-16 10:59:28,076 - INFO - Database connection established
+2025-11-16 10:59:28,084 - INFO - Created vector table: images_features
+2025-11-16 10:59:28,085 - INFO - Database connection closed
+2025-11-16 10:59:28,085 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 11:00:28,501 - INFO - Generated 200 vectors for class 'Abrasions'
+2025-11-16 11:00:28,501 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 11:02:34,438 - INFO - Generated 200 vectors for class 'Diabetic Wounds'
+2025-11-16 11:02:34,438 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 11:04:44,664 - INFO - Generated 200 vectors for class 'Surgical Wounds'
+2025-11-16 11:04:44,665 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 11:06:07,868 - INFO - Generated 200 vectors for class 'Bruises'
+2025-11-16 11:06:07,868 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 11:06:49,996 - INFO - Generated 200 vectors for class 'Cut'
+2025-11-16 11:06:49,997 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 11:08:58,286 - INFO - Generated 200 vectors for class 'Venous Wounds'
+2025-11-16 11:08:58,287 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 11:10:09,773 - INFO - Generated 200 vectors for class 'Normal'
+2025-11-16 11:10:09,774 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 11:12:18,197 - INFO - Generated 200 vectors for class 'Pressure Wounds'
+2025-11-16 11:12:18,199 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 11:13:41,446 - INFO - Generated 200 vectors for class 'Laseration'
+2025-11-16 11:13:41,448 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 11:14:33,569 - INFO - Generated 200 vectors for class 'Burns'
+2025-11-16 11:14:33,569 - INFO - Storing 2000 vectors in database...
+2025-11-16 11:14:33,586 - INFO - Database connection established
+2025-11-16 11:14:33,936 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:33,936 - INFO - Database connection closed
+2025-11-16 11:14:33,937 - INFO - Stored batch 1/20
+2025-11-16 11:14:33,945 - INFO - Database connection established
+2025-11-16 11:14:34,202 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:34,203 - INFO - Database connection closed
+2025-11-16 11:14:34,204 - INFO - Stored batch 2/20
+2025-11-16 11:14:34,211 - INFO - Database connection established
+2025-11-16 11:14:34,582 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:34,582 - INFO - Database connection closed
+2025-11-16 11:14:34,583 - INFO - Stored batch 3/20
+2025-11-16 11:14:34,591 - INFO - Database connection established
+2025-11-16 11:14:34,962 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:34,962 - INFO - Database connection closed
+2025-11-16 11:14:34,963 - INFO - Stored batch 4/20
+2025-11-16 11:14:34,971 - INFO - Database connection established
+2025-11-16 11:14:35,332 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:35,332 - INFO - Database connection closed
+2025-11-16 11:14:35,333 - INFO - Stored batch 5/20
+2025-11-16 11:14:35,341 - INFO - Database connection established
+2025-11-16 11:14:35,719 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:35,719 - INFO - Database connection closed
+2025-11-16 11:14:35,720 - INFO - Stored batch 6/20
+2025-11-16 11:14:35,728 - INFO - Database connection established
+2025-11-16 11:14:36,107 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:36,107 - INFO - Database connection closed
+2025-11-16 11:14:36,108 - INFO - Stored batch 7/20
+2025-11-16 11:14:36,116 - INFO - Database connection established
+2025-11-16 11:14:36,367 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:36,367 - INFO - Database connection closed
+2025-11-16 11:14:36,368 - INFO - Stored batch 8/20
+2025-11-16 11:14:36,377 - INFO - Database connection established
+2025-11-16 11:14:36,673 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:36,673 - INFO - Database connection closed
+2025-11-16 11:14:36,674 - INFO - Stored batch 9/20
+2025-11-16 11:14:36,682 - INFO - Database connection established
+2025-11-16 11:14:36,898 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:36,898 - INFO - Database connection closed
+2025-11-16 11:14:36,899 - INFO - Stored batch 10/20
+2025-11-16 11:14:36,908 - INFO - Database connection established
+2025-11-16 11:14:37,280 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:37,280 - INFO - Database connection closed
+2025-11-16 11:14:37,282 - INFO - Stored batch 11/20
+2025-11-16 11:14:37,290 - INFO - Database connection established
+2025-11-16 11:14:37,664 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:37,665 - INFO - Database connection closed
+2025-11-16 11:14:37,666 - INFO - Stored batch 12/20
+2025-11-16 11:14:37,674 - INFO - Database connection established
+2025-11-16 11:14:38,042 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:38,042 - INFO - Database connection closed
+2025-11-16 11:14:38,043 - INFO - Stored batch 13/20
+2025-11-16 11:14:38,053 - INFO - Database connection established
+2025-11-16 11:14:38,315 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:38,316 - INFO - Database connection closed
+2025-11-16 11:14:38,317 - INFO - Stored batch 14/20
+2025-11-16 11:14:38,325 - INFO - Database connection established
+2025-11-16 11:14:38,697 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:38,698 - INFO - Database connection closed
+2025-11-16 11:14:38,699 - INFO - Stored batch 15/20
+2025-11-16 11:14:38,707 - INFO - Database connection established
+2025-11-16 11:14:39,079 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:39,079 - INFO - Database connection closed
+2025-11-16 11:14:39,080 - INFO - Stored batch 16/20
+2025-11-16 11:14:39,089 - INFO - Database connection established
+2025-11-16 11:14:39,463 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:39,463 - INFO - Database connection closed
+2025-11-16 11:14:39,465 - INFO - Stored batch 17/20
+2025-11-16 11:14:39,472 - INFO - Database connection established
+2025-11-16 11:14:39,726 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:39,726 - INFO - Database connection closed
+2025-11-16 11:14:39,728 - INFO - Stored batch 18/20
+2025-11-16 11:14:39,736 - INFO - Database connection established
+2025-11-16 11:14:40,061 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:40,061 - INFO - Database connection closed
+2025-11-16 11:14:40,063 - INFO - Stored batch 19/20
+2025-11-16 11:14:40,072 - INFO - Database connection established
+2025-11-16 11:14:40,289 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:14:40,289 - INFO - Database connection closed
+2025-11-16 11:14:40,291 - INFO - Stored batch 20/20
+2025-11-16 11:14:40,299 - INFO - Database connection established
+2025-11-16 11:14:40,300 - INFO - Database connection closed
+2025-11-16 11:14:40,300 - INFO - Vector generation completed! Total vectors in database: 2000
+2025-11-16 11:14:40,301 - INFO - Summary saved to vector_generation_summary.json
+2025-11-16 11:21:01,175 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 11:21:01,175 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 11:21:01,175 - INFO - Dataset: ./files/train_dataset
+2025-11-16 11:21:01,175 - INFO - Target vectors per class: 200
+2025-11-16 11:21:01,175 - INFO - Total target vectors: 2000
+2025-11-16 11:21:01,175 - INFO - Loading trained ResNet50 model...
+2025-11-16 11:21:01,988 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 11:21:01,989 - INFO - Feature model recreated for extraction
+2025-11-16 11:21:01,989 - INFO - Model loaded successfully
+2025-11-16 11:21:01,989 - INFO - Scanning dataset...
+2025-11-16 11:21:01,991 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 11:21:01,992 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 11:21:01,994 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 11:21:01,995 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 11:21:01,995 - INFO - Found 50 images in class 'Cut'
+2025-11-16 11:21:01,997 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 11:21:01,998 - INFO - Found 100 images in class 'Normal'
+2025-11-16 11:21:02,000 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 11:21:02,001 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 11:21:02,001 - INFO - Found 67 images in class 'Burns'
+2025-11-16 11:21:02,001 - INFO - Initializing vector store with table 'images_features'...
+2025-11-16 11:21:02,074 - INFO - Database connection established
+2025-11-16 11:21:02,085 - INFO - Dropped existing table 'images_features'
+2025-11-16 11:21:02,086 - INFO - Database connection closed
+2025-11-16 11:21:02,094 - INFO - Database connection established
+2025-11-16 11:21:02,104 - INFO - Created vector table: images_features
+2025-11-16 11:21:02,104 - INFO - Database connection closed
+2025-11-16 11:21:02,104 - INFO - Processing class 'Abrasions' with 82 images (target: 111)...
+2025-11-16 11:21:23,353 - INFO - Generated 111 vectors for class 'Abrasions'
+2025-11-16 11:21:23,353 - INFO - Processing class 'Diabetic Wounds' with 231 images (target: 301)...
+2025-11-16 11:25:10,508 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 11:25:10,508 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 11:25:10,508 - INFO - Dataset: ./files/train_dataset
+2025-11-16 11:25:10,508 - INFO - Target vectors per class: 200
+2025-11-16 11:25:10,508 - INFO - Total target vectors: 2000
+2025-11-16 11:25:10,508 - INFO - Loading trained ResNet50 model...
+2025-11-16 11:25:11,286 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 11:25:11,287 - INFO - Feature model recreated for extraction
+2025-11-16 11:25:11,287 - INFO - Model loaded successfully
+2025-11-16 11:25:11,287 - INFO - Scanning dataset...
+2025-11-16 11:25:11,288 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 11:25:11,290 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 11:25:11,291 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 11:25:11,292 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 11:25:11,292 - INFO - Found 50 images in class 'Cut'
+2025-11-16 11:25:11,294 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 11:25:11,294 - INFO - Found 100 images in class 'Normal'
+2025-11-16 11:25:11,296 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 11:25:11,298 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 11:25:11,298 - INFO - Found 67 images in class 'Burns'
+2025-11-16 11:25:11,298 - INFO - Initializing vector store with table 'images_features'...
+2025-11-16 11:25:11,445 - INFO - Database connection established
+2025-11-16 11:25:11,449 - INFO - Dropped existing table 'images_features'
+2025-11-16 11:25:11,449 - INFO - Database connection closed
+2025-11-16 11:25:11,457 - INFO - Database connection established
+2025-11-16 11:25:11,465 - INFO - Created vector table: images_features
+2025-11-16 11:25:11,465 - INFO - Database connection closed
+2025-11-16 11:25:11,465 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 11:26:43,500 - INFO - Generated 492 vectors for class 'Abrasions' (82 images × 6 augmentations)
+2025-11-16 11:26:43,500 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 11:30:55,441 - INFO - Generated 1386 vectors for class 'Diabetic Wounds' (231 images × 6 augmentations)
+2025-11-16 11:30:55,443 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 11:34:45,257 - INFO - Generated 1260 vectors for class 'Surgical Wounds' (210 images × 6 augmentations)
+2025-11-16 11:34:45,258 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 11:36:58,720 - INFO - Generated 726 vectors for class 'Bruises' (121 images × 6 augmentations)
+2025-11-16 11:36:58,721 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 11:37:53,608 - INFO - Generated 300 vectors for class 'Cut' (50 images × 6 augmentations)
+2025-11-16 11:37:53,608 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 11:42:25,062 - INFO - Generated 1482 vectors for class 'Venous Wounds' (247 images × 6 augmentations)
+2025-11-16 11:42:25,063 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 11:44:13,032 - INFO - Generated 600 vectors for class 'Normal' (100 images × 6 augmentations)
+2025-11-16 11:44:13,033 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 11:49:39,122 - INFO - Generated 1806 vectors for class 'Pressure Wounds' (301 images × 6 augmentations)
+2025-11-16 11:49:39,123 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 11:51:54,694 - INFO - Generated 732 vectors for class 'Laseration' (122 images × 6 augmentations)
+2025-11-16 11:51:54,695 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 11:53:08,688 - INFO - Generated 402 vectors for class 'Burns' (67 images × 6 augmentations)
+2025-11-16 11:53:08,689 - INFO - Storing 9186 vectors in database...
+2025-11-16 11:53:08,783 - INFO - Database connection established
+2025-11-16 11:53:09,039 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:09,039 - INFO - Database connection closed
+2025-11-16 11:53:09,040 - INFO - Stored batch 1/92
+2025-11-16 11:53:09,048 - INFO - Database connection established
+2025-11-16 11:53:09,291 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:09,291 - INFO - Database connection closed
+2025-11-16 11:53:09,292 - INFO - Stored batch 2/92
+2025-11-16 11:53:09,300 - INFO - Database connection established
+2025-11-16 11:53:09,547 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:09,547 - INFO - Database connection closed
+2025-11-16 11:53:09,548 - INFO - Stored batch 3/92
+2025-11-16 11:53:09,556 - INFO - Database connection established
+2025-11-16 11:53:09,808 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:09,808 - INFO - Database connection closed
+2025-11-16 11:53:09,809 - INFO - Stored batch 4/92
+2025-11-16 11:53:09,817 - INFO - Database connection established
+2025-11-16 11:53:10,068 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:10,068 - INFO - Database connection closed
+2025-11-16 11:53:10,070 - INFO - Stored batch 5/92
+2025-11-16 11:53:10,077 - INFO - Database connection established
+2025-11-16 11:53:10,319 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:10,319 - INFO - Database connection closed
+2025-11-16 11:53:10,320 - INFO - Stored batch 6/92
+2025-11-16 11:53:10,329 - INFO - Database connection established
+2025-11-16 11:53:10,572 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:10,572 - INFO - Database connection closed
+2025-11-16 11:53:10,573 - INFO - Stored batch 7/92
+2025-11-16 11:53:10,583 - INFO - Database connection established
+2025-11-16 11:53:10,824 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:10,825 - INFO - Database connection closed
+2025-11-16 11:53:10,826 - INFO - Stored batch 8/92
+2025-11-16 11:53:10,834 - INFO - Database connection established
+2025-11-16 11:53:11,071 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:11,072 - INFO - Database connection closed
+2025-11-16 11:53:11,073 - INFO - Stored batch 9/92
+2025-11-16 11:53:11,081 - INFO - Database connection established
+2025-11-16 11:53:11,327 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:11,327 - INFO - Database connection closed
+2025-11-16 11:53:11,328 - INFO - Stored batch 10/92
+2025-11-16 11:53:11,337 - INFO - Database connection established
+2025-11-16 11:53:11,579 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:11,579 - INFO - Database connection closed
+2025-11-16 11:53:11,580 - INFO - Stored batch 11/92
+2025-11-16 11:53:11,588 - INFO - Database connection established
+2025-11-16 11:53:11,830 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:11,830 - INFO - Database connection closed
+2025-11-16 11:53:11,832 - INFO - Stored batch 12/92
+2025-11-16 11:53:11,840 - INFO - Database connection established
+2025-11-16 11:53:12,083 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:12,083 - INFO - Database connection closed
+2025-11-16 11:53:12,085 - INFO - Stored batch 13/92
+2025-11-16 11:53:12,093 - INFO - Database connection established
+2025-11-16 11:53:12,348 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:12,349 - INFO - Database connection closed
+2025-11-16 11:53:12,350 - INFO - Stored batch 14/92
+2025-11-16 11:53:12,358 - INFO - Database connection established
+2025-11-16 11:53:12,599 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:12,599 - INFO - Database connection closed
+2025-11-16 11:53:12,600 - INFO - Stored batch 15/92
+2025-11-16 11:53:12,609 - INFO - Database connection established
+2025-11-16 11:53:12,854 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:12,854 - INFO - Database connection closed
+2025-11-16 11:53:12,856 - INFO - Stored batch 16/92
+2025-11-16 11:53:12,863 - INFO - Database connection established
+2025-11-16 11:53:13,110 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:13,110 - INFO - Database connection closed
+2025-11-16 11:53:13,111 - INFO - Stored batch 17/92
+2025-11-16 11:53:13,119 - INFO - Database connection established
+2025-11-16 11:53:13,361 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:13,361 - INFO - Database connection closed
+2025-11-16 11:53:13,363 - INFO - Stored batch 18/92
+2025-11-16 11:53:13,371 - INFO - Database connection established
+2025-11-16 11:53:13,609 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:13,609 - INFO - Database connection closed
+2025-11-16 11:53:13,610 - INFO - Stored batch 19/92
+2025-11-16 11:53:13,619 - INFO - Database connection established
+2025-11-16 11:53:13,858 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:13,859 - INFO - Database connection closed
+2025-11-16 11:53:13,860 - INFO - Stored batch 20/92
+2025-11-16 11:53:13,868 - INFO - Database connection established
+2025-11-16 11:53:14,114 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:14,114 - INFO - Database connection closed
+2025-11-16 11:53:14,115 - INFO - Stored batch 21/92
+2025-11-16 11:53:14,124 - INFO - Database connection established
+2025-11-16 11:53:14,364 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:14,364 - INFO - Database connection closed
+2025-11-16 11:53:14,365 - INFO - Stored batch 22/92
+2025-11-16 11:53:14,373 - INFO - Database connection established
+2025-11-16 11:53:14,617 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:14,617 - INFO - Database connection closed
+2025-11-16 11:53:14,618 - INFO - Stored batch 23/92
+2025-11-16 11:53:14,626 - INFO - Database connection established
+2025-11-16 11:53:14,866 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:14,866 - INFO - Database connection closed
+2025-11-16 11:53:14,868 - INFO - Stored batch 24/92
+2025-11-16 11:53:14,878 - INFO - Database connection established
+2025-11-16 11:53:15,123 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:15,123 - INFO - Database connection closed
+2025-11-16 11:53:15,124 - INFO - Stored batch 25/92
+2025-11-16 11:53:15,131 - INFO - Database connection established
+2025-11-16 11:53:15,378 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:15,378 - INFO - Database connection closed
+2025-11-16 11:53:15,379 - INFO - Stored batch 26/92
+2025-11-16 11:53:15,388 - INFO - Database connection established
+2025-11-16 11:53:15,638 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:15,638 - INFO - Database connection closed
+2025-11-16 11:53:15,639 - INFO - Stored batch 27/92
+2025-11-16 11:53:15,648 - INFO - Database connection established
+2025-11-16 11:53:15,890 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:15,890 - INFO - Database connection closed
+2025-11-16 11:53:15,892 - INFO - Stored batch 28/92
+2025-11-16 11:53:15,900 - INFO - Database connection established
+2025-11-16 11:53:16,143 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:16,143 - INFO - Database connection closed
+2025-11-16 11:53:16,144 - INFO - Stored batch 29/92
+2025-11-16 11:53:16,153 - INFO - Database connection established
+2025-11-16 11:53:16,398 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:16,398 - INFO - Database connection closed
+2025-11-16 11:53:16,399 - INFO - Stored batch 30/92
+2025-11-16 11:53:16,408 - INFO - Database connection established
+2025-11-16 11:53:16,644 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:16,644 - INFO - Database connection closed
+2025-11-16 11:53:16,645 - INFO - Stored batch 31/92
+2025-11-16 11:53:16,654 - INFO - Database connection established
+2025-11-16 11:53:16,892 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:16,893 - INFO - Database connection closed
+2025-11-16 11:53:16,894 - INFO - Stored batch 32/92
+2025-11-16 11:53:16,903 - INFO - Database connection established
+2025-11-16 11:53:17,140 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:17,140 - INFO - Database connection closed
+2025-11-16 11:53:17,142 - INFO - Stored batch 33/92
+2025-11-16 11:53:17,149 - INFO - Database connection established
+2025-11-16 11:53:17,394 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:17,394 - INFO - Database connection closed
+2025-11-16 11:53:17,395 - INFO - Stored batch 34/92
+2025-11-16 11:53:17,403 - INFO - Database connection established
+2025-11-16 11:53:17,642 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:17,642 - INFO - Database connection closed
+2025-11-16 11:53:17,643 - INFO - Stored batch 35/92
+2025-11-16 11:53:17,651 - INFO - Database connection established
+2025-11-16 11:53:17,891 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:17,891 - INFO - Database connection closed
+2025-11-16 11:53:17,892 - INFO - Stored batch 36/92
+2025-11-16 11:53:17,900 - INFO - Database connection established
+2025-11-16 11:53:18,142 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:18,142 - INFO - Database connection closed
+2025-11-16 11:53:18,144 - INFO - Stored batch 37/92
+2025-11-16 11:53:18,151 - INFO - Database connection established
+2025-11-16 11:53:18,394 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:18,394 - INFO - Database connection closed
+2025-11-16 11:53:18,396 - INFO - Stored batch 38/92
+2025-11-16 11:53:18,404 - INFO - Database connection established
+2025-11-16 11:53:18,646 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:18,646 - INFO - Database connection closed
+2025-11-16 11:53:18,647 - INFO - Stored batch 39/92
+2025-11-16 11:53:18,655 - INFO - Database connection established
+2025-11-16 11:53:18,900 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:18,900 - INFO - Database connection closed
+2025-11-16 11:53:18,901 - INFO - Stored batch 40/92
+2025-11-16 11:53:18,909 - INFO - Database connection established
+2025-11-16 11:53:19,156 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:19,156 - INFO - Database connection closed
+2025-11-16 11:53:19,157 - INFO - Stored batch 41/92
+2025-11-16 11:53:19,165 - INFO - Database connection established
+2025-11-16 11:53:19,413 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:19,413 - INFO - Database connection closed
+2025-11-16 11:53:19,414 - INFO - Stored batch 42/92
+2025-11-16 11:53:19,423 - INFO - Database connection established
+2025-11-16 11:53:19,659 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:19,659 - INFO - Database connection closed
+2025-11-16 11:53:19,661 - INFO - Stored batch 43/92
+2025-11-16 11:53:19,669 - INFO - Database connection established
+2025-11-16 11:53:19,903 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:19,904 - INFO - Database connection closed
+2025-11-16 11:53:19,905 - INFO - Stored batch 44/92
+2025-11-16 11:53:19,915 - INFO - Database connection established
+2025-11-16 11:53:20,157 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:20,157 - INFO - Database connection closed
+2025-11-16 11:53:20,158 - INFO - Stored batch 45/92
+2025-11-16 11:53:20,166 - INFO - Database connection established
+2025-11-16 11:53:20,410 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:20,410 - INFO - Database connection closed
+2025-11-16 11:53:20,411 - INFO - Stored batch 46/92
+2025-11-16 11:53:20,419 - INFO - Database connection established
+2025-11-16 11:53:20,658 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:20,659 - INFO - Database connection closed
+2025-11-16 11:53:20,660 - INFO - Stored batch 47/92
+2025-11-16 11:53:20,667 - INFO - Database connection established
+2025-11-16 11:53:20,902 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:20,902 - INFO - Database connection closed
+2025-11-16 11:53:20,903 - INFO - Stored batch 48/92
+2025-11-16 11:53:20,912 - INFO - Database connection established
+2025-11-16 11:53:21,152 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:21,152 - INFO - Database connection closed
+2025-11-16 11:53:21,154 - INFO - Stored batch 49/92
+2025-11-16 11:53:21,162 - INFO - Database connection established
+2025-11-16 11:53:21,404 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:21,404 - INFO - Database connection closed
+2025-11-16 11:53:21,405 - INFO - Stored batch 50/92
+2025-11-16 11:53:21,414 - INFO - Database connection established
+2025-11-16 11:53:21,649 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:21,649 - INFO - Database connection closed
+2025-11-16 11:53:21,651 - INFO - Stored batch 51/92
+2025-11-16 11:53:21,658 - INFO - Database connection established
+2025-11-16 11:53:21,902 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:21,902 - INFO - Database connection closed
+2025-11-16 11:53:21,903 - INFO - Stored batch 52/92
+2025-11-16 11:53:21,912 - INFO - Database connection established
+2025-11-16 11:53:22,163 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:22,163 - INFO - Database connection closed
+2025-11-16 11:53:22,165 - INFO - Stored batch 53/92
+2025-11-16 11:53:22,173 - INFO - Database connection established
+2025-11-16 11:53:22,426 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:22,426 - INFO - Database connection closed
+2025-11-16 11:53:22,428 - INFO - Stored batch 54/92
+2025-11-16 11:53:22,437 - INFO - Database connection established
+2025-11-16 11:53:22,678 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:22,678 - INFO - Database connection closed
+2025-11-16 11:53:22,679 - INFO - Stored batch 55/92
+2025-11-16 11:53:22,688 - INFO - Database connection established
+2025-11-16 11:53:22,927 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:22,927 - INFO - Database connection closed
+2025-11-16 11:53:22,929 - INFO - Stored batch 56/92
+2025-11-16 11:53:22,937 - INFO - Database connection established
+2025-11-16 11:53:23,168 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:23,168 - INFO - Database connection closed
+2025-11-16 11:53:23,170 - INFO - Stored batch 57/92
+2025-11-16 11:53:23,177 - INFO - Database connection established
+2025-11-16 11:53:23,419 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:23,419 - INFO - Database connection closed
+2025-11-16 11:53:23,421 - INFO - Stored batch 58/92
+2025-11-16 11:53:23,429 - INFO - Database connection established
+2025-11-16 11:53:23,668 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:23,668 - INFO - Database connection closed
+2025-11-16 11:53:23,670 - INFO - Stored batch 59/92
+2025-11-16 11:53:23,678 - INFO - Database connection established
+2025-11-16 11:53:23,911 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:23,911 - INFO - Database connection closed
+2025-11-16 11:53:23,912 - INFO - Stored batch 60/92
+2025-11-16 11:53:23,920 - INFO - Database connection established
+2025-11-16 11:53:24,155 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:24,156 - INFO - Database connection closed
+2025-11-16 11:53:24,157 - INFO - Stored batch 61/92
+2025-11-16 11:53:24,165 - INFO - Database connection established
+2025-11-16 11:53:24,592 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:24,592 - INFO - Database connection closed
+2025-11-16 11:53:24,593 - INFO - Stored batch 62/92
+2025-11-16 11:53:24,602 - INFO - Database connection established
+2025-11-16 11:53:24,838 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:24,838 - INFO - Database connection closed
+2025-11-16 11:53:24,840 - INFO - Stored batch 63/92
+2025-11-16 11:53:24,848 - INFO - Database connection established
+2025-11-16 11:53:25,083 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:25,083 - INFO - Database connection closed
+2025-11-16 11:53:25,085 - INFO - Stored batch 64/92
+2025-11-16 11:53:25,093 - INFO - Database connection established
+2025-11-16 11:53:25,334 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:25,334 - INFO - Database connection closed
+2025-11-16 11:53:25,335 - INFO - Stored batch 65/92
+2025-11-16 11:53:25,344 - INFO - Database connection established
+2025-11-16 11:53:25,592 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:25,592 - INFO - Database connection closed
+2025-11-16 11:53:25,594 - INFO - Stored batch 66/92
+2025-11-16 11:53:25,602 - INFO - Database connection established
+2025-11-16 11:53:25,844 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:25,844 - INFO - Database connection closed
+2025-11-16 11:53:25,845 - INFO - Stored batch 67/92
+2025-11-16 11:53:25,853 - INFO - Database connection established
+2025-11-16 11:53:26,098 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:26,098 - INFO - Database connection closed
+2025-11-16 11:53:26,099 - INFO - Stored batch 68/92
+2025-11-16 11:53:26,107 - INFO - Database connection established
+2025-11-16 11:53:26,347 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:26,347 - INFO - Database connection closed
+2025-11-16 11:53:26,349 - INFO - Stored batch 69/92
+2025-11-16 11:53:26,356 - INFO - Database connection established
+2025-11-16 11:53:26,602 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:26,602 - INFO - Database connection closed
+2025-11-16 11:53:26,603 - INFO - Stored batch 70/92
+2025-11-16 11:53:26,612 - INFO - Database connection established
+2025-11-16 11:53:26,852 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:26,852 - INFO - Database connection closed
+2025-11-16 11:53:26,854 - INFO - Stored batch 71/92
+2025-11-16 11:53:26,862 - INFO - Database connection established
+2025-11-16 11:53:27,101 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:27,102 - INFO - Database connection closed
+2025-11-16 11:53:27,103 - INFO - Stored batch 72/92
+2025-11-16 11:53:27,111 - INFO - Database connection established
+2025-11-16 11:53:27,352 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:27,352 - INFO - Database connection closed
+2025-11-16 11:53:27,353 - INFO - Stored batch 73/92
+2025-11-16 11:53:27,362 - INFO - Database connection established
+2025-11-16 11:53:27,605 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:27,605 - INFO - Database connection closed
+2025-11-16 11:53:27,606 - INFO - Stored batch 74/92
+2025-11-16 11:53:27,614 - INFO - Database connection established
+2025-11-16 11:53:27,853 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:27,853 - INFO - Database connection closed
+2025-11-16 11:53:27,855 - INFO - Stored batch 75/92
+2025-11-16 11:53:27,863 - INFO - Database connection established
+2025-11-16 11:53:28,104 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:28,104 - INFO - Database connection closed
+2025-11-16 11:53:28,106 - INFO - Stored batch 76/92
+2025-11-16 11:53:28,114 - INFO - Database connection established
+2025-11-16 11:53:28,355 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:28,356 - INFO - Database connection closed
+2025-11-16 11:53:28,357 - INFO - Stored batch 77/92
+2025-11-16 11:53:28,365 - INFO - Database connection established
+2025-11-16 11:53:28,612 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:28,613 - INFO - Database connection closed
+2025-11-16 11:53:28,614 - INFO - Stored batch 78/92
+2025-11-16 11:53:28,622 - INFO - Database connection established
+2025-11-16 11:53:28,885 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:28,886 - INFO - Database connection closed
+2025-11-16 11:53:28,887 - INFO - Stored batch 79/92
+2025-11-16 11:53:28,895 - INFO - Database connection established
+2025-11-16 11:53:29,148 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:29,149 - INFO - Database connection closed
+2025-11-16 11:53:29,150 - INFO - Stored batch 80/92
+2025-11-16 11:53:29,158 - INFO - Database connection established
+2025-11-16 11:53:29,401 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:29,401 - INFO - Database connection closed
+2025-11-16 11:53:29,402 - INFO - Stored batch 81/92
+2025-11-16 11:53:29,411 - INFO - Database connection established
+2025-11-16 11:53:29,653 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:29,653 - INFO - Database connection closed
+2025-11-16 11:53:29,654 - INFO - Stored batch 82/92
+2025-11-16 11:53:29,663 - INFO - Database connection established
+2025-11-16 11:53:29,906 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:29,906 - INFO - Database connection closed
+2025-11-16 11:53:29,907 - INFO - Stored batch 83/92
+2025-11-16 11:53:29,916 - INFO - Database connection established
+2025-11-16 11:53:30,153 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:30,153 - INFO - Database connection closed
+2025-11-16 11:53:30,155 - INFO - Stored batch 84/92
+2025-11-16 11:53:30,163 - INFO - Database connection established
+2025-11-16 11:53:30,404 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:30,404 - INFO - Database connection closed
+2025-11-16 11:53:30,406 - INFO - Stored batch 85/92
+2025-11-16 11:53:30,414 - INFO - Database connection established
+2025-11-16 11:53:30,655 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:30,655 - INFO - Database connection closed
+2025-11-16 11:53:30,657 - INFO - Stored batch 86/92
+2025-11-16 11:53:30,665 - INFO - Database connection established
+2025-11-16 11:53:30,905 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:30,906 - INFO - Database connection closed
+2025-11-16 11:53:30,907 - INFO - Stored batch 87/92
+2025-11-16 11:53:30,916 - INFO - Database connection established
+2025-11-16 11:53:31,164 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:31,164 - INFO - Database connection closed
+2025-11-16 11:53:31,165 - INFO - Stored batch 88/92
+2025-11-16 11:53:31,173 - INFO - Database connection established
+2025-11-16 11:53:31,413 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:31,413 - INFO - Database connection closed
+2025-11-16 11:53:31,415 - INFO - Stored batch 89/92
+2025-11-16 11:53:31,423 - INFO - Database connection established
+2025-11-16 11:53:31,668 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:31,668 - INFO - Database connection closed
+2025-11-16 11:53:31,670 - INFO - Stored batch 90/92
+2025-11-16 11:53:31,678 - INFO - Database connection established
+2025-11-16 11:53:31,912 - INFO - Inserted 100 vectors into images_features
+2025-11-16 11:53:31,912 - INFO - Database connection closed
+2025-11-16 11:53:31,914 - INFO - Stored batch 91/92
+2025-11-16 11:53:31,922 - INFO - Database connection established
+2025-11-16 11:53:32,131 - INFO - Inserted 86 vectors into images_features
+2025-11-16 11:53:32,131 - INFO - Database connection closed
+2025-11-16 11:53:32,132 - INFO - Stored batch 92/92
+2025-11-16 11:53:32,141 - INFO - Database connection established
+2025-11-16 11:53:32,144 - INFO - Database connection closed
+2025-11-16 11:53:32,144 - INFO - Vector generation completed! Total vectors in database: 9186
+2025-11-16 11:53:32,145 - INFO - Summary saved to vector_generation_summary.json
+2025-11-16 12:07:51,053 - INFO - Starting vector generation for ResNet50 model
+2025-11-16 12:07:51,054 - INFO - Model path: ./models/resnet50/wound_classifier.pkl
+2025-11-16 12:07:51,054 - INFO - Dataset: ./files/train_dataset
+2025-11-16 12:07:51,054 - INFO - Target vectors per class: 200
+2025-11-16 12:07:51,054 - INFO - Total target vectors: 2000
+2025-11-16 12:07:51,054 - INFO - Loading trained ResNet50 model...
+2025-11-16 12:07:51,839 - INFO - Model loaded from ./models/resnet50/wound_classifier.pkl
+2025-11-16 12:07:51,842 - INFO - Feature model recreated for extraction
+2025-11-16 12:07:51,842 - INFO - Model loaded and marked as trained
+2025-11-16 12:07:51,842 - INFO - Scanning dataset...
+2025-11-16 12:07:51,843 - INFO - Found 82 images in class 'Abrasions'
+2025-11-16 12:07:51,844 - INFO - Found 231 images in class 'Diabetic Wounds'
+2025-11-16 12:07:51,846 - INFO - Found 210 images in class 'Surgical Wounds'
+2025-11-16 12:07:51,846 - INFO - Found 121 images in class 'Bruises'
+2025-11-16 12:07:51,847 - INFO - Found 50 images in class 'Cut'
+2025-11-16 12:07:51,848 - INFO - Found 247 images in class 'Venous Wounds'
+2025-11-16 12:07:51,849 - INFO - Found 100 images in class 'Normal'
+2025-11-16 12:07:51,851 - INFO - Found 301 images in class 'Pressure Wounds'
+2025-11-16 12:07:51,852 - INFO - Found 122 images in class 'Laseration'
+2025-11-16 12:07:51,852 - INFO - Found 67 images in class 'Burns'
+2025-11-16 12:07:51,852 - INFO - Initializing vector store with table 'images_features'...
+2025-11-16 12:07:51,921 - INFO - Database connection established
+2025-11-16 12:07:51,929 - INFO - Dropped existing table 'images_features'
+2025-11-16 12:07:51,929 - INFO - Database connection closed
+2025-11-16 12:07:51,941 - INFO - Database connection established
+2025-11-16 12:07:51,948 - INFO - Created vector table: images_features
+2025-11-16 12:07:51,948 - INFO - Database connection closed
+2025-11-16 12:07:51,948 - INFO - Processing class 'Abrasions' with 82 images...
+2025-11-16 12:13:30,558 - INFO - Generated 492 vectors for class 'Abrasions' (82 images × 6 augmentations)
+2025-11-16 12:13:30,559 - INFO - Processing class 'Diabetic Wounds' with 231 images...
+2025-11-16 12:27:57,145 - INFO - Generated 1386 vectors for class 'Diabetic Wounds' (231 images × 6 augmentations)
+2025-11-16 12:27:57,146 - INFO - Processing class 'Surgical Wounds' with 210 images...
+2025-11-16 12:42:00,183 - INFO - Generated 1260 vectors for class 'Surgical Wounds' (210 images × 6 augmentations)
+2025-11-16 12:42:00,184 - INFO - Processing class 'Bruises' with 121 images...
+2025-11-16 12:50:01,825 - INFO - Generated 726 vectors for class 'Bruises' (121 images × 6 augmentations)
+2025-11-16 12:50:01,825 - INFO - Processing class 'Cut' with 50 images...
+2025-11-16 12:53:22,501 - INFO - Generated 300 vectors for class 'Cut' (50 images × 6 augmentations)
+2025-11-16 12:53:22,501 - INFO - Processing class 'Venous Wounds' with 247 images...
+2025-11-16 13:09:57,310 - INFO - Generated 1482 vectors for class 'Venous Wounds' (247 images × 6 augmentations)
+2025-11-16 13:09:57,311 - INFO - Processing class 'Normal' with 100 images...
+2025-11-16 13:16:36,166 - INFO - Generated 600 vectors for class 'Normal' (100 images × 6 augmentations)
+2025-11-16 13:16:36,168 - INFO - Processing class 'Pressure Wounds' with 301 images...
+2025-11-16 13:36:34,791 - INFO - Generated 1806 vectors for class 'Pressure Wounds' (301 images × 6 augmentations)
+2025-11-16 13:36:34,791 - INFO - Processing class 'Laseration' with 122 images...
+2025-11-16 13:44:43,125 - INFO - Generated 732 vectors for class 'Laseration' (122 images × 6 augmentations)
+2025-11-16 13:44:43,127 - INFO - Processing class 'Burns' with 67 images...
+2025-11-16 13:49:10,540 - INFO - Generated 402 vectors for class 'Burns' (67 images × 6 augmentations)
+2025-11-16 13:49:10,541 - INFO - Storing 9186 vectors in database...
+2025-11-16 13:49:10,573 - INFO - Database connection established
+2025-11-16 13:49:10,994 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:10,995 - INFO - Database connection closed
+2025-11-16 13:49:10,996 - INFO - Stored batch 1/92
+2025-11-16 13:49:11,003 - INFO - Database connection established
+2025-11-16 13:49:11,381 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:11,381 - INFO - Database connection closed
+2025-11-16 13:49:11,382 - INFO - Stored batch 2/92
+2025-11-16 13:49:11,390 - INFO - Database connection established
+2025-11-16 13:49:11,773 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:11,774 - INFO - Database connection closed
+2025-11-16 13:49:11,775 - INFO - Stored batch 3/92
+2025-11-16 13:49:11,783 - INFO - Database connection established
+2025-11-16 13:49:12,155 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:12,155 - INFO - Database connection closed
+2025-11-16 13:49:12,156 - INFO - Stored batch 4/92
+2025-11-16 13:49:12,164 - INFO - Database connection established
+2025-11-16 13:49:12,537 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:12,537 - INFO - Database connection closed
+2025-11-16 13:49:12,538 - INFO - Stored batch 5/92
+2025-11-16 13:49:12,547 - INFO - Database connection established
+2025-11-16 13:49:12,943 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:12,943 - INFO - Database connection closed
+2025-11-16 13:49:12,944 - INFO - Stored batch 6/92
+2025-11-16 13:49:12,953 - INFO - Database connection established
+2025-11-16 13:49:13,363 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:13,363 - INFO - Database connection closed
+2025-11-16 13:49:13,364 - INFO - Stored batch 7/92
+2025-11-16 13:49:13,371 - INFO - Database connection established
+2025-11-16 13:49:13,746 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:13,746 - INFO - Database connection closed
+2025-11-16 13:49:13,748 - INFO - Stored batch 8/92
+2025-11-16 13:49:13,756 - INFO - Database connection established
+2025-11-16 13:49:14,155 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:14,155 - INFO - Database connection closed
+2025-11-16 13:49:14,157 - INFO - Stored batch 9/92
+2025-11-16 13:49:14,165 - INFO - Database connection established
+2025-11-16 13:49:14,548 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:14,548 - INFO - Database connection closed
+2025-11-16 13:49:14,549 - INFO - Stored batch 10/92
+2025-11-16 13:49:14,557 - INFO - Database connection established
+2025-11-16 13:49:14,941 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:14,942 - INFO - Database connection closed
+2025-11-16 13:49:14,943 - INFO - Stored batch 11/92
+2025-11-16 13:49:14,951 - INFO - Database connection established
+2025-11-16 13:49:15,326 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:15,326 - INFO - Database connection closed
+2025-11-16 13:49:15,327 - INFO - Stored batch 12/92
+2025-11-16 13:49:15,335 - INFO - Database connection established
+2025-11-16 13:49:15,715 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:15,715 - INFO - Database connection closed
+2025-11-16 13:49:15,716 - INFO - Stored batch 13/92
+2025-11-16 13:49:15,724 - INFO - Database connection established
+2025-11-16 13:49:16,103 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:16,103 - INFO - Database connection closed
+2025-11-16 13:49:16,105 - INFO - Stored batch 14/92
+2025-11-16 13:49:16,113 - INFO - Database connection established
+2025-11-16 13:49:16,495 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:16,495 - INFO - Database connection closed
+2025-11-16 13:49:16,496 - INFO - Stored batch 15/92
+2025-11-16 13:49:16,505 - INFO - Database connection established
+2025-11-16 13:49:16,878 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:16,878 - INFO - Database connection closed
+2025-11-16 13:49:16,879 - INFO - Stored batch 16/92
+2025-11-16 13:49:16,887 - INFO - Database connection established
+2025-11-16 13:49:17,289 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:17,289 - INFO - Database connection closed
+2025-11-16 13:49:17,290 - INFO - Stored batch 17/92
+2025-11-16 13:49:17,299 - INFO - Database connection established
+2025-11-16 13:49:17,665 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:17,665 - INFO - Database connection closed
+2025-11-16 13:49:17,667 - INFO - Stored batch 18/92
+2025-11-16 13:49:17,674 - INFO - Database connection established
+2025-11-16 13:49:18,044 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:18,044 - INFO - Database connection closed
+2025-11-16 13:49:18,045 - INFO - Stored batch 19/92
+2025-11-16 13:49:18,053 - INFO - Database connection established
+2025-11-16 13:49:18,509 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:18,509 - INFO - Database connection closed
+2025-11-16 13:49:18,514 - INFO - Stored batch 20/92
+2025-11-16 13:49:18,523 - INFO - Database connection established
+2025-11-16 13:49:18,883 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:18,884 - INFO - Database connection closed
+2025-11-16 13:49:18,885 - INFO - Stored batch 21/92
+2025-11-16 13:49:18,893 - INFO - Database connection established
+2025-11-16 13:49:19,268 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:19,268 - INFO - Database connection closed
+2025-11-16 13:49:19,269 - INFO - Stored batch 22/92
+2025-11-16 13:49:19,277 - INFO - Database connection established
+2025-11-16 13:49:19,646 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:19,646 - INFO - Database connection closed
+2025-11-16 13:49:19,648 - INFO - Stored batch 23/92
+2025-11-16 13:49:19,656 - INFO - Database connection established
+2025-11-16 13:49:20,037 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:20,037 - INFO - Database connection closed
+2025-11-16 13:49:20,038 - INFO - Stored batch 24/92
+2025-11-16 13:49:20,046 - INFO - Database connection established
+2025-11-16 13:49:20,419 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:20,419 - INFO - Database connection closed
+2025-11-16 13:49:20,421 - INFO - Stored batch 25/92
+2025-11-16 13:49:20,429 - INFO - Database connection established
+2025-11-16 13:49:20,842 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:20,842 - INFO - Database connection closed
+2025-11-16 13:49:20,843 - INFO - Stored batch 26/92
+2025-11-16 13:49:20,853 - INFO - Database connection established
+2025-11-16 13:49:21,222 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:21,222 - INFO - Database connection closed
+2025-11-16 13:49:21,223 - INFO - Stored batch 27/92
+2025-11-16 13:49:21,231 - INFO - Database connection established
+2025-11-16 13:49:21,646 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:21,646 - INFO - Database connection closed
+2025-11-16 13:49:21,648 - INFO - Stored batch 28/92
+2025-11-16 13:49:21,655 - INFO - Database connection established
+2025-11-16 13:49:22,012 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:22,012 - INFO - Database connection closed
+2025-11-16 13:49:22,013 - INFO - Stored batch 29/92
+2025-11-16 13:49:22,022 - INFO - Database connection established
+2025-11-16 13:49:22,393 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:22,393 - INFO - Database connection closed
+2025-11-16 13:49:22,394 - INFO - Stored batch 30/92
+2025-11-16 13:49:22,403 - INFO - Database connection established
+2025-11-16 13:49:22,844 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:22,852 - INFO - Database connection closed
+2025-11-16 13:49:22,855 - INFO - Stored batch 31/92
+2025-11-16 13:49:22,863 - INFO - Database connection established
+2025-11-16 13:49:23,240 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:23,240 - INFO - Database connection closed
+2025-11-16 13:49:23,241 - INFO - Stored batch 32/92
+2025-11-16 13:49:23,250 - INFO - Database connection established
+2025-11-16 13:49:23,612 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:23,613 - INFO - Database connection closed
+2025-11-16 13:49:23,614 - INFO - Stored batch 33/92
+2025-11-16 13:49:23,622 - INFO - Database connection established
+2025-11-16 13:49:23,994 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:23,994 - INFO - Database connection closed
+2025-11-16 13:49:23,995 - INFO - Stored batch 34/92
+2025-11-16 13:49:24,004 - INFO - Database connection established
+2025-11-16 13:49:24,374 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:24,374 - INFO - Database connection closed
+2025-11-16 13:49:24,375 - INFO - Stored batch 35/92
+2025-11-16 13:49:24,384 - INFO - Database connection established
+2025-11-16 13:49:24,756 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:24,756 - INFO - Database connection closed
+2025-11-16 13:49:24,757 - INFO - Stored batch 36/92
+2025-11-16 13:49:24,765 - INFO - Database connection established
+2025-11-16 13:49:25,126 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:25,126 - INFO - Database connection closed
+2025-11-16 13:49:25,127 - INFO - Stored batch 37/92
+2025-11-16 13:49:25,136 - INFO - Database connection established
+2025-11-16 13:49:25,534 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:25,534 - INFO - Database connection closed
+2025-11-16 13:49:25,535 - INFO - Stored batch 38/92
+2025-11-16 13:49:25,544 - INFO - Database connection established
+2025-11-16 13:49:25,916 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:25,916 - INFO - Database connection closed
+2025-11-16 13:49:25,917 - INFO - Stored batch 39/92
+2025-11-16 13:49:25,926 - INFO - Database connection established
+2025-11-16 13:49:26,322 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:26,322 - INFO - Database connection closed
+2025-11-16 13:49:26,323 - INFO - Stored batch 40/92
+2025-11-16 13:49:26,332 - INFO - Database connection established
+2025-11-16 13:49:26,703 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:26,703 - INFO - Database connection closed
+2025-11-16 13:49:26,704 - INFO - Stored batch 41/92
+2025-11-16 13:49:26,713 - INFO - Database connection established
+2025-11-16 13:49:27,102 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:27,102 - INFO - Database connection closed
+2025-11-16 13:49:27,103 - INFO - Stored batch 42/92
+2025-11-16 13:49:27,111 - INFO - Database connection established
+2025-11-16 13:49:27,476 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:27,476 - INFO - Database connection closed
+2025-11-16 13:49:27,478 - INFO - Stored batch 43/92
+2025-11-16 13:49:27,485 - INFO - Database connection established
+2025-11-16 13:49:27,891 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:27,891 - INFO - Database connection closed
+2025-11-16 13:49:27,893 - INFO - Stored batch 44/92
+2025-11-16 13:49:27,902 - INFO - Database connection established
+2025-11-16 13:49:28,266 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:28,266 - INFO - Database connection closed
+2025-11-16 13:49:28,268 - INFO - Stored batch 45/92
+2025-11-16 13:49:28,276 - INFO - Database connection established
+2025-11-16 13:49:28,649 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:28,649 - INFO - Database connection closed
+2025-11-16 13:49:28,650 - INFO - Stored batch 46/92
+2025-11-16 13:49:28,658 - INFO - Database connection established
+2025-11-16 13:49:29,025 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:29,025 - INFO - Database connection closed
+2025-11-16 13:49:29,027 - INFO - Stored batch 47/92
+2025-11-16 13:49:29,035 - INFO - Database connection established
+2025-11-16 13:49:29,407 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:29,407 - INFO - Database connection closed
+2025-11-16 13:49:29,409 - INFO - Stored batch 48/92
+2025-11-16 13:49:29,419 - INFO - Database connection established
+2025-11-16 13:49:29,846 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:29,846 - INFO - Database connection closed
+2025-11-16 13:49:29,848 - INFO - Stored batch 49/92
+2025-11-16 13:49:29,856 - INFO - Database connection established
+2025-11-16 13:49:30,240 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:30,240 - INFO - Database connection closed
+2025-11-16 13:49:30,242 - INFO - Stored batch 50/92
+2025-11-16 13:49:30,250 - INFO - Database connection established
+2025-11-16 13:49:30,626 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:30,626 - INFO - Database connection closed
+2025-11-16 13:49:30,627 - INFO - Stored batch 51/92
+2025-11-16 13:49:30,635 - INFO - Database connection established
+2025-11-16 13:49:31,015 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:31,015 - INFO - Database connection closed
+2025-11-16 13:49:31,017 - INFO - Stored batch 52/92
+2025-11-16 13:49:31,025 - INFO - Database connection established
+2025-11-16 13:49:31,394 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:31,395 - INFO - Database connection closed
+2025-11-16 13:49:31,397 - INFO - Stored batch 53/92
+2025-11-16 13:49:31,405 - INFO - Database connection established
+2025-11-16 13:49:31,778 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:31,778 - INFO - Database connection closed
+2025-11-16 13:49:31,779 - INFO - Stored batch 54/92
+2025-11-16 13:49:31,787 - INFO - Database connection established
+2025-11-16 13:49:32,163 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:32,163 - INFO - Database connection closed
+2025-11-16 13:49:32,165 - INFO - Stored batch 55/92
+2025-11-16 13:49:32,173 - INFO - Database connection established
+2025-11-16 13:49:32,543 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:32,544 - INFO - Database connection closed
+2025-11-16 13:49:32,545 - INFO - Stored batch 56/92
+2025-11-16 13:49:32,553 - INFO - Database connection established
+2025-11-16 13:49:32,927 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:32,927 - INFO - Database connection closed
+2025-11-16 13:49:32,929 - INFO - Stored batch 57/92
+2025-11-16 13:49:32,937 - INFO - Database connection established
+2025-11-16 13:49:33,317 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:33,317 - INFO - Database connection closed
+2025-11-16 13:49:33,318 - INFO - Stored batch 58/92
+2025-11-16 13:49:33,327 - INFO - Database connection established
+2025-11-16 13:49:33,688 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:33,689 - INFO - Database connection closed
+2025-11-16 13:49:33,690 - INFO - Stored batch 59/92
+2025-11-16 13:49:33,698 - INFO - Database connection established
+2025-11-16 13:49:34,073 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:34,073 - INFO - Database connection closed
+2025-11-16 13:49:34,074 - INFO - Stored batch 60/92
+2025-11-16 13:49:34,082 - INFO - Database connection established
+2025-11-16 13:49:34,450 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:34,450 - INFO - Database connection closed
+2025-11-16 13:49:34,452 - INFO - Stored batch 61/92
+2025-11-16 13:49:34,459 - INFO - Database connection established
+2025-11-16 13:49:34,840 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:34,840 - INFO - Database connection closed
+2025-11-16 13:49:34,841 - INFO - Stored batch 62/92
+2025-11-16 13:49:34,849 - INFO - Database connection established
+2025-11-16 13:49:35,249 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:35,249 - INFO - Database connection closed
+2025-11-16 13:49:35,250 - INFO - Stored batch 63/92
+2025-11-16 13:49:35,258 - INFO - Database connection established
+2025-11-16 13:49:35,642 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:35,642 - INFO - Database connection closed
+2025-11-16 13:49:35,644 - INFO - Stored batch 64/92
+2025-11-16 13:49:35,652 - INFO - Database connection established
+2025-11-16 13:49:36,024 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:36,025 - INFO - Database connection closed
+2025-11-16 13:49:36,026 - INFO - Stored batch 65/92
+2025-11-16 13:49:36,034 - INFO - Database connection established
+2025-11-16 13:49:36,405 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:36,405 - INFO - Database connection closed
+2025-11-16 13:49:36,406 - INFO - Stored batch 66/92
+2025-11-16 13:49:36,415 - INFO - Database connection established
+2025-11-16 13:49:36,783 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:36,783 - INFO - Database connection closed
+2025-11-16 13:49:36,784 - INFO - Stored batch 67/92
+2025-11-16 13:49:36,792 - INFO - Database connection established
+2025-11-16 13:49:37,161 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:37,161 - INFO - Database connection closed
+2025-11-16 13:49:37,163 - INFO - Stored batch 68/92
+2025-11-16 13:49:37,170 - INFO - Database connection established
+2025-11-16 13:49:37,535 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:37,536 - INFO - Database connection closed
+2025-11-16 13:49:37,537 - INFO - Stored batch 69/92
+2025-11-16 13:49:37,546 - INFO - Database connection established
+2025-11-16 13:49:37,913 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:37,914 - INFO - Database connection closed
+2025-11-16 13:49:37,915 - INFO - Stored batch 70/92
+2025-11-16 13:49:37,923 - INFO - Database connection established
+2025-11-16 13:49:38,298 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:38,298 - INFO - Database connection closed
+2025-11-16 13:49:38,299 - INFO - Stored batch 71/92
+2025-11-16 13:49:38,307 - INFO - Database connection established
+2025-11-16 13:49:38,681 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:38,681 - INFO - Database connection closed
+2025-11-16 13:49:38,682 - INFO - Stored batch 72/92
+2025-11-16 13:49:38,691 - INFO - Database connection established
+2025-11-16 13:49:39,064 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:39,064 - INFO - Database connection closed
+2025-11-16 13:49:39,066 - INFO - Stored batch 73/92
+2025-11-16 13:49:39,074 - INFO - Database connection established
+2025-11-16 13:49:39,445 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:39,445 - INFO - Database connection closed
+2025-11-16 13:49:39,446 - INFO - Stored batch 74/92
+2025-11-16 13:49:39,455 - INFO - Database connection established
+2025-11-16 13:49:39,830 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:39,830 - INFO - Database connection closed
+2025-11-16 13:49:39,831 - INFO - Stored batch 75/92
+2025-11-16 13:49:39,840 - INFO - Database connection established
+2025-11-16 13:49:40,205 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:40,205 - INFO - Database connection closed
+2025-11-16 13:49:40,206 - INFO - Stored batch 76/92
+2025-11-16 13:49:40,215 - INFO - Database connection established
+2025-11-16 13:49:40,581 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:40,581 - INFO - Database connection closed
+2025-11-16 13:49:40,582 - INFO - Stored batch 77/92
+2025-11-16 13:49:40,590 - INFO - Database connection established
+2025-11-16 13:49:40,957 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:40,957 - INFO - Database connection closed
+2025-11-16 13:49:40,958 - INFO - Stored batch 78/92
+2025-11-16 13:49:40,966 - INFO - Database connection established
+2025-11-16 13:49:41,344 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:41,344 - INFO - Database connection closed
+2025-11-16 13:49:41,345 - INFO - Stored batch 79/92
+2025-11-16 13:49:41,354 - INFO - Database connection established
+2025-11-16 13:49:41,724 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:41,724 - INFO - Database connection closed
+2025-11-16 13:49:41,725 - INFO - Stored batch 80/92
+2025-11-16 13:49:41,734 - INFO - Database connection established
+2025-11-16 13:49:42,129 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:42,129 - INFO - Database connection closed
+2025-11-16 13:49:42,131 - INFO - Stored batch 81/92
+2025-11-16 13:49:42,139 - INFO - Database connection established
+2025-11-16 13:49:42,518 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:42,518 - INFO - Database connection closed
+2025-11-16 13:49:42,519 - INFO - Stored batch 82/92
+2025-11-16 13:49:42,528 - INFO - Database connection established
+2025-11-16 13:49:42,894 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:42,894 - INFO - Database connection closed
+2025-11-16 13:49:42,896 - INFO - Stored batch 83/92
+2025-11-16 13:49:42,904 - INFO - Database connection established
+2025-11-16 13:49:43,297 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:43,298 - INFO - Database connection closed
+2025-11-16 13:49:43,299 - INFO - Stored batch 84/92
+2025-11-16 13:49:43,307 - INFO - Database connection established
+2025-11-16 13:49:43,683 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:43,684 - INFO - Database connection closed
+2025-11-16 13:49:43,685 - INFO - Stored batch 85/92
+2025-11-16 13:49:43,693 - INFO - Database connection established
+2025-11-16 13:49:44,054 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:44,054 - INFO - Database connection closed
+2025-11-16 13:49:44,055 - INFO - Stored batch 86/92
+2025-11-16 13:49:44,064 - INFO - Database connection established
+2025-11-16 13:49:44,428 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:44,429 - INFO - Database connection closed
+2025-11-16 13:49:44,430 - INFO - Stored batch 87/92
+2025-11-16 13:49:44,439 - INFO - Database connection established
+2025-11-16 13:49:44,821 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:44,821 - INFO - Database connection closed
+2025-11-16 13:49:44,822 - INFO - Stored batch 88/92
+2025-11-16 13:49:44,831 - INFO - Database connection established
+2025-11-16 13:49:45,208 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:45,208 - INFO - Database connection closed
+2025-11-16 13:49:45,209 - INFO - Stored batch 89/92
+2025-11-16 13:49:45,217 - INFO - Database connection established
+2025-11-16 13:49:45,597 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:45,598 - INFO - Database connection closed
+2025-11-16 13:49:45,599 - INFO - Stored batch 90/92
+2025-11-16 13:49:45,611 - INFO - Database connection established
+2025-11-16 13:49:45,984 - INFO - Inserted 100 vectors into images_features
+2025-11-16 13:49:45,985 - INFO - Database connection closed
+2025-11-16 13:49:45,986 - INFO - Stored batch 91/92
+2025-11-16 13:49:45,995 - INFO - Database connection established
+2025-11-16 13:49:46,308 - INFO - Inserted 86 vectors into images_features
+2025-11-16 13:49:46,308 - INFO - Database connection closed
+2025-11-16 13:49:46,310 - INFO - Stored batch 92/92
+2025-11-16 13:49:46,318 - INFO - Database connection established
+2025-11-16 13:49:46,320 - INFO - Database connection closed
+2025-11-16 13:49:46,320 - INFO - Vector generation completed! Total vectors in database: 9186
+2025-11-16 13:49:46,321 - INFO - Summary saved to vector_generation_summary.json

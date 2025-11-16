@@ -1,0 +1,42 @@
+{
+  "debug": false,
+  "log_level": "INFO",
+  "secret_key": "your-secret-key-here",
+  "database": {
+    "host": "dl-postgres",
+    "port": 5432,
+    "user": "admin",
+    "password": "PassW0rd",
+    "database": "db",
+    "connection_timeout": 30
+  },
+  "model": {
+    "vector_dimension": 2000,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "epochs": 20,
+    "early_stopping_patience": 5,
+    "validation_split": 0.2,
+    "random_state": 42
+  },
+  "file": {
+    "upload_dir": "/tmp/uploads",
+    "max_file_size": 104857600,
+    "temp_dir": "/tmp/temp",
+    "allowed_extensions": [
+      ".pdf",
+      ".docx",
+      ".doc",
+      ".txt",
+      ".md",
+      ".jpg",
+      ".jpeg",
+      ".png",
+      ".bmp",
+      ".tiff",
+      ".pptx",
+      ".xlsx",
+      ".csv"
+    ]
+  }
+}

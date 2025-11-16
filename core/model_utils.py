@@ -1,0 +1,920 @@
+"""
+Machine learning model utilities for training, evaluation, and deployment.
+"""
+
+import numpy as np
+import pandas as pd
+from typing import Dict, List, Tuple, Optional, Union, Any, Callable
+import logging
+import joblib
+from pathlib import Path
+import json
+from datetime import datetime
+import warnings
+import sys
+
+logger = logging.getLogger(__name__)
+
+# Global TensorFlow configuration to prevent mutex issues
+try:
+    import tensorflow as tf
+    # Configure TensorFlow globally to prevent threading issues
+    tf.get_logger().setLevel('ERROR')
+    # Disable eager execution warnings
+    tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+    # Set memory growth for GPUs if available
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    # Configure MPS for macOS if available
+    mps_devices = tf.config.list_physical_devices('MPS')
+    if mps_devices:
+        tf.config.set_visible_devices(mps_devices, 'MPS')
+        logger.info("MPS devices configured globally for macOS")
+    _tensorflow_configured = True
+except ImportError:
+    _tensorflow_configured = False
+
+
+class ModelTrainer:
+    """Base class for model training with common functionality."""
+
+    def __init__(self, model_name: str = "base_model"):
+        self.model_name = model_name
+        self.model = None
+        self.is_trained = False
+        self.training_history = []
+
+    def train(self, X_train: Union[np.ndarray, pd.DataFrame],
+              y_train: Union[np.ndarray, pd.Series],
+              X_val: Optional[Union[np.ndarray, pd.DataFrame]] = None,
+              y_val: Optional[Union[np.ndarray, pd.Series]] = None,
+              **kwargs) -> Dict[str, Any]:
+        """Train the model. Override in subclasses."""
+        raise NotImplementedError("Subclasses must implement train method")
+
+    def predict(self, X: Union[np.ndarray, pd.DataFrame]) -> np.ndarray:
+        """Make predictions."""
+        if not self.is_trained or self.model is None:
+            raise ValueError("Model must be trained before making predictions")
+        return self.model.predict(X)
+
+    def predict_proba(self, X: Union[np.ndarray, pd.DataFrame]) -> np.ndarray:
+        """Make probability predictions if supported."""
+        if hasattr(self.model, 'predict_proba'):
+            return self.model.predict_proba(X)
+        else:
+            raise AttributeError("Model does not support probability predictions")
+
+    def save_model(self, filepath: Union[str, Path]):
+        """Save model to disk."""
+        filepath = Path(filepath)
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
+        model_data = {
+            'model': self.model,
+            'model_name': self.model_name,
+            'is_trained': self.is_trained,
+            'training_history': self.training_history,
+            'saved_at': datetime.now().isoformat()
+        }
+
+        joblib.dump(model_data, filepath)
+        logger.info(f"Model saved to {filepath}")
+
+    def load_model(self, filepath: Union[str, Path]):
+        """Load model from disk."""
+        model_data = joblib.load(filepath)
+        self.model = model_data['model']
+        self.model_name = model_data['model_name']
+        self.is_trained = model_data['is_trained']
+        self.training_history = model_data.get('training_history', [])
+        logger.info(f"Model loaded from {filepath}")
+
+
+class ModelEvaluator:
+    """Model evaluation utilities."""
+
+    @staticmethod
+    def calculate_metrics(y_true: Union[np.ndarray, pd.Series],
+                         y_pred: Union[np.ndarray, pd.Series],
+                         task_type: str = 'classification') -> Dict[str, float]:
+        """Calculate common evaluation metrics."""
+        from sklearn.metrics import (
+            accuracy_score, precision_score, recall_score, f1_score,
+            mean_squared_error, mean_absolute_error, r2_score
+        )
+
+        metrics = {}
+
+        if task_type == 'classification':
+            metrics['accuracy'] = accuracy_score(y_true, y_pred)
+            metrics['precision'] = precision_score(y_true, y_pred, average='weighted', zero_division=0)
+            metrics['recall'] = recall_score(y_true, y_pred, average='weighted', zero_division=0)
+            metrics['f1_score'] = f1_score(y_true, y_pred, average='weighted', zero_division=0)
+        elif task_type == 'regression':
+            metrics['mse'] = mean_squared_error(y_true, y_pred)
+            metrics['mae'] = mean_absolute_error(y_true, y_pred)
+            metrics['r2_score'] = r2_score(y_true, y_pred)
+            metrics['rmse'] = np.sqrt(metrics['mse'])
+
+        return metrics
+
+    @staticmethod
+    def plot_confusion_matrix(y_true: Union[np.ndarray, pd.Series],
+                            y_pred: Union[np.ndarray, pd.Series],
+                            class_names: Optional[List[str]] = None):
+        """Plot confusion matrix for classification tasks."""
+        from sklearn.metrics import confusion_matrix
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+
+        cm = confusion_matrix(y_true, y_pred)
+
+        plt.figure(figsize=(8, 6))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                   xticklabels=class_names, yticklabels=class_names)
+        plt.title('Confusion Matrix')
+        plt.ylabel('True Label')
+        plt.xlabel('Predicted Label')
+        plt.show()
+
+    @staticmethod
+    def plot_feature_importance(model, feature_names: List[str], top_n: int = 20):
+        """Plot feature importance if available."""
+        import matplotlib.pyplot as plt
+
+        if hasattr(model, 'feature_importances_'):
+            importance = model.feature_importances_
+        elif hasattr(model, 'coef_'):
+            importance = np.abs(model.coef_[0]) if len(model.coef_.shape) > 1 else np.abs(model.coef_)
+        else:
+            logger.warning("Model does not have feature importance information")
+            return
+
+        # Sort features by importance
+        indices = np.argsort(importance)[::-1][:top_n]
+        names = [feature_names[i] for i in indices]
+        values = importance[indices]
+
+        plt.figure(figsize=(10, 6))
+        plt.barh(range(len(names)), values[::-1])
+        plt.yticks(range(len(names)), names[::-1])
+        plt.title(f'Top {top_n} Feature Importance')
+        plt.xlabel('Importance')
+        plt.show()
+
+
+class EnsembleTrainer:
+    """Ensemble model training utilities."""
+
+    @staticmethod
+    def create_ensemble(models: List[ModelTrainer],
+                       method: str = 'voting') -> 'EnsembleModel':
+        """Create ensemble from multiple trained models."""
+        return EnsembleModel(models, method)
+
+    @staticmethod
+    def train_multiple_models(X_train: Union[np.ndarray, pd.DataFrame],
+                            y_train: Union[np.ndarray, pd.Series],
+                            model_configs: List[Dict[str, Any]]) -> List[ModelTrainer]:
+        """Train multiple models with different configurations."""
+        trained_models = []
+
+        for config in model_configs:
+            model_class = config['model_class']
+            model_params = config.get('params', {})
+            model_name = config.get('name', f"{model_class.__name__}_model")
+
+            model = model_class(model_name)
+            model.train(X_train, y_train, **model_params)
+            trained_models.append(model)
+
+            logger.info(f"Trained {model_name}")
+
+        return trained_models
+
+
+class EnsembleModel:
+    """Ensemble model for combining predictions."""
+
+    def __init__(self, models: List[ModelTrainer], method: str = 'voting'):
+        self.models = models
+        self.method = method
+
+    def predict(self, X: Union[np.ndarray, pd.DataFrame]) -> np.ndarray:
+        """Make ensemble predictions."""
+        predictions = []
+
+        for model in self.models:
+            pred = model.predict(X)
+            predictions.append(pred)
+
+        predictions = np.array(predictions)
+
+        if self.method == 'voting':
+            # For classification: majority vote
+            return np.apply_along_axis(lambda x: np.bincount(x).argmax(), axis=0, arr=predictions.astype(int))
+        elif self.method == 'averaging':
+            # For regression: average predictions
+            return np.mean(predictions, axis=0)
+        else:
+            raise ValueError(f"Unknown ensemble method: {self.method}")
+
+
+class TQDMProgressBar:
+    """TQDM progress bar callback for Keras training."""
+
+    def __init__(self):
+        self.epoch_bar = None
+        self.current_epoch = 0
+        self.tqdm_available = False
+
+    def set_model(self, model):
+        """Set the model for the callback. Required by Keras."""
+        self.model = model
+
+    def on_train_batch_begin(self, batch, logs=None):
+        """Called at the beginning of each training batch."""
+        pass
+
+    def on_train_batch_end(self, batch, logs=None):
+        """Called at the end of each training batch."""
+        pass
+
+    def on_test_batch_begin(self, batch, logs=None):
+        """Called at the beginning of each test batch."""
+        pass
+
+    def on_test_batch_end(self, batch, logs=None):
+        """Called at the end of each test batch."""
+        pass
+
+    def on_predict_batch_begin(self, batch, logs=None):
+        """Called at the beginning of each prediction batch."""
+        pass
+
+    def on_predict_batch_end(self, batch, logs=None):
+        """Called at the end of each prediction batch."""
+        pass
+
+    def on_test_begin(self, logs=None):
+        """Called at the beginning of testing/evaluation."""
+        pass
+
+    def on_test_end(self, logs=None):
+        """Called at the end of testing/evaluation."""
+        pass
+
+    def on_predict_begin(self, logs=None):
+        """Called at the beginning of prediction."""
+        pass
+
+    def on_predict_end(self, logs=None):
+        """Called at the end of prediction."""
+        pass
+
+    def set_params(self, params):
+        """Set training parameters."""
+        self.params = params
+
+    def on_train_begin(self, logs=None):
+        """Called at the beginning of training."""
+        try:
+            from tqdm import tqdm
+            self.tqdm_available = True
+            logger.info("TQDM progress bars initialized")
+        except ImportError:
+            logger.warning("TQDM not available. Install with: pip install tqdm")
+            self.tqdm_available = False
+
+    def on_epoch_begin(self, epoch, logs=None):
+        """Called at the beginning of each epoch."""
+        if not self.tqdm_available:
+            return
+
+        from tqdm import tqdm
+        self.current_epoch = epoch
+
+        # Close previous bar if exists
+        if self.epoch_bar:
+            self.epoch_bar.close()
+
+        # Use more compatible TQDM settings
+        self.epoch_bar = tqdm(
+            total=self.params['steps'],
+            desc=f'Epoch {epoch+1}/{self.params["epochs"]}',
+            unit='batch',
+            leave=True,
+            position=0,
+            ncols=100,
+            disable=False,  # Ensure not disabled
+            file=sys.stdout  # Explicitly set output
+        )
+        logger.debug(f"Progress bar created for epoch {epoch+1}")
+
+    def on_batch_end(self, batch, logs=None):
+        """Called at the end of each batch."""
+        if not self.tqdm_available or self.epoch_bar is None:
+            return
+
+        # Update progress bar with metrics
+        metrics_str = ""
+        if logs:
+            metrics = []
+            for key, value in logs.items():
+                if key in ['loss', 'val_loss'] and isinstance(value, (int, float)):
+                    metrics.append(f"loss: {value:.4f}")
+            if metrics:
+                metrics_str = f" | {' | '.join(metrics)}"
+
+        self.epoch_bar.set_postfix_str(metrics_str)
+        self.epoch_bar.update(1)
+
+        # Debug logging for first few batches
+        if batch < 2:
+            logger.debug(f"Batch {batch} completed with metrics: {metrics_str}")
+
+    def on_epoch_end(self, epoch, logs=None):
+        """Called at the end of each epoch."""
+        if self.epoch_bar:
+            self.epoch_bar.close()
+            self.epoch_bar = None
+
+        # Log validation metrics if available
+        if logs and self.tqdm_available:
+            val_metrics = []
+            for key, value in logs.items():
+                if key.startswith('val_') and isinstance(value, (int, float)):
+                    clean_key = key.replace('val_class_output_', 'val_')
+                    if 'accuracy' in clean_key:
+                        val_metrics.append(f"{clean_key}: {value:.3f}")
+                    else:
+                        val_metrics.append(f"{clean_key}: {value:.4f}")
+            if val_metrics:
+                logger.info(f"Validation | {' | '.join(val_metrics)}")
+
+    def on_train_end(self, logs=None):
+        """Called at the end of training."""
+        if self.epoch_bar:
+            self.epoch_bar.close()
+            self.epoch_bar = None
+
+
+class EnhancedDataGenerator(tf.keras.utils.Sequence):
+    """Enhanced data generator that applies exact rotations and flips to augment data."""
+
+    def __init__(self, base_generator, exact_rotations: bool = True, **kwargs):
+        super().__init__(**kwargs)
+        self.base_generator = base_generator
+        self.exact_rotations = exact_rotations
+
+        # Calculate augmentation factor
+        self._augmentation_factor = 8 if exact_rotations else 1  # 4 rotations × 2 flips
+        self.batch_size = base_generator.batch_size
+
+        # Store original samples count
+        self._original_samples = base_generator.samples
+        self._original_batch_size = base_generator.batch_size
+
+    def _apply_exact_transformations(self, image):
+        """Apply exact 90, 180, 270 rotations and flips to an image."""
+        import numpy as np
+
+        transformations = []
+
+        # Original
+        transformations.append(image)
+
+        # Rotations
+        transformations.append(np.rot90(image, k=1, axes=(0, 1)))  # 90 degrees
+        transformations.append(np.rot90(image, k=2, axes=(0, 1)))  # 180 degrees
+        transformations.append(np.rot90(image, k=3, axes=(0, 1)))  # 270 degrees
+
+        # Horizontal flips of rotations
+        transformations.append(np.fliplr(np.rot90(image, k=1, axes=(0, 1))))  # 90 + horizontal flip
+        transformations.append(np.fliplr(np.rot90(image, k=2, axes=(0, 1))))  # 180 + horizontal flip
+        transformations.append(np.fliplr(np.rot90(image, k=3, axes=(0, 1))))  # 270 + horizontal flip
+
+        # Vertical flip of original
+        transformations.append(np.flipud(image))  # Vertical flip
+
+        return transformations
+
+    def __len__(self):
+        """Return the number of batches per epoch."""
+        if self.exact_rotations:
+            # Each original image becomes 8 augmented images
+            total_augmented_samples = self._original_samples * self._augmentation_factor
+            return total_augmented_samples // self.batch_size
+        else:
+            return self._original_samples // self.batch_size
+
+    def __getitem__(self, index):
+        """Generate one batch of data."""
+        import numpy as np
+        
+        if self.exact_rotations:
+            # Calculate which original batch and transformations to use
+            augmented_batch_size = self.batch_size
+            images_needed = augmented_batch_size
+
+            batch_x_list = []
+            batch_y_list = []
+
+            # Keep track of current position in the augmented sequence
+            current_augmented_index = index * augmented_batch_size
+
+            while len(batch_x_list) < augmented_batch_size:
+                # Map augmented index back to original batch index
+                orig_batch_index = (current_augmented_index // self._augmentation_factor) // self._original_batch_size
+                orig_image_index = (current_augmented_index // self._augmentation_factor) % self._original_batch_size
+                trans_index = current_augmented_index % self._augmentation_factor
+
+                # Get the original batch
+                try:
+                    orig_batch_x, orig_batch_y = self.base_generator[orig_batch_index % len(self.base_generator)]
+                except IndexError:
+                    # If we run out of data, reset and continue
+                    self.base_generator.reset()
+                    orig_batch_x, orig_batch_y = self.base_generator[0]
+
+                if orig_image_index < len(orig_batch_x):
+                    image = orig_batch_x[orig_image_index]
+                    label = orig_batch_y[orig_image_index]
+
+                    # Apply specific transformation
+                    if trans_index == 0:
+                        transformed_image = image  # Original
+                    elif trans_index == 1:
+                        transformed_image = np.rot90(image, k=1, axes=(0, 1))  # 90 degrees
+                    elif trans_index == 2:
+                        transformed_image = np.rot90(image, k=2, axes=(0, 1))  # 180 degrees
+                    elif trans_index == 3:
+                        transformed_image = np.rot90(image, k=3, axes=(0, 1))  # 270 degrees
+                    elif trans_index == 4:
+                        transformed_image = np.fliplr(np.rot90(image, k=1, axes=(0, 1)))  # 90 + horizontal flip
+                    elif trans_index == 5:
+                        transformed_image = np.fliplr(np.rot90(image, k=2, axes=(0, 1)))  # 180 + horizontal flip
+                    elif trans_index == 6:
+                        transformed_image = np.fliplr(np.rot90(image, k=3, axes=(0, 1)))  # 270 + horizontal flip
+                    elif trans_index == 7:
+                        transformed_image = np.flipud(image)  # Vertical flip
+
+                    batch_x_list.append(transformed_image)
+                    batch_y_list.append(label)
+
+                current_augmented_index += 1
+
+            # Convert to numpy arrays
+            import numpy as np
+            batch_x = np.array(batch_x_list[:augmented_batch_size])
+            batch_y = np.array(batch_y_list[:augmented_batch_size])
+
+            return batch_x, batch_y
+        else:
+            # Return original batch without augmentation
+            return self.base_generator[index]
+
+    @property
+    def samples(self):
+        """Return total number of samples (augmented)."""
+        return self._original_samples * self.augmentation_factor
+
+    @property
+    def num_classes(self):
+        """Return number of classes."""
+        return self.base_generator.num_classes
+
+    @property
+    def augmentation_factor(self):
+        """Return the augmentation factor."""
+        return self._augmentation_factor
+
+
+class CNNTrainer(ModelTrainer):
+    """CNN model trainer with support for transfer learning and feature extraction."""
+
+    def __init__(self, model_name: str = "cnn_model", architecture: str = "resnet50"):
+        super().__init__(model_name)
+        self.architecture = architecture.lower()
+        self.img_height = 224
+        self.img_width = 224
+        self.num_classes = None
+        self.feature_dim = 2000
+
+    def build_model(self, num_classes: int, feature_dim: int = 2000,
+                   freeze_base: bool = True, device: str = 'auto') -> 'CNNTrainer':
+        """Build CNN model with specified architecture."""
+        self.num_classes = num_classes
+        self.feature_dim = feature_dim
+        self.device = device
+
+        try:
+            import tensorflow as tf
+            # Disable TensorFlow warnings and set up session properly
+            tf.get_logger().setLevel('ERROR')
+            # Note: Removed GPU reset to allow MPS detection
+
+            from tensorflow.keras.applications import ResNet50, VGG16, EfficientNetB0
+            from tensorflow.keras.layers import GlobalAveragePooling2D, Dense, Dropout
+            from tensorflow.keras.models import Model
+            from tensorflow.keras.optimizers import Adam
+
+            # Configure device based on user preference
+            import platform
+            system = platform.system()
+
+            if self.device == 'cpu':
+                tf.config.set_visible_devices([], 'GPU')
+                tf.config.set_visible_devices([], 'MPS')  # Also disable MPS
+                logger.info("Forcing CPU usage")
+            elif self.device == 'mps' and system == 'Darwin':
+                mps_devices = tf.config.list_physical_devices('MPS')
+                gpu_devices = tf.config.list_physical_devices('GPU')
+                if mps_devices:
+                    tf.config.set_visible_devices(mps_devices, 'MPS')
+                    logger.info("MPS acceleration enabled for macOS")
+                elif gpu_devices:
+                    tf.config.set_visible_devices(gpu_devices, 'GPU')
+                    for gpu in gpu_devices:
+                        try:
+                            tf.config.experimental.set_memory_growth(gpu, True)
+                        except Exception:  # Memory growth unsupported on some Metal builds
+                            logger.debug("Memory growth not supported for device %s", getattr(gpu, 'name', 'unknown'))
+                    logger.info("Using Apple GPU via Metal backend (GPU device type)")
+                else:
+                    logger.warning("MPS requested but not available, falling back to CPU")
+                    tf.config.set_visible_devices([], 'GPU')
+            elif self.device == 'gpu':
+                gpus = tf.config.experimental.list_physical_devices('GPU')
+                if gpus:
+                    for gpu in gpus:
+                        tf.config.experimental.set_memory_growth(gpu, True)
+                    logger.info(f"Using GPU: {gpus}")
+                else:
+                    logger.warning("GPU requested but not available, using CPU")
+            else:  # auto
+                if system == 'Darwin':
+                    mps_devices = tf.config.list_physical_devices('MPS')
+                    gpu_devices = tf.config.list_physical_devices('GPU')
+                    if mps_devices:
+                        tf.config.set_visible_devices(mps_devices, 'MPS')
+                        logger.info("Auto-detected MPS on macOS")
+                    elif gpu_devices:
+                        tf.config.set_visible_devices(gpu_devices, 'GPU')
+                        for gpu in gpu_devices:
+                            try:
+                                tf.config.experimental.set_memory_growth(gpu, True)
+                            except Exception:
+                                logger.debug("Memory growth not supported for device %s", getattr(gpu, 'name', 'unknown'))
+                        logger.info("Auto-detected Apple GPU via Metal backend")
+                    else:
+                        logger.info("MPS/GPU not detected on macOS, using CPU")
+                else:
+                    gpus = tf.config.experimental.list_physical_devices('GPU')
+                    if gpus:
+                        for gpu in gpus:
+                            tf.config.experimental.set_memory_growth(gpu, True)
+                        logger.info(f"Auto-detected GPU: {gpus}")
+                    else:
+                        logger.info("Auto-detected CPU usage")
+
+        except ImportError:
+            raise ImportError("TensorFlow/Keras not available. Install with: pip install tensorflow")
+
+        # Select base model
+        if self.architecture == "resnet50":
+            base_model = ResNet50(
+                weights='imagenet',
+                include_top=False,
+                input_shape=(self.img_height, self.img_width, 3)
+            )
+        elif self.architecture == "vgg16":
+            base_model = VGG16(
+                weights='imagenet',
+                include_top=False,
+                input_shape=(self.img_height, self.img_width, 3)
+            )
+        elif self.architecture == "efficientnet":
+            base_model = EfficientNetB0(
+                weights='imagenet',
+                include_top=False,
+                input_shape=(self.img_height, self.img_width, 3)
+            )
+        else:
+            raise ValueError(f"Unsupported architecture: {self.architecture}")
+
+        # Freeze base model layers
+        if freeze_base:
+            base_model.trainable = False
+
+        # Build model with classification output
+        inputs = base_model.input
+        x = base_model(inputs, training=False)
+        x = GlobalAveragePooling2D()(x)
+
+        # Feature layer - 2000 dimensional vectors for similarity search
+        feature_layer = Dense(feature_dim, activation="relu", name="feature_layer")(x)
+
+        # Classification output
+        class_output = Dense(num_classes, activation="softmax", name="class_output")(feature_layer)
+
+        # Model with classification output
+        self.model = Model(inputs=inputs, outputs=class_output)
+
+        # Store feature model for extraction (outputs features before classification)
+        self.feature_model = Model(inputs=inputs, outputs=feature_layer)
+
+        # Compile model for classification training
+        self.model.compile(
+            optimizer=Adam(learning_rate=0.001),
+            loss="categorical_crossentropy",
+            metrics=["accuracy"]
+        )
+
+        logger.info(f"Built {self.architecture} model with {num_classes} classes and {feature_dim}-dimensional feature vectors")
+        return self
+
+    def create_data_generators(self, train_dir: str, validation_split: float = 0.2,
+                              batch_size: int = 32, augment: bool = True, exact_rotations: bool = True):
+        """Create training and validation data generators with enhanced augmentation."""
+        try:
+            from tensorflow.keras.preprocessing.image import ImageDataGenerator
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        if augment:
+            # Enhanced augmentation with exact rotations and flips
+            train_datagen = ImageDataGenerator(
+                rescale=1.0/255,
+                rotation_range=40,  # Random rotations up to 40 degrees
+                width_shift_range=0.2,
+                height_shift_range=0.2,
+                horizontal_flip=True,
+                vertical_flip=True,  # Add vertical flipping
+                fill_mode="nearest",
+                validation_split=validation_split
+            )
+        else:
+            train_datagen = ImageDataGenerator(
+                rescale=1.0/255,
+                validation_split=validation_split
+            )
+
+        train_generator = train_datagen.flow_from_directory(
+            train_dir,
+            target_size=(self.img_height, self.img_width),
+            batch_size=batch_size,
+            class_mode="categorical",
+            subset="training",
+            shuffle=True
+        )
+
+        val_generator = train_datagen.flow_from_directory(
+            train_dir,
+            target_size=(self.img_height, self.img_width),
+            batch_size=batch_size,
+            class_mode="categorical",
+            subset="validation",
+            shuffle=False
+        )
+
+        # If augmentation is enabled, create enhanced generators with exact transformations
+        if augment:
+            train_generator = self.create_enhanced_generator(train_generator, exact_rotations=True)
+            # Note: Validation generator keeps original augmentation for consistency
+
+        return train_generator, val_generator
+
+    def create_enhanced_generator(self, base_generator, exact_rotations: bool = True):
+        """Create enhanced generator with exact rotations and flips."""
+        return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations)
+
+    def custom_generator(self, generator):
+        """Convert generator to work with feature extraction model."""
+        for batch_x, batch_y in generator:
+            # For feature extraction, we use the class labels as targets for contrastive learning
+            # This helps the model learn to distinguish between different wound types
+            yield batch_x, batch_y
+
+    def train(self, train_generator, val_generator=None, epochs: int = 20,
+              callbacks: List = None, progress_bar: bool = True, **kwargs):
+        """Train the feature extraction model."""
+        if self.model is None:
+            raise ValueError("Model must be built before training. Call build_model() first.")
+
+        # Default callbacks - simplified for feature extraction
+        if callbacks is None:
+            try:
+                from tensorflow.keras.callbacks import ModelCheckpoint
+                callbacks = []
+                if progress_bar:
+                    tqdm_callback = TQDMProgressBar()
+                    callbacks.append(tqdm_callback)
+                    logger.info("TQDM progress bar callback added")
+                else:
+                    logger.info("Progress bars disabled")
+                callbacks.extend([
+                    ModelCheckpoint(f'{self.model_name}_best.keras', save_best_only=True)
+                ])
+                logger.info(f"Total callbacks configured: {len(callbacks)}")
+            except ImportError:
+                callbacks = []
+
+        # Calculate steps
+        steps_per_epoch = train_generator.samples // train_generator.batch_size
+        validation_steps = val_generator.samples // val_generator.batch_size if val_generator else None
+
+        # Train model
+        history = self.model.fit(
+            train_generator,
+            epochs=epochs,
+            steps_per_epoch=steps_per_epoch,
+            validation_data=val_generator,
+            validation_steps=validation_steps,
+            callbacks=callbacks,
+            **kwargs
+        )
+
+        self.is_trained = True
+        self.training_history = history.history
+
+        logger.info(f"Feature extraction training completed. Model ready for vector similarity search.")
+        return history
+
+    def extract_features(self, image_path: str) -> np.ndarray:
+        """Extract feature vector from a single image."""
+        try:
+            from tensorflow.keras.preprocessing.image import load_img, img_to_array
+            from tensorflow.keras.models import Model
+            from tensorflow.keras.layers import Dense
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        if not self.is_trained:
+            raise ValueError("Model must be trained before feature extraction")
+
+        # Load and preprocess image
+        img = load_img(image_path, target_size=(self.img_height, self.img_width))
+        img_array = img_to_array(img) / 255.0
+        img_array = np.expand_dims(img_array, axis=0)
+
+        # Get GAP output (input to feature layer)
+        gap_layer = self.model.get_layer('global_average_pooling2d')
+        gap_model = Model(inputs=self.model.input, outputs=gap_layer.output)
+        gap_output = gap_model.predict(img_array)
+
+        # Get feature layer weights
+        feature_layer = self.model.get_layer('feature_layer')
+        kernel, bias = feature_layer.get_weights()
+
+        # Compute pre-activation features (before ReLU)
+        pre_activation = np.dot(gap_output, kernel) + bias
+
+        # Return the 2000-dimensional feature vector
+        return pre_activation[0]
+
+    def predict_image(self, image_path: str) -> Tuple[int, np.ndarray]:
+        """Predict class and extract features from an image."""
+        try:
+            from tensorflow.keras.preprocessing.image import load_img, img_to_array
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        if not self.is_trained:
+            raise ValueError("Model must be trained before prediction")
+
+        # Load and preprocess image
+        img = load_img(image_path, target_size=(self.img_height, self.img_width))
+        img_array = img_to_array(img) / 255.0
+        img_array = np.expand_dims(img_array, axis=0)
+
+        # Get predictions
+        predictions = self.model.predict(img_array)
+        class_probs = predictions[0][0]
+        feature_vector = predictions[1][0]
+
+        predicted_class = np.argmax(class_probs)
+
+        return predicted_class, feature_vector
+
+    def fine_tune(self, train_generator, val_generator=None, epochs: int = 10,
+                  unfreeze_layers: int = 10, learning_rate: float = 1e-5):
+        """Fine-tune the model by unfreezing some base layers."""
+        if not self.is_trained:
+            raise ValueError("Model must be trained before fine-tuning")
+
+        try:
+            from tensorflow.keras.optimizers import Adam
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        # Unfreeze base model layers for fine-tuning
+        self.model.layers[1].trainable = True  # Base model is typically at index 1
+
+        # Unfreeze the last N layers
+        base_model = self.model.layers[1]
+        for layer in base_model.layers[-unfreeze_layers:]:
+            layer.trainable = True
+
+        # Recompile with lower learning rate
+        self.model.compile(
+            optimizer=Adam(learning_rate=learning_rate),
+            loss={
+                "class_output": "categorical_crossentropy",
+                "feature_output": "mean_squared_error"
+            },
+            metrics={"class_output": "accuracy"}
+        )
+
+        logger.info(f"Fine-tuning with {unfreeze_layers} unfrozen layers and lr={learning_rate}")
+
+        # Train with fine-tuning
+        return self.train(train_generator, val_generator, epochs=epochs)
+
+    def load_model(self, filepath: Union[str, Path]):
+        """Load model from disk and setup feature model."""
+        super().load_model(filepath)
+        # Recreate feature model for feature extraction
+        try:
+            from tensorflow.keras.models import Model
+            self.feature_model = Model(inputs=self.model.input, outputs=self.model.get_layer('feature_layer').output)
+            logger.info("Feature model recreated for extraction")
+        except Exception as e:
+            logger.warning(f"Could not recreate feature model: {e}")
+            self.feature_model = None
+
+
+def create_cnn_trainer(architecture: str = "resnet50", model_name: str = "cnn_model") -> CNNTrainer:
+    """Factory function for CNN trainer."""
+    return CNNTrainer(model_name=model_name, architecture=architecture)
+
+
+def train_cnn_model(train_dir: str, num_classes: int, architecture: str = "resnet50",
+                   epochs: int = 20, batch_size: int = 32, feature_dim: int = 2000,
+                   validation_split: float = 0.2, model_name: str = "cnn_model") -> CNNTrainer:
+    """Convenience function to train a CNN model end-to-end."""
+
+    # Create trainer
+    trainer = CNNTrainer(model_name=model_name, architecture=architecture)
+
+    # Build model
+    trainer.build_model(num_classes=num_classes, feature_dim=feature_dim)
+
+    # Create data generators
+    train_gen, val_gen = trainer.create_data_generators(
+        train_dir=train_dir,
+        validation_split=validation_split,
+        batch_size=batch_size
+    )
+
+    # Train model
+    history = trainer.train(train_gen, val_gen, epochs=epochs)
+
+    return trainer
+
+
+def cross_validate_model(model_class: Callable,
+                        X: Union[np.ndarray, pd.DataFrame],
+                        y: Union[np.ndarray, pd.Series],
+                        cv_folds: int = 5,
+                        **model_params) -> Dict[str, List[float]]:
+    """Perform cross-validation on a model."""
+    from sklearn.model_selection import cross_validate
+    from sklearn.metrics import make_scorer
+
+    model = model_class(**model_params)
+
+    # Define scoring metrics
+    scoring = {
+        'accuracy': 'accuracy',
+        'precision': 'precision_weighted',
+        'recall': 'recall_weighted',
+        'f1': 'f1_weighted'
+    }
+
+    try:
+        scores = cross_validate(model, X, y, cv=cv_folds, scoring=scoring)
+        return {metric: scores[f'test_{metric}'].tolist() for metric in scoring.keys()}
+    except Exception as e:
+        logger.error(f"Cross-validation failed: {e}")
+        return {}
+
+
+def save_model_metrics(metrics: Dict[str, Any], filepath: Union[str, Path]):
+    """Save model metrics to JSON file."""
+    filepath = Path(filepath)
+    filepath.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(filepath, 'w') as f:
+        json.dump(metrics, f, indent=2, default=str)
+
+    logger.info(f"Metrics saved to {filepath}")
+
+
+def load_model_metrics(filepath: Union[str, Path]) -> Dict[str, Any]:
+    """Load model metrics from JSON file."""
+    with open(filepath, 'r') as f:
+        return json.load(f)

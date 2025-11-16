@@ -1,0 +1,10 @@
+tensorflow
+tqdm
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+pillow
+joblib
+pyyaml
