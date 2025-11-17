@@ -155,7 +155,78 @@ Training parameters can be customized via `training_config.json`:
 }
 ```
 
-## 🔧 Development
+## � Similarity Search
+
+The platform includes advanced image similarity search capabilities powered by PostgreSQL with pgvector extension, providing MongoDB Atlas Search-like functionality.
+
+### Features
+
+- **1024-Dimensional Feature Vectors**: Optimized feature extraction from ResNet50 GAP layer with Dense reduction
+- **Cosine Similarity Search**: Efficient vector similarity using pgvector exact search
+- **Class-Based Analysis**: Average similarity scores grouped by wound class
+- **Real-time Search**: Instant similarity search with numerical scores (no "nan" values)
+- **Database Integration**: Seamless integration with PostgreSQL vector database
+- **Dual Output Model**: Single forward pass returns both class predictions and feature vectors (like Flask app)
+
+### How It Works
+
+1. **Dual Output Prediction**: Single model forward pass extracts both class probabilities and 1024-dimensional feature vectors
+2. **Feature Extraction**: ResNet50 backbone with GAP pooling and Dense reduction to 1024 dimensions
+3. **Vector Storage**: Features stored in PostgreSQL with pgvector extension for efficient similarity search
+4. **Similarity Search**: Cosine similarity comparison between query image and database vectors
+5. **Class Analysis**: Results grouped by wound type with average similarity scores
+
+### Usage
+
+```python
+# Dual output prediction (like Flask app)
+from core.model_utils import CNNTrainer
+
+trainer = CNNTrainer()
+trainer.load_model('wound_classifier_best.keras')
+
+# Single forward pass returns both class and features
+result = trainer.predict_dual('wound_image.jpg')
+print(f"Class probabilities: {result['class']}")  # Shape: (10,)
+print(f"Feature vector: {result['feature']}")     # Shape: (1024,)
+
+# Similarity search with automatic class prediction
+from core.image_similarity import create_similarity_search
+
+search = create_similarity_search(
+    model_path='models/resnet50/wound_classifier_best.keras',
+    config_path='training_config.json',
+    table_name='images_features'
+)
+
+results = search.get_similar_images_with_class_analysis(
+    query_image_path='query_wound.jpg',
+    top_k=5
+)
+```
+
+### Database Schema
+
+```sql
+CREATE TABLE images_features (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    model_name VARCHAR(50),
+    label VARCHAR(100),
+    augmentation VARCHAR(50),
+    original_image VARCHAR(255),
+    embedding VECTOR(1024)
+);
+```
+
+### Performance
+
+- **Vector Dimension**: 1024 (optimized for pgvector HNSW compatibility)
+- **Database Size**: 9,186+ vectors with augmentations
+- **Search Speed**: Sub-second similarity search
+- **Accuracy**: Numerical similarity scores with proper L2 normalization
+
+## �🔧 Development
 
 ### Project Structure
 

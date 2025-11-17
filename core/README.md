@@ -27,8 +27,8 @@ db = get_db_connection()
 # Create vector store
 store = get_vector_store(db)
 
-# Create table for 2000-dimensional vectors
-store.create_vector_table("documents", vector_dim=2000)
+# Create table for 1024-dimensional vectors
+store.create_vector_table("documents", vector_dim=1024)
 
 # Insert vectors
 vectors = [("doc1", embedding1, {"title": "Doc 1"}), ...]
@@ -96,7 +96,7 @@ from core.model_utils import CNNTrainer, train_cnn_model
 
 # Method 1: Step-by-step training
 trainer = CNNTrainer(architecture="resnet50", model_name="wound_classifier")
-trainer.build_model(num_classes=10, feature_dim=2000)
+trainer.build_model(num_classes=10, feature_dim=1024)
 train_gen, val_gen = trainer.create_data_generators("data/train", batch_size=32)
 history = trainer.train(train_gen, val_gen, epochs=20)
 

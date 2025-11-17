@@ -49,7 +49,7 @@ python train_model.py --fine_tune --fine_tune_epochs 10 --unfreeze_layers 30
 ### Model Options
 - `--architecture`: CNN architecture (`resnet50`, `vgg16`, `efficientnet`)
 - `--model_name`: Name for the trained model
-- `--feature_dim`: Dimension of feature vectors (default: 2000)
+- `--feature_dim`: Dimension of feature vectors (default: 1024)
 
 ### Training Options
 - `--epochs`: Number of training epochs (default: 20)

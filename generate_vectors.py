@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate 2000 feature vectors from ResNet50 model including augmentations and store in database.
-Note: Using 2000-dimensional GAP features instead of 2000-dimensional trained features.
+Generate 1024 feature vectors from ResNet50 model including augmentations and store in database.
+Note: Using 1024-dimensional reduced features from GAP layer.
 """
 
 import os
@@ -119,6 +119,14 @@ def generate_vectors_for_class(trainer: CNNTrainer, class_name: str, image_paths
                     img_array = augment_image(image_path, aug_type)
                     features = extract_features_from_array(trainer, img_array)
 
+                # Normalize the feature vector for proper cosine similarity
+                norm = np.linalg.norm(features)
+                if norm > 0:
+                    features = features / norm
+                else:
+                    logger.warning(f"Zero norm feature vector for {image_path}, using zeros")
+                    features = np.zeros_like(features)
+
                 content = f"ResNet50_{class_name}_{aug_type}_{Path(image_path).name}"
                 model_name = 'resnet50'
                 label = class_name
@@ -136,11 +144,11 @@ def generate_vectors_for_class(trainer: CNNTrainer, class_name: str, image_paths
 def main():
     """Main function to generate and store vectors."""
     # Configuration
-    model_path = './models/resnet50/wound_classifier.pkl'
+    model_path = './wound_classifier_best.keras'
     dataset_dir = './files/train_dataset'
     table_name = 'images_features'
     target_vectors_per_class = 200
-    total_target = 2000
+    total_target = 1024
 
     logger.info("Starting vector generation for ResNet50 model")
     logger.info(f"Model path: {model_path}")
@@ -175,7 +183,7 @@ def main():
         except Exception as e:
             logger.warning(f"Could not drop table {table_name}: {e}")
         
-        vector_store.create_vector_table(table_name, vector_dim=2000)
+        vector_store.create_vector_table(table_name, vector_dim=1024)
 
         # Generate vectors for each class - ALL images with ALL augmentations
         all_vectors_data = []

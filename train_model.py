@@ -64,7 +64,7 @@ def parse_arguments():
                        help='Initial learning rate')
     parser.add_argument('--validation_split', type=float, default=0.2,
                        help='Fraction of data to use for validation')
-    parser.add_argument('--feature_dim', type=int, default=2000,
+    parser.add_argument('--feature_dim', type=int, default=1024,
                        help='Dimension of feature vectors for vector search')
 
     # Training options

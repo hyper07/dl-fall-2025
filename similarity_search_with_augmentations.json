@@ -9698,7 +9698,7 @@
         "original_image": "36_0.jpg",
         "class": "Diabetic Wounds",
         "augmentation": "original",
-        "similarity_score": 0.9996992000130996,
+        "similarity_score": 0.9996991024130996,
         "db_id": 6499
       },
       {
@@ -10442,7 +10442,7 @@
         "original_image": "45_0.jpg",
         "class": "Pressure Wounds",
         "augmentation": "original",
-        "similarity_score": 0.9996904200003238,
+        "similarity_score": 0.9996904102403238,
         "db_id": 1147
       },
       {
@@ -11195,7 +11195,7 @@
         "class": "Surgical Wounds",
         "augmentation": "rotate_90",
         "similarity_score": 0.9989037207172137,
-        "db_id": 2000
+        "db_id": 1024
       },
       {
         "rank": 5,

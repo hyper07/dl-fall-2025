@@ -1,0 +1,280 @@
+2025-11-16 17:36:57,636 - INFO - Logging setup with level INFO
+2025-11-16 17:36:57,636 - INFO - Application initialized
+2025-11-16 17:36:57,636 - INFO - Database: dl-postgres:5432
+2025-11-16 17:36:57,636 - INFO - Vector dimension: 1024
+2025-11-16 17:36:57,636 - INFO - Upload directory: /tmp/uploads
+2025-11-16 17:36:57,636 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 17:36:57,636 - INFO - Starting manual CNN training
+2025-11-16 17:36:57,636 - INFO - Architecture: resnet50
+2025-11-16 17:36:57,636 - INFO - Dataset: ./static/train_dataset
+2025-11-16 17:36:57,636 - INFO - Epochs: 10
+2025-11-16 17:36:57,636 - INFO - Batch size: 16
+2025-11-16 17:36:57,637 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 17:36:57,642 - INFO - Total images: 1531
+2025-11-16 17:36:57,643 - INFO -   Abrasions: 82 images
+2025-11-16 17:36:57,643 - INFO -   Diabetic Wounds: 231 images
+2025-11-16 17:36:57,643 - INFO -   Surgical Wounds: 210 images
+2025-11-16 17:36:57,643 - INFO -   Bruises: 121 images
+2025-11-16 17:36:57,643 - INFO -   Cut: 50 images
+2025-11-16 17:36:57,643 - INFO -   Venous Wounds: 247 images
+2025-11-16 17:36:57,643 - INFO -   Normal: 100 images
+2025-11-16 17:36:57,643 - INFO -   Pressure Wounds: 301 images
+2025-11-16 17:36:57,643 - INFO -   Laseration: 122 images
+2025-11-16 17:36:57,643 - INFO -   Burns: 67 images
+2025-11-16 17:36:57,643 - INFO - Created output directory: models/resnet50
+2025-11-16 17:36:57,643 - INFO - Building CNN model...
+2025-11-16 17:36:57,644 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-11-16 17:36:58,364 - INFO - Built resnet50 model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 17:36:58,364 - INFO - Creating data generators...
+2025-11-16 17:36:58,365 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 17:36:58,440 - INFO - Training samples: 9816
+2025-11-16 17:36:58,440 - INFO - Validation samples: 304
+2025-11-16 17:36:58,440 - INFO - Effective training samples with augmentation: 9816 (factor: 8x)
+2025-11-16 17:36:58,440 - INFO - Starting training...
+2025-11-16 17:36:58,440 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 17:36:58,441 - INFO - TQDM progress bar callback added
+2025-11-16 17:36:58,441 - INFO - Total callbacks configured: 2
+2025-11-16 17:37:00,726 - INFO - TQDM progress bars initialized
+2025-11-16 17:48:35,874 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.1576 | val_feature_output_loss: 0.0129 | val_loss: 2.1705
+2025-11-16 17:48:41,033 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.1954 | val_feature_output_loss: 0.0129 | val_loss: 2.2082
+2025-11-16 17:48:46,300 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.2419 | val_feature_output_loss: 0.0126 | val_loss: 2.2545
+2025-11-16 17:48:51,502 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.2381 | val_feature_output_loss: 0.0114 | val_loss: 2.2495
+2025-11-16 17:48:56,829 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.2307 | val_feature_output_loss: 0.0098 | val_loss: 2.2406
+2025-11-16 17:49:02,348 - INFO - Validation | val_accuracy: 0.197 | val_loss: 2.2282 | val_feature_output_loss: 0.0081 | val_loss: 2.2363
+2025-11-16 17:49:07,594 - INFO - Validation | val_accuracy: 0.181 | val_loss: 2.2348 | val_feature_output_loss: 0.0065 | val_loss: 2.2412
+2025-11-16 17:49:12,807 - INFO - Validation | val_accuracy: 0.128 | val_loss: 2.2465 | val_feature_output_loss: 0.0051 | val_loss: 2.2516
+2025-11-16 17:49:18,082 - INFO - Validation | val_accuracy: 0.092 | val_loss: 2.2532 | val_feature_output_loss: 0.0042 | val_loss: 2.2573
+2025-11-16 17:49:23,273 - INFO - Validation | val_accuracy: 0.092 | val_loss: 2.2557 | val_feature_output_loss: 0.0035 | val_loss: 2.2593
+2025-11-16 17:49:23,274 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-11-16 17:49:23,597 - INFO - Model saved to models/resnet50/wound_classifier.pkl
+2025-11-16 17:49:23,600 - INFO - Model saved to models/resnet50/wound_classifier.pkl
+2025-11-16 17:49:23,600 - INFO - Training summary saved to models/resnet50/training_summary.json
+2025-11-16 17:49:23,601 - INFO - Testing feature extraction...
+2025-11-16 17:49:23,601 - INFO - Loading image: static/train_dataset/Abrasions/abrasions (57).jpg
+2025-11-16 17:49:23,610 - INFO - Image loaded and preprocessed. Shape: (1, 224, 224, 3)
+2025-11-16 17:49:24,267 - INFO - Feature extraction completed. Feature vector shape: (1024,)
+2025-11-16 17:49:24,267 - INFO - Feature extraction successful. Feature shape: (1024,)
+2025-11-16 17:49:24,267 - INFO - Sample features (first 5): [0. 0. 0. 0. 0.]
+2025-11-16 17:49:24,267 - INFO - Training completed successfully!
+2025-11-16 17:49:24,267 - INFO - Model saved in: models/resnet50
+2025-11-16 17:49:24,267 - INFO - Training logs saved in: training.log
+2025-11-16 18:45:29,912 - INFO - Logging setup with level INFO
+2025-11-16 18:45:29,912 - INFO - Application initialized
+2025-11-16 18:45:29,912 - INFO - Database: dl-postgres:5432
+2025-11-16 18:45:29,912 - INFO - Vector dimension: 1024
+2025-11-16 18:45:29,912 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:45:29,912 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:45:29,912 - INFO - Starting manual CNN training
+2025-11-16 18:45:29,912 - INFO - Architecture: resnet50
+2025-11-16 18:45:29,913 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:45:29,913 - INFO - Epochs: 30
+2025-11-16 18:45:29,913 - INFO - Batch size: 16
+2025-11-16 18:45:29,913 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:45:30,020 - INFO - Total images: 13779
+2025-11-16 18:45:30,020 - INFO -   Abrasions: 738 images
+2025-11-16 18:45:30,020 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:45:30,020 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:45:30,020 - INFO -   Bruises: 1089 images
+2025-11-16 18:45:30,020 - INFO -   Cut: 450 images
+2025-11-16 18:45:30,020 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:45:30,020 - INFO -   Normal: 900 images
+2025-11-16 18:45:30,020 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:45:30,020 - INFO -   Laseration: 1098 images
+2025-11-16 18:45:30,020 - INFO -   Burns: 603 images
+2025-11-16 18:45:30,020 - INFO - Created output directory: models/resnet50
+2025-11-16 18:45:30,020 - INFO - Building CNN model...
+2025-11-16 18:45:30,024 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-11-16 18:45:30,710 - INFO - Built resnet50 model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:45:30,710 - INFO - Creating data generators...
+2025-11-16 18:45:30,710 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:45:31,223 - INFO - Training samples: 88224
+2025-11-16 18:45:31,223 - INFO - Validation samples: 2751
+2025-11-16 18:45:31,223 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:45:31,223 - INFO - Starting training...
+2025-11-16 18:45:31,223 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:45:31,224 - INFO - TQDM progress bar callback added
+2025-11-16 18:45:31,224 - INFO - Total callbacks configured: 2
+2025-11-16 18:46:28,438 - INFO - Logging setup with level INFO
+2025-11-16 18:46:28,438 - INFO - Application initialized
+2025-11-16 18:46:28,438 - INFO - Database: dl-postgres:5432
+2025-11-16 18:46:28,438 - INFO - Vector dimension: 1024
+2025-11-16 18:46:28,438 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:46:28,438 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:46:28,438 - INFO - Starting manual CNN training
+2025-11-16 18:46:28,438 - INFO - Architecture: resnet50
+2025-11-16 18:46:28,438 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:46:28,438 - INFO - Epochs: 30
+2025-11-16 18:46:28,438 - INFO - Batch size: 64
+2025-11-16 18:46:28,439 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:46:28,551 - INFO - Total images: 13779
+2025-11-16 18:46:28,551 - INFO -   Abrasions: 738 images
+2025-11-16 18:46:28,551 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:46:28,551 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:46:28,551 - INFO -   Bruises: 1089 images
+2025-11-16 18:46:28,551 - INFO -   Cut: 450 images
+2025-11-16 18:46:28,551 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:46:28,551 - INFO -   Normal: 900 images
+2025-11-16 18:46:28,551 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:46:28,551 - INFO -   Laseration: 1098 images
+2025-11-16 18:46:28,551 - INFO -   Burns: 603 images
+2025-11-16 18:46:28,551 - INFO - Created output directory: models/resnet50
+2025-11-16 18:46:28,551 - INFO - Building CNN model...
+2025-11-16 18:46:28,553 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-11-16 18:46:29,162 - INFO - Built resnet50 model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:46:29,162 - INFO - Creating data generators...
+2025-11-16 18:46:29,162 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:46:29,644 - INFO - Training samples: 88224
+2025-11-16 18:46:29,644 - INFO - Validation samples: 2751
+2025-11-16 18:46:29,644 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:46:29,644 - INFO - Starting training...
+2025-11-16 18:46:29,644 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:46:29,645 - INFO - TQDM progress bar callback added
+2025-11-16 18:46:29,646 - INFO - Total callbacks configured: 2
+2025-11-16 18:48:01,838 - INFO - Logging setup with level INFO
+2025-11-16 18:48:01,839 - INFO - Application initialized
+2025-11-16 18:48:01,839 - INFO - Database: dl-postgres:5432
+2025-11-16 18:48:01,839 - INFO - Vector dimension: 1024
+2025-11-16 18:48:01,839 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:48:01,839 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:48:01,839 - INFO - Starting manual CNN training
+2025-11-16 18:48:01,839 - INFO - Architecture: resnet50
+2025-11-16 18:48:01,839 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:48:01,839 - INFO - Epochs: 30
+2025-11-16 18:48:01,839 - INFO - Batch size: 64
+2025-11-16 18:48:01,839 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:48:01,943 - INFO - Total images: 13779
+2025-11-16 18:48:01,943 - INFO -   Abrasions: 738 images
+2025-11-16 18:48:01,943 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:48:01,943 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:48:01,943 - INFO -   Bruises: 1089 images
+2025-11-16 18:48:01,943 - INFO -   Cut: 450 images
+2025-11-16 18:48:01,943 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:48:01,943 - INFO -   Normal: 900 images
+2025-11-16 18:48:01,943 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:48:01,943 - INFO -   Laseration: 1098 images
+2025-11-16 18:48:01,943 - INFO -   Burns: 603 images
+2025-11-16 18:48:01,944 - INFO - Created output directory: models/resnet50
+2025-11-16 18:48:01,944 - INFO - Building CNN model...
+2025-11-16 18:48:01,946 - INFO - Using Apple GPU via Metal backend (GPU device type)
+2025-11-16 18:48:03,269 - INFO - Built resnet50 model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:48:03,269 - INFO - Creating data generators...
+2025-11-16 18:48:03,269 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:48:03,762 - INFO - Training samples: 88224
+2025-11-16 18:48:03,763 - INFO - Validation samples: 2751
+2025-11-16 18:48:03,763 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:48:03,763 - INFO - Starting training...
+2025-11-16 18:48:03,763 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:48:03,764 - INFO - TQDM progress bar callback added
+2025-11-16 18:48:03,765 - INFO - Total callbacks configured: 2
+2025-11-16 18:48:38,287 - INFO - TQDM progress bars initialized
+2025-11-16 18:52:58,570 - INFO - Logging setup with level INFO
+2025-11-16 18:52:58,570 - INFO - Application initialized
+2025-11-16 18:52:58,570 - INFO - Database: dl-postgres:5432
+2025-11-16 18:52:58,570 - INFO - Vector dimension: 1024
+2025-11-16 18:52:58,570 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:52:58,570 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:52:58,570 - INFO - Starting manual CNN training
+2025-11-16 18:52:58,570 - INFO - Architecture: resnet50
+2025-11-16 18:52:58,570 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:52:58,570 - INFO - Epochs: 30
+2025-11-16 18:52:58,570 - INFO - Batch size: 16
+2025-11-16 18:52:58,571 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:52:58,704 - INFO - Total images: 13779
+2025-11-16 18:52:58,704 - INFO -   Abrasions: 738 images
+2025-11-16 18:52:58,704 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:52:58,704 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:52:58,704 - INFO -   Bruises: 1089 images
+2025-11-16 18:52:58,705 - INFO -   Cut: 450 images
+2025-11-16 18:52:58,705 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:52:58,705 - INFO -   Normal: 900 images
+2025-11-16 18:52:58,705 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:52:58,705 - INFO -   Laseration: 1098 images
+2025-11-16 18:52:58,705 - INFO -   Burns: 603 images
+2025-11-16 18:52:58,705 - INFO - Created output directory: models/resnet50
+2025-11-16 18:52:58,705 - INFO - Building CNN model...
+2025-11-16 18:52:58,707 - INFO - Using Apple GPU via Metal backend (GPU device type)
+2025-11-16 18:52:59,851 - INFO - Built resnet50 model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:52:59,851 - INFO - Creating data generators...
+2025-11-16 18:52:59,851 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:53:00,339 - INFO - Training samples: 88224
+2025-11-16 18:53:00,339 - INFO - Validation samples: 2751
+2025-11-16 18:53:00,339 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:53:00,339 - INFO - Starting training...
+2025-11-16 18:53:00,339 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:53:00,340 - INFO - TQDM progress bar callback added
+2025-11-16 18:53:00,340 - INFO - Total callbacks configured: 2
+2025-11-16 18:53:02,547 - INFO - TQDM progress bars initialized
+2025-11-16 18:54:27,062 - INFO - Logging setup with level INFO
+2025-11-16 18:54:27,062 - INFO - Application initialized
+2025-11-16 18:54:27,062 - INFO - Database: dl-postgres:5432
+2025-11-16 18:54:27,062 - INFO - Vector dimension: 1024
+2025-11-16 18:54:27,062 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:54:27,062 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:54:27,062 - INFO - Starting manual CNN training
+2025-11-16 18:54:27,062 - INFO - Architecture: efficientnet
+2025-11-16 18:54:27,063 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:54:27,063 - INFO - Epochs: 20
+2025-11-16 18:54:27,063 - INFO - Batch size: 16
+2025-11-16 18:54:27,063 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:54:27,170 - INFO - Total images: 13779
+2025-11-16 18:54:27,171 - INFO -   Abrasions: 738 images
+2025-11-16 18:54:27,171 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:54:27,171 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:54:27,171 - INFO -   Bruises: 1089 images
+2025-11-16 18:54:27,171 - INFO -   Cut: 450 images
+2025-11-16 18:54:27,171 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:54:27,171 - INFO -   Normal: 900 images
+2025-11-16 18:54:27,171 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:54:27,171 - INFO -   Laseration: 1098 images
+2025-11-16 18:54:27,171 - INFO -   Burns: 603 images
+2025-11-16 18:54:27,171 - INFO - Created output directory: models/efficientnet
+2025-11-16 18:54:27,171 - INFO - Building CNN model...
+2025-11-16 18:54:27,173 - WARNING - MPS requested but not available, falling back to CPU
+2025-11-16 18:54:27,681 - INFO - Built efficientnet model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:54:27,684 - INFO - Creating data generators...
+2025-11-16 18:54:27,684 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:54:28,114 - INFO - Training samples: 88224
+2025-11-16 18:54:28,114 - INFO - Validation samples: 2751
+2025-11-16 18:54:28,114 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:54:28,114 - INFO - Starting training...
+2025-11-16 18:54:28,114 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:54:28,114 - INFO - TQDM progress bar callback added
+2025-11-16 18:54:28,114 - INFO - Total callbacks configured: 2
+2025-11-16 18:54:30,300 - INFO - TQDM progress bars initialized
+2025-11-16 18:55:01,625 - INFO - Logging setup with level INFO
+2025-11-16 18:55:01,625 - INFO - Application initialized
+2025-11-16 18:55:01,625 - INFO - Database: dl-postgres:5432
+2025-11-16 18:55:01,625 - INFO - Vector dimension: 1024
+2025-11-16 18:55:01,625 - INFO - Upload directory: /tmp/uploads
+2025-11-16 18:55:01,625 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-11-16 18:55:01,625 - INFO - Starting manual CNN training
+2025-11-16 18:55:01,625 - INFO - Architecture: efficientnet
+2025-11-16 18:55:01,625 - INFO - Dataset: ./static/train_dataset_augmented
+2025-11-16 18:55:01,625 - INFO - Epochs: 20
+2025-11-16 18:55:01,625 - INFO - Batch size: 16
+2025-11-16 18:55:01,626 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-11-16 18:55:01,768 - INFO - Total images: 13779
+2025-11-16 18:55:01,769 - INFO -   Abrasions: 738 images
+2025-11-16 18:55:01,769 - INFO -   Diabetic Wounds: 2079 images
+2025-11-16 18:55:01,769 - INFO -   Surgical Wounds: 1890 images
+2025-11-16 18:55:01,769 - INFO -   Bruises: 1089 images
+2025-11-16 18:55:01,769 - INFO -   Cut: 450 images
+2025-11-16 18:55:01,769 - INFO -   Venous Wounds: 2223 images
+2025-11-16 18:55:01,769 - INFO -   Normal: 900 images
+2025-11-16 18:55:01,769 - INFO -   Pressure Wounds: 2709 images
+2025-11-16 18:55:01,769 - INFO -   Laseration: 1098 images
+2025-11-16 18:55:01,769 - INFO -   Burns: 603 images
+2025-11-16 18:55:01,769 - INFO - Created output directory: models/efficientnet
+2025-11-16 18:55:01,769 - INFO - Building CNN model...
+2025-11-16 18:55:01,771 - INFO - Using Apple GPU via Metal backend (GPU device type)
+2025-11-16 18:55:03,614 - INFO - Built efficientnet model with 10 classes and 1024-dimensional feature vectors
+2025-11-16 18:55:03,614 - INFO - Creating data generators...
+2025-11-16 18:55:03,614 - INFO - Using enhanced augmentation: exact 90/180/270° rotations + horizontal/vertical flips
+2025-11-16 18:55:04,153 - INFO - Training samples: 88224
+2025-11-16 18:55:04,153 - INFO - Validation samples: 2751
+2025-11-16 18:55:04,153 - INFO - Effective training samples with augmentation: 88224 (factor: 8x)
+2025-11-16 18:55:04,153 - INFO - Starting training...
+2025-11-16 18:55:04,153 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-11-16 18:55:04,154 - INFO - TQDM progress bar callback added
+2025-11-16 18:55:04,154 - INFO - Total callbacks configured: 2
+2025-11-16 18:55:06,341 - INFO - TQDM progress bars initialized

@@ -1,0 +1,19 @@
+{
+  "total_vectors": 1531,
+  "total_original_images": 1531,
+  "classes_processed": [
+    "Abrasions",
+    "Diabetic Wounds",
+    "Pressure Wounds",
+    "Surgical Wounds",
+    "Venous Wounds",
+    "Laseration",
+    "Burns",
+    "Normal",
+    "Cut",
+    "Bruises"
+  ],
+  "table_name": "images_features",
+  "vector_dimension": 1024,
+  "regeneration_date": "2025-11-16"
+}

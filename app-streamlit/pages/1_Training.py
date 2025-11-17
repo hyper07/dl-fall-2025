@@ -302,7 +302,7 @@ st.header("Database Setup for Similarity Search")
 
 st.markdown("""
 After training, initialize the PostgreSQL vector database to enable similarity search functionality.
-This will extract 2000-dimensional features from all training images and store them for fast similarity search.
+This will extract 1024-dimensional features from all training images and store them for fast similarity search.
 """)
 
 col_init, col_status = st.columns(2)
@@ -401,7 +401,7 @@ with col_status:
                         st.error(f"Database error: {db_stats['error']}")
                     else:
                         st.metric("Images in Database", db_stats.get('total_images', 0))
-                        st.metric("Vector Dimension", db_stats.get('vector_dimension', 2000))
+                        st.metric("Vector Dimension", db_stats.get('vector_dimension', 1024))
                         if db_stats.get('class_distribution'):
                             st.write(f"Classes: {len(db_stats['class_distribution'])}")
                 else:
@@ -451,7 +451,7 @@ def train_model_background(architecture, epochs, batch_size, learning_rate, augm
         # Build model
         trainer.build_model(
             num_classes=num_classes,
-            feature_dim=2000,
+            feature_dim=1024,
             freeze_base=True
         )
 

@@ -48,13 +48,13 @@ col1, col2 = st.columns(2)
 
 with col1:
     # Model selection
-    models_dir = Path("./models")
+    models_dir = Path("./models")  # Models directory mounted in Docker container
     available_models = []
 
     if models_dir.exists():
         for model_dir in models_dir.glob("*/"):
             if model_dir.is_dir():
-                model_files = list(model_dir.glob("*.pkl"))
+                model_files = list(model_dir.glob("*.keras")) or list(model_dir.glob("*.h5")) or list(model_dir.glob("*.pkl"))
                 config_files = list(model_dir.glob("*.json"))
                 if model_files and config_files:
                     available_models.append({
@@ -101,8 +101,8 @@ if selected_model_info:
         # Initialize similarity search
         similarity_search = create_similarity_search(
             model_path=str(selected_model_info['model_file']),
-            config_path=str(selected_model_info['config_file']) if selected_model_info['config_file'] else "./training_config.json",
-            table_name="image_features"
+            config_path="./training_config.json",  # Config file mounted in Docker container
+            table_name="images_features"
         )
 
         # Get database stats
@@ -118,7 +118,7 @@ if selected_model_info:
                 st.metric("Total Images", db_stats.get('total_images', 0))
 
             with col2:
-                st.metric("Vector Dimension", db_stats.get('vector_dimension', 2000))
+                st.metric("Vector Dimension", db_stats.get('vector_dimension', 1024))
 
             with col3:
                 st.metric("Classes", len(db_stats.get('class_distribution', {})))
@@ -157,7 +157,11 @@ if uploaded_file is not None:
     temp_dir = Path("./temp")
     temp_dir.mkdir(exist_ok=True)
     temp_image_path = temp_dir / f"search_{int(time.time())}_{uploaded_file.name}"
-    image.save(temp_image_path)
+    
+    # Ensure the image is in RGB format and save as JPEG for consistency
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    image.save(temp_image_path, 'JPEG', quality=95)
 
     st.session_state.uploaded_image = str(temp_image_path)
 
@@ -171,7 +175,6 @@ if uploaded_file is not None:
                     # Perform similarity search
                     search_results = st.session_state.similarity_search.get_similar_images_with_class_analysis(
                         query_image_path=str(temp_image_path),
-                        query_class="unknown",  # Will be determined from the search
                         top_k=top_k
                     )
 
@@ -191,8 +194,37 @@ if st.session_state.search_results:
 
     # Query image info
     st.subheader("Query Image Analysis")
-    if results.get('query_class') and results['query_class'] != 'unknown':
-        st.info(f"**Predicted Class:** {results['query_class']}")
+    
+    # Get dual predictions like Flask app
+    try:
+        dual_result = st.session_state.similarity_search.trainer.predict_dual(str(temp_image_path))
+        predicted_class_idx = np.argmax(dual_result['class'])
+        class_names = list(st.session_state.similarity_search.get_database_stats().get('class_distribution', {}).keys())
+        predicted_class_name = class_names[predicted_class_idx] if class_names else f"Class {predicted_class_idx}"
+        
+        st.info(f"**Predicted Class:** {predicted_class_name} (confidence: {dual_result['class'][predicted_class_idx]:.3f})")
+        
+        # Show class probabilities (like Flask app)
+        with st.expander("📊 Class Probabilities"):
+            class_probs_df = pd.DataFrame({
+                'Class': class_names if class_names else [f"Class {i}" for i in range(len(dual_result['class']))],
+                'Probability': dual_result['class']
+            }).sort_values('Probability', ascending=False)
+            st.dataframe(class_probs_df, use_container_width=True)
+            
+            # Bar chart of probabilities
+            st.bar_chart(class_probs_df.set_index('Class'))
+        
+        # Show feature vector info
+        with st.expander("🔢 Feature Vector Info"):
+            st.write(f"**Feature Dimension:** {len(dual_result['feature'])}")
+            st.write(f"**Feature Range:** {dual_result['feature'].min():.4f} to {dual_result['feature'].max():.4f}")
+            st.write(f"**Non-zero Features:** {np.count_nonzero(dual_result['feature'])}")
+            
+    except Exception as e:
+        st.warning(f"Could not get detailed predictions: {e}")
+        if results.get('query_class') and results['query_class'] != 'unknown':
+            st.info(f"**Predicted Class:** {results['query_class']}")
 
     # Similar images
     st.subheader(f"Top {len(results['similar_images'])} Similar Images")

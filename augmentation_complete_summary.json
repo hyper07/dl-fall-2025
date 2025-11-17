@@ -1,0 +1,36 @@
+{
+  "original_images": 1531,
+  "augmented_images": 13779,
+  "augmentation_factor": 9,
+  "vectors_stored": 13779,
+  "total_vectors_in_db": 15310,
+  "classes_processed": [
+    "Abrasions",
+    "Diabetic Wounds",
+    "Surgical Wounds",
+    "Bruises",
+    "Cut",
+    "Venous Wounds",
+    "Normal",
+    "Pressure Wounds",
+    "Laseration",
+    "Burns"
+  ],
+  "table_name": "images_features",
+  "vector_dimension": 1024,
+  "augmentation_types": [
+    "original",
+    "rot90",
+    "rot180",
+    "rot270",
+    "mirror_h",
+    "mirror_v",
+    "rot90_mirror_h",
+    "rot180_mirror_h",
+    "rot270_mirror_h"
+  ],
+  "input_directory": "static/train_dataset",
+  "output_directory": "static/train_dataset_augmented",
+  "generation_date": "2025-11-16",
+  "note": "Generated augmented images and vectors for improved training and similarity search"
+}

@@ -64,7 +64,7 @@ class VectorStore:
     def __init__(self, db_conn: DatabaseConnection):
         self.db = db_conn
 
-    def create_vector_table(self, table_name: str = "images_features", vector_dim: int = 2000):
+    def create_vector_table(self, table_name: str = "images_features", vector_dim: int = 1024):
         """Create a unified table with vector column for embeddings and separate metadata columns."""
         with self.db as conn:
             cur = conn.cursor()
@@ -102,11 +102,17 @@ class VectorStore:
 
     def search_similar(self, table_name: str, query_embedding: np.ndarray,
                       limit: int = 10) -> List[Tuple[int, str, float, str, str, str, str]]:
-        """Search for similar vectors using cosine distance."""
+        """Search for similar vectors using cosine distance with normalization."""
+        # Normalize the query embedding
+        query_norm = np.linalg.norm(query_embedding)
+        if query_norm > 0:
+            query_embedding = query_embedding / query_norm
+
         with self.db as conn:
             cur = conn.cursor()
             cur.execute(f"""
-                SELECT id, content, 1 - (embedding <=> %s::vector) as similarity,
+                SELECT id, content,
+                       1 - (embedding <=> %s::vector) as similarity,
                        model_name, label, augmentation, original_image
                 FROM {table_name}
                 ORDER BY embedding <=> %s::vector

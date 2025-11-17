@@ -1,6 +1,6 @@
 """
 Image similarity search using PostgreSQL with pgvector extension.
-Supports 2000-dimensional feature vectors for wound image classification.
+Supports 1024-dimensional feature vectors for wound image classification.
 """
 
 import os
@@ -47,21 +47,29 @@ class ImageSimilaritySearch:
         logger.info(f"Loaded model from {model_path}")
 
     def extract_features_batch(self, image_paths: List[str]) -> np.ndarray:
-        """Extract 2000-dimensional features from a batch of images."""
+        """Extract 1024-dimensional features from a batch of images."""
         if self.trainer is None:
             raise ValueError("Model not loaded. Call load_trainer() first.")
 
         features = []
         for image_path in image_paths:
             try:
-                # Load and preprocess image
-                img = self.trainer.load_and_preprocess_image(image_path)
-                # Extract features (model outputs 2000-dim vector)
-                feature_vector = self.trainer.model.predict(img, verbose=0)[0]
+                logger.info(f"Extracting features from: {image_path}")
+                # Check if file exists
+                if not Path(image_path).exists():
+                    logger.error(f"Image file does not exist: {image_path}")
+                    continue
+
+                # Use the trainer's extract_features method for proper preprocessing
+                feature_vector = self.trainer.extract_features(image_path)
+                logger.info(f"Successfully extracted features with shape: {feature_vector.shape}")
                 features.append(feature_vector)
             except Exception as e:
                 logger.error(f"Error processing {image_path}: {e}")
                 continue
+
+        if not features:
+            raise ValueError(f"Failed to extract features from any of the {len(image_paths)} images. Check file paths and formats.")
 
         return np.array(features)
 
@@ -163,13 +171,26 @@ class ImageSimilaritySearch:
 
         return sorted_avg
 
-    def get_similar_images_with_class_analysis(self, query_image_path: str, query_class: str,
+    def get_similar_images_with_class_analysis(self, query_image_path: str, query_class: str = None,
                                              top_k: int = 5) -> Dict[str, Any]:
         """Find similar images and calculate class-based similarity analysis.
 
         Returns:
             Dict with 'similar_images' list and 'class_similarities' dict
         """
+        # Predict query class if not provided (like Flask app)
+        if query_class is None or query_class == "unknown":
+            try:
+                dual_result = self.trainer.predict_dual(query_image_path)
+                predicted_class_idx = np.argmax(dual_result['class'])
+                # Get class names from database
+                db_stats = self.get_database_stats()
+                class_names = list(db_stats.get('class_distribution', {}).keys())
+                query_class = class_names[predicted_class_idx] if class_names else f"Class {predicted_class_idx}"
+            except Exception as e:
+                logger.warning(f"Could not predict query class: {e}")
+                query_class = "unknown"
+        
         similar_images = self.find_similar_images(query_image_path, top_k=top_k)
         class_similarities = self.calculate_average_class_similarity(similar_images, query_class)
 
@@ -189,17 +210,22 @@ class ImageSimilaritySearch:
             with self.vector_store.db as conn:
                 cur = conn.cursor()
                 cur.execute(f"""
-                    SELECT metadata->>'class' as class_name, COUNT(*) as count
+                    SELECT label as class_name, COUNT(*) as count
                     FROM {self.table_name}
-                    GROUP BY metadata->>'class'
+                    GROUP BY label
                     ORDER BY count DESC
                 """)
                 class_distribution = dict(cur.fetchall())
+                
+                # Get actual vector dimension
+                cur.execute(f"SELECT vector_dims(embedding) as dim FROM {self.table_name} LIMIT 1")
+                result = cur.fetchone()
+                vector_dimension = result[0] if result else 2048
 
             return {
                 'total_images': total_vectors,
                 'class_distribution': class_distribution,
-                'vector_dimension': 2000
+                'vector_dimension': vector_dimension
             }
         except Exception as e:
             logger.error(f"Error getting database stats: {e}")

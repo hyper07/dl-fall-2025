@@ -502,9 +502,9 @@ class CNNTrainer(ModelTrainer):
         self.img_height = 224
         self.img_width = 224
         self.num_classes = None
-        self.feature_dim = 2000
+        self.feature_dim = 1024
 
-    def build_model(self, num_classes: int, feature_dim: int = 2000,
+    def build_model(self, num_classes: int, feature_dim: int = 1024,
                    freeze_base: bool = True, device: str = 'auto') -> 'CNNTrainer':
         """Build CNN model with specified architecture."""
         self.num_classes = num_classes
@@ -610,28 +610,31 @@ class CNNTrainer(ModelTrainer):
         if freeze_base:
             base_model.trainable = False
 
-        # Build model with classification output
+        # Build model with DUAL outputs (like Flask app)
         inputs = base_model.input
         x = base_model(inputs, training=False)
         x = GlobalAveragePooling2D()(x)
 
-        # Feature layer - 2000 dimensional vectors for similarity search
-        feature_layer = Dense(feature_dim, activation="relu", name="feature_layer")(x)
+        # Feature layer - dimensional vectors for similarity search
+        feature_output = Dense(feature_dim, activation="relu", name="feature_output")(x)
 
         # Classification output
-        class_output = Dense(num_classes, activation="softmax", name="class_output")(feature_layer)
+        class_output = Dense(num_classes, activation="softmax", name="class_output")(feature_output)
 
-        # Model with classification output
-        self.model = Model(inputs=inputs, outputs=class_output)
+        # Model with DUAL outputs: [class_output, feature_output]
+        self.model = Model(inputs=inputs, outputs=[class_output, feature_output])
 
-        # Store feature model for extraction (outputs features before classification)
-        self.feature_model = Model(inputs=inputs, outputs=feature_layer)
+        # Store feature model for extraction (outputs features only)
+        self.feature_model = Model(inputs=inputs, outputs=feature_output)
 
-        # Compile model for classification training
+        # Compile model for dual-output training
         self.model.compile(
             optimizer=Adam(learning_rate=0.001),
-            loss="categorical_crossentropy",
-            metrics=["accuracy"]
+            loss={
+                "class_output": "categorical_crossentropy",
+                "feature_output": "mean_squared_error"
+            },
+            metrics={"class_output": "accuracy"}
         )
 
         logger.info(f"Built {self.architecture} model with {num_classes} classes and {feature_dim}-dimensional feature vectors")
@@ -693,11 +696,11 @@ class CNNTrainer(ModelTrainer):
         return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations)
 
     def custom_generator(self, generator):
-        """Convert generator to work with feature extraction model."""
+        """Convert generator to work with dual-output model (like Flask app)."""
         for batch_x, batch_y in generator:
-            # For feature extraction, we use the class labels as targets for contrastive learning
-            # This helps the model learn to distinguish between different wound types
-            yield batch_x, batch_y
+            # Create dummy labels for feature output (same shape as feature vectors)
+            dummy_feature_labels = np.zeros((batch_y.shape[0], self.feature_dim))
+            yield batch_x, {"class_output": batch_y, "feature_output": dummy_feature_labels}
 
     def train(self, train_generator, val_generator=None, epochs: int = 20,
               callbacks: List = None, progress_bar: bool = True, **kwargs):
@@ -727,12 +730,16 @@ class CNNTrainer(ModelTrainer):
         steps_per_epoch = train_generator.samples // train_generator.batch_size
         validation_steps = val_generator.samples // val_generator.batch_size if val_generator else None
 
+        # Use custom generator for dual outputs (like Flask app)
+        train_gen = self.custom_generator(train_generator)
+        val_gen = self.custom_generator(val_generator) if val_generator else None
+
         # Train model
         history = self.model.fit(
-            train_generator,
+            train_gen,
             epochs=epochs,
             steps_per_epoch=steps_per_epoch,
-            validation_data=val_generator,
+            validation_data=val_gen,
             validation_steps=validation_steps,
             callbacks=callbacks,
             **kwargs
@@ -744,37 +751,30 @@ class CNNTrainer(ModelTrainer):
         logger.info(f"Feature extraction training completed. Model ready for vector similarity search.")
         return history
 
-    def extract_features(self, image_path: str) -> np.ndarray:
-        """Extract feature vector from a single image."""
-        try:
-            from tensorflow.keras.preprocessing.image import load_img, img_to_array
-            from tensorflow.keras.models import Model
-            from tensorflow.keras.layers import Dense
-        except ImportError:
-            raise ImportError("TensorFlow not available")
-
+    def extract_features_from_array(self, img_array: np.ndarray) -> np.ndarray:
+        """Extract feature vector from a preprocessed image array."""
         if not self.is_trained:
             raise ValueError("Model must be trained before feature extraction")
 
-        # Load and preprocess image
-        img = load_img(image_path, target_size=(self.img_height, self.img_width))
-        img_array = img_to_array(img) / 255.0
-        img_array = np.expand_dims(img_array, axis=0)
+        if self.feature_model is None:
+            raise ValueError("Feature model not available. Model may not be properly loaded.")
 
-        # Get GAP output (input to feature layer)
-        gap_layer = self.model.get_layer('global_average_pooling2d')
-        gap_model = Model(inputs=self.model.input, outputs=gap_layer.output)
-        gap_output = gap_model.predict(img_array)
+        logger.info(f"Extracting features from image array with shape: {img_array.shape}")
+        # Extract features using the feature model (outputs feature vector)
+        feature_vector = self.feature_model.predict(img_array, verbose=0)[0]
 
-        # Get feature layer weights
-        feature_layer = self.model.get_layer('feature_layer')
-        kernel, bias = feature_layer.get_weights()
+        # Truncate to 1024 dimensions to match database schema
+        if len(feature_vector) > 1024:
+            feature_vector = feature_vector[:1024]
+            logger.info(f"Truncated feature vector from {len(feature_vector)} to 1024 dimensions")
 
-        # Compute pre-activation features (before ReLU)
-        pre_activation = np.dot(gap_output, kernel) + bias
+        # Check for NaN values and handle them
+        if np.any(np.isnan(feature_vector)):
+            logger.warning(f"Feature vector contains NaN values, replacing with zeros")
+            feature_vector = np.nan_to_num(feature_vector, nan=0.0)
 
-        # Return the 2000-dimensional feature vector
-        return pre_activation[0]
+        logger.info(f"Feature extraction completed. Feature vector shape: {feature_vector.shape}")
+        return feature_vector
 
     def predict_image(self, image_path: str) -> Tuple[int, np.ndarray]:
         """Predict class and extract features from an image."""
@@ -793,12 +793,44 @@ class CNNTrainer(ModelTrainer):
 
         # Get predictions
         predictions = self.model.predict(img_array)
-        class_probs = predictions[0][0]
-        feature_vector = predictions[1][0]
+        class_probs = predictions[0]
+        feature_vector = self.feature_model.predict(img_array, verbose=0)[0]
 
         predicted_class = np.argmax(class_probs)
 
         return predicted_class, feature_vector
+
+    def predict_dual(self, image_path: str) -> Dict[str, np.ndarray]:
+        """Predict both class and features from an image (like Flask app)."""
+        try:
+            from tensorflow.keras.preprocessing.image import load_img, img_to_array
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        if not self.is_trained:
+            raise ValueError("Model must be trained before prediction")
+
+        # Load and preprocess image
+        img = load_img(image_path, target_size=(self.img_height, self.img_width))
+        img_array = img_to_array(img) / 255.0
+        img_array = np.expand_dims(img_array, axis=0)
+
+        # Get predictions - handle both single and dual output models
+        predictions = self.model.predict(img_array, verbose=0)
+
+        if len(predictions) == 2:
+            # Dual output model (new architecture)
+            class_predictions = predictions[0]  # Class probabilities
+            feature_predictions = predictions[1]  # Feature vector
+        else:
+            # Single output model (old architecture) - get features separately
+            class_predictions = predictions[0]  # Class probabilities
+            feature_predictions = self.feature_model.predict(img_array, verbose=0)  # Feature vector
+
+        return {
+            "class": class_predictions,  # Class probabilities for all classes
+            "feature": feature_predictions.squeeze()  # Feature vector (remove batch dimension)
+        }
 
     def fine_tune(self, train_generator, val_generator=None, epochs: int = 10,
                   unfreeze_layers: int = 10, learning_rate: float = 1e-5):
@@ -836,12 +868,47 @@ class CNNTrainer(ModelTrainer):
 
     def load_model(self, filepath: Union[str, Path]):
         """Load model from disk and setup feature model."""
-        super().load_model(filepath)
+        filepath = Path(filepath)
+        if not filepath.exists():
+            raise FileNotFoundError(f"Model file not found: {filepath}")
+
+        # Try loading as joblib first (for models saved with save_model)
+        try:
+            import joblib
+            model_data = joblib.load(filepath)
+            self.model = model_data['model']
+            self.model_name = model_data['model_name']
+            self.is_trained = model_data['is_trained']
+            self.training_history = model_data.get('training_history', [])
+            logger.info(f"Model loaded from joblib format: {filepath}")
+        except Exception as e:
+            logger.info(f"Joblib loading failed ({e}), trying Keras format...")
+            # Fallback to Keras load_model for .keras/.h5 files
+            try:
+                from tensorflow.keras.models import load_model
+                self.model = load_model(filepath)
+                self.is_trained = True
+                logger.info(f"Keras model loaded from {filepath}")
+            except Exception as keras_error:
+                raise ValueError(f"Could not load model from {filepath}. Tried both joblib and Keras formats. Joblib error: {e}, Keras error: {keras_error}")
+
         # Recreate feature model for feature extraction
         try:
             from tensorflow.keras.models import Model
-            self.feature_model = Model(inputs=self.model.input, outputs=self.model.get_layer('feature_layer').output)
-            logger.info("Feature model recreated for extraction")
+            from tensorflow.keras.layers import Dense
+            # For dual-output model, feature output is the second output
+            if len(self.model.outputs) >= 2:
+                # Use the feature output directly from the dual-output model
+                self.feature_model = Model(inputs=self.model.input, outputs=self.model.outputs[1])
+                self.feature_dim = self.model.outputs[1].shape[-1]
+                logger.info(f"Feature model recreated from dual-output model with {self.feature_dim}-dim features")
+            else:
+                # Fallback: recreate from GAP layer (for backward compatibility)
+                gap_layer = self.model.get_layer('global_average_pooling2d')
+                reduction_layer = Dense(1024, activation='relu', name='feature_reduction')(gap_layer.output)
+                self.feature_model = Model(inputs=self.model.input, outputs=reduction_layer)
+                self.feature_dim = 1024
+                logger.info("Feature model recreated using GAP layer with 1024-dim reduction")
         except Exception as e:
             logger.warning(f"Could not recreate feature model: {e}")
             self.feature_model = None
@@ -853,7 +920,7 @@ def create_cnn_trainer(architecture: str = "resnet50", model_name: str = "cnn_mo
 
 
 def train_cnn_model(train_dir: str, num_classes: int, architecture: str = "resnet50",
-                   epochs: int = 20, batch_size: int = 32, feature_dim: int = 2000,
+                   epochs: int = 20, batch_size: int = 32, feature_dim: int = 1024,
                    validation_split: float = 0.2, model_name: str = "cnn_model") -> CNNTrainer:
     """Convenience function to train a CNN model end-to-end."""
 
