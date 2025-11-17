@@ -36,35 +36,39 @@ class ImageProcessor(FileProcessor):
 
     def __init__(self):
         try:
-            import cv2
+            # Prefer PIL + numpy implementation; cv2 is optional
             from PIL import Image
-            self.cv2_available = True
-        except ImportError:
-            logger.warning("OpenCV or PIL not available. Image processing will be limited.")
-            self.cv2_available = False
+            import numpy as _np
+            self.pil_available = True
+        except Exception:
+            logger.warning("PIL or numpy not available. Image processing will be limited.")
+            self.pil_available = False
 
     def process_file(self, filepath: Union[str, Path]) -> Dict[str, Any]:
         """Extract image metadata and basic features."""
         filepath = Path(filepath)
 
-        if not self.cv2_available:
-            return {'error': 'Image libraries not available'}
+        if not self.pil_available:
+            return {'error': 'PIL or numpy not available'}
 
         try:
-            import cv2
             from PIL import Image
+            import numpy as np
 
-            # Read image with OpenCV
-            img_cv = cv2.imread(str(filepath))
-            height, width, channels = img_cv.shape
-
-            # Read with PIL for additional metadata
             img_pil = Image.open(filepath)
+            img_arr = np.array(img_pil)
+
+            # Handle grayscale images by adding channel dimension
+            if img_arr.ndim == 2:
+                height, width = img_arr.shape
+                channels = 1
+            else:
+                height, width, channels = img_arr.shape
 
             metadata = {
-                'width': width,
-                'height': height,
-                'channels': channels,
+                'width': int(width),
+                'height': int(height),
+                'channels': int(channels),
                 'mode': img_pil.mode,
                 'format': img_pil.format,
                 'file_size': filepath.stat().st_size,
@@ -72,15 +76,18 @@ class ImageProcessor(FileProcessor):
             }
 
             # Basic image statistics
-            if channels == 3:
-                b, g, r = cv2.split(img_cv)
+            if channels >= 3:
+                # Convert to RGB order if PIL gave RGBA, take first 3 channels
+                arr3 = img_arr[:, :, :3].astype(np.float32)
+                means = arr3.mean(axis=(0, 1))
+                stds = arr3.std(axis=(0, 1))
                 metadata.update({
-                    'mean_b': float(b.mean()),
-                    'mean_g': float(g.mean()),
-                    'mean_r': float(r.mean()),
-                    'std_b': float(b.std()),
-                    'std_g': float(g.std()),
-                    'std_r': float(r.std())
+                    'mean_r': float(means[0]),
+                    'mean_g': float(means[1]),
+                    'mean_b': float(means[2]),
+                    'std_r': float(stds[0]),
+                    'std_g': float(stds[1]),
+                    'std_b': float(stds[2])
                 })
 
             return metadata

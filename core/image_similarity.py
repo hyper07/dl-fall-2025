@@ -1,6 +1,6 @@
 """
 Image similarity search using PostgreSQL with pgvector extension.
-Supports 1024-dimensional feature vectors for wound image classification.
+Supports 1536-dimensional feature vectors for wound image classification.
 """
 
 import os
@@ -42,12 +42,18 @@ class ImageSimilaritySearch:
 
     def load_trainer(self, model_path: str, config_path: str) -> None:
         """Load trained CNN model for feature extraction."""
-        self.trainer = CNNTrainer()
+        # Read architecture from config file
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        
+        architecture = config.get('architecture', 'resnet50')  # Default to resnet50 if not specified
+        
+        self.trainer = CNNTrainer(architecture=architecture)
         self.trainer.load_model(model_path)
-        logger.info(f"Loaded model from {model_path}")
+        logger.info(f"Loaded {architecture} model from {model_path}")
 
     def extract_features_batch(self, image_paths: List[str]) -> np.ndarray:
-        """Extract 1024-dimensional features from a batch of images."""
+        """Extract 1536-dimensional features from a batch of images."""
         if self.trainer is None:
             raise ValueError("Model not loaded. Call load_trainer() first.")
 
@@ -182,11 +188,13 @@ class ImageSimilaritySearch:
         if query_class is None or query_class == "unknown":
             try:
                 dual_result = self.trainer.predict_dual(query_image_path)
-                predicted_class_idx = np.argmax(dual_result['class'])
+                # dual_result['class'] is (1, num_classes), so take the first (and only) batch
+                class_probs = dual_result['class'][0] if dual_result['class'].ndim > 1 else dual_result['class']
+                predicted_class_idx = np.argmax(class_probs)
                 # Get class names from database
                 db_stats = self.get_database_stats()
                 class_names = list(db_stats.get('class_distribution', {}).keys())
-                query_class = class_names[predicted_class_idx] if class_names else f"Class {predicted_class_idx}"
+                query_class = class_names[predicted_class_idx] if class_names and predicted_class_idx < len(class_names) else f"Class {predicted_class_idx}"
             except Exception as e:
                 logger.warning(f"Could not predict query class: {e}")
                 query_class = "unknown"
@@ -233,7 +241,7 @@ class ImageSimilaritySearch:
 
 
 def create_similarity_search(model_path: str, config_path: str,
-                           table_name: str = "image_features") -> ImageSimilaritySearch:
+                           table_name: str = "images_features") -> ImageSimilaritySearch:
     """Factory function to create and initialize ImageSimilaritySearch."""
     if not POSTGRESQL_AVAILABLE:
         raise ImportError("PostgreSQL dependencies not available. This function requires psycopg2 and pgvector to be installed.")

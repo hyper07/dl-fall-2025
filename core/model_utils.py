@@ -12,6 +12,7 @@ import json
 from datetime import datetime
 import warnings
 import sys
+import math
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +35,33 @@ try:
         logger.info("MPS devices configured globally for macOS")
     _tensorflow_configured = True
 except ImportError:
+    tf = None
     _tensorflow_configured = False
+
+# Provide safe bases so downstream classes import cleanly with or without TensorFlow
+if _tensorflow_configured:
+    from tensorflow.keras.callbacks import Callback as _KerasCallback
+    try:
+        from tensorflow.keras.utils import Sequence as _KerasSequence
+    except ImportError:
+        _KerasSequence = tf.keras.utils.Sequence  # type: ignore[attr-defined]
+    CallbackBase = _KerasCallback
+    SequenceBase = _KerasSequence
+else:
+    class CallbackBase:  # type: ignore[too-few-public-methods]
+        """Fallback callback base when TensorFlow is unavailable."""
+
+        def __init__(self, *args, **kwargs):
+            pass
+
+    class SequenceBase:  # type: ignore[too-few-public-methods]
+        """Fallback sequence base when TensorFlow is unavailable."""
+
+        def __len__(self):
+            return 0
+
+        def __getitem__(self, index):
+            raise IndexError(index)
 
 
 class ModelTrainer:
@@ -223,10 +250,11 @@ class EnsembleModel:
             raise ValueError(f"Unknown ensemble method: {self.method}")
 
 
-class TQDMProgressBar:
+class TQDMProgressBar(CallbackBase):
     """TQDM progress bar callback for Keras training."""
 
     def __init__(self):
+        super().__init__()
         self.epoch_bar = None
         self.current_epoch = 0
         self.tqdm_available = False
@@ -297,13 +325,20 @@ class TQDMProgressBar:
         from tqdm import tqdm
         self.current_epoch = epoch
 
+        steps_total = self.params.get('steps') if hasattr(self, 'params') else None
+        if steps_total in (None, 0):
+            steps_total = self.params.get('steps_per_epoch', 0) if hasattr(self, 'params') else 0
+        if not steps_total:
+            logger.debug("TQDMProgressBar: no step information available; skipping bar creation")
+            return
+
         # Close previous bar if exists
         if self.epoch_bar:
             self.epoch_bar.close()
 
         # Use more compatible TQDM settings
         self.epoch_bar = tqdm(
-            total=self.params['steps'],
+            total=steps_total,
             desc=f'Epoch {epoch+1}/{self.params["epochs"]}',
             unit='batch',
             leave=True,
@@ -362,21 +397,45 @@ class TQDMProgressBar:
             self.epoch_bar = None
 
 
-class EnhancedDataGenerator(tf.keras.utils.Sequence):
+class EnhancedDataGenerator(SequenceBase):
     """Enhanced data generator that applies exact rotations and flips to augment data."""
 
-    def __init__(self, base_generator, exact_rotations: bool = True, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8):
+        if hasattr(super(), "__init__"):
+            try:
+                super().__init__()
+            except TypeError:
+                super().__init__()
         self.base_generator = base_generator
         self.exact_rotations = exact_rotations
 
-        # Calculate augmentation factor
-        self._augmentation_factor = 8 if exact_rotations else 1  # 4 rotations × 2 flips
+        # Use provided augmentation factor or default based on exact_rotations
+        if augmentation_factor is not None:
+            self._augmentation_factor = augmentation_factor
+        else:
+            self._augmentation_factor = 8 if exact_rotations else 1
+        
+        # Limit to maximum available transformations (8)
+        self._augmentation_factor = min(self._augmentation_factor, 8)
+        
         self.batch_size = base_generator.batch_size
 
         # Store original samples count
         self._original_samples = base_generator.samples
         self._original_batch_size = base_generator.batch_size
+
+        # Define transformation functions
+        import numpy as np
+        self.transformations = [
+            lambda x: x,  # original
+            lambda x: np.rot90(x, k=1, axes=(0, 1)),  # 90 degrees
+            lambda x: np.rot90(x, k=2, axes=(0, 1)),  # 180 degrees
+            lambda x: np.rot90(x, k=3, axes=(0, 1)),  # 270 degrees
+            lambda x: np.fliplr(np.rot90(x, k=1, axes=(0, 1))),  # 90 + horizontal flip
+            lambda x: np.fliplr(np.rot90(x, k=2, axes=(0, 1))),  # 180 + horizontal flip
+            lambda x: np.fliplr(np.rot90(x, k=3, axes=(0, 1))),  # 270 + horizontal flip
+            lambda x: np.flipud(x),  # vertical flip
+        ]
 
     def _apply_exact_transformations(self, image):
         """Apply exact 90, 180, 270 rotations and flips to an image."""
@@ -407,9 +466,9 @@ class EnhancedDataGenerator(tf.keras.utils.Sequence):
         if self.exact_rotations:
             # Each original image becomes 8 augmented images
             total_augmented_samples = self._original_samples * self._augmentation_factor
-            return total_augmented_samples // self.batch_size
+            return max(1, math.ceil(total_augmented_samples / float(self.batch_size)))
         else:
-            return self._original_samples // self.batch_size
+            return max(1, math.ceil(self._original_samples / float(self.batch_size)))
 
     def __getitem__(self, index):
         """Generate one batch of data."""
@@ -445,22 +504,7 @@ class EnhancedDataGenerator(tf.keras.utils.Sequence):
                     label = orig_batch_y[orig_image_index]
 
                     # Apply specific transformation
-                    if trans_index == 0:
-                        transformed_image = image  # Original
-                    elif trans_index == 1:
-                        transformed_image = np.rot90(image, k=1, axes=(0, 1))  # 90 degrees
-                    elif trans_index == 2:
-                        transformed_image = np.rot90(image, k=2, axes=(0, 1))  # 180 degrees
-                    elif trans_index == 3:
-                        transformed_image = np.rot90(image, k=3, axes=(0, 1))  # 270 degrees
-                    elif trans_index == 4:
-                        transformed_image = np.fliplr(np.rot90(image, k=1, axes=(0, 1)))  # 90 + horizontal flip
-                    elif trans_index == 5:
-                        transformed_image = np.fliplr(np.rot90(image, k=2, axes=(0, 1)))  # 180 + horizontal flip
-                    elif trans_index == 6:
-                        transformed_image = np.fliplr(np.rot90(image, k=3, axes=(0, 1)))  # 270 + horizontal flip
-                    elif trans_index == 7:
-                        transformed_image = np.flipud(image)  # Vertical flip
+                    transformed_image = self.transformations[trans_index](image)
 
                     batch_x_list.append(transformed_image)
                     batch_y_list.append(label)
@@ -480,7 +524,7 @@ class EnhancedDataGenerator(tf.keras.utils.Sequence):
     @property
     def samples(self):
         """Return total number of samples (augmented)."""
-        return self._original_samples * self.augmentation_factor
+        return int(self._original_samples * self._augmentation_factor)
 
     @property
     def num_classes(self):
@@ -502,9 +546,9 @@ class CNNTrainer(ModelTrainer):
         self.img_height = 224
         self.img_width = 224
         self.num_classes = None
-        self.feature_dim = 1024
+        self.feature_dim = 1536
 
-    def build_model(self, num_classes: int, feature_dim: int = 1024,
+    def build_model(self, num_classes: int, feature_dim: int = 1536,
                    freeze_base: bool = True, device: str = 'auto') -> 'CNNTrainer':
         """Build CNN model with specified architecture."""
         self.num_classes = num_classes
@@ -616,7 +660,7 @@ class CNNTrainer(ModelTrainer):
         x = GlobalAveragePooling2D()(x)
 
         # Feature layer - dimensional vectors for similarity search
-        feature_output = Dense(feature_dim, activation="relu", name="feature_output")(x)
+        feature_output = Dense(feature_dim, activation=None, name="feature_output")(x)
 
         # Classification output
         class_output = Dense(num_classes, activation="softmax", name="class_output")(feature_output)
@@ -640,60 +684,124 @@ class CNNTrainer(ModelTrainer):
         logger.info(f"Built {self.architecture} model with {num_classes} classes and {feature_dim}-dimensional feature vectors")
         return self
 
-    def create_data_generators(self, train_dir: str, validation_split: float = 0.2,
-                              batch_size: int = 32, augment: bool = True, exact_rotations: bool = True):
-        """Create training and validation data generators with enhanced augmentation."""
+    def create_data_generators(self, train_dir: str, test_split: float = 0.1,
+                              batch_size: int = 32, augment: bool = True, exact_rotations: bool = True,
+                              augmentation_factor: int = 8):
+        """Create training and test data generators with stratified splitting (90% train, 10% test per class)."""
         try:
             from tensorflow.keras.preprocessing.image import ImageDataGenerator
+            import os
+            import numpy as np
+            from pathlib import Path
+            import pandas as pd
         except ImportError:
             raise ImportError("TensorFlow not available")
 
-        if augment:
-            # Enhanced augmentation with exact rotations and flips
-            train_datagen = ImageDataGenerator(
-                rescale=1.0/255,
-                rotation_range=40,  # Random rotations up to 40 degrees
-                width_shift_range=0.2,
-                height_shift_range=0.2,
-                horizontal_flip=True,
-                vertical_flip=True,  # Add vertical flipping
-                fill_mode="nearest",
-                validation_split=validation_split
-            )
-        else:
-            train_datagen = ImageDataGenerator(
-                rescale=1.0/255,
-                validation_split=validation_split
-            )
+        train_dir = Path(train_dir)
 
-        train_generator = train_datagen.flow_from_directory(
-            train_dir,
+        # Collect all image files by class for stratified splitting
+        class_files = {}
+        supported_extensions = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}
+
+        for class_dir in train_dir.iterdir():
+            if class_dir.is_dir():
+                class_name = class_dir.name
+                image_files = []
+                for ext in supported_extensions:
+                    image_files.extend(class_dir.glob(f'*{ext}'))
+                    image_files.extend(class_dir.glob(f'*{ext.upper()}'))
+                class_files[class_name] = sorted([str(f) for f in image_files])
+
+        if not class_files:
+            raise ValueError(f"No image files found in {train_dir}")
+
+        # Stratified split: 90% train, 10% test per class
+        train_files = []
+        test_files = []
+
+        for class_name, files in class_files.items():
+            n_files = len(files)
+            n_test = max(1, int(n_files * test_split))  # At least 1 test sample per class
+
+            # Shuffle files for random split
+            np.random.seed(42)  # For reproducibility
+            shuffled_files = np.random.permutation(files)
+
+            # Split files
+            test_files.extend([(f, class_name) for f in shuffled_files[:n_test]])
+            train_files.extend([(f, class_name) for f in shuffled_files[n_test:]])
+
+        logger.info(f"Stratified split: {len(train_files)} training samples, {len(test_files)} test samples")
+        logger.info(f"Classes: {list(class_files.keys())}")
+
+        # Create data generators
+        if augment:
+            # Enhanced augmentation for training
+            if self.architecture == "efficientnet":
+                # EfficientNet uses its own preprocessing
+                from tensorflow.keras.applications.efficientnet import preprocess_input
+                train_datagen = ImageDataGenerator(
+                    preprocessing_function=preprocess_input,
+                    rotation_range=40,
+                    width_shift_range=0.2,
+                    height_shift_range=0.2,
+                    horizontal_flip=True,
+                    vertical_flip=True,
+                    fill_mode="nearest"
+                )
+                test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+            else:
+                # Standard preprocessing for other architectures
+                train_datagen = ImageDataGenerator(
+                    rescale=1.0/255,
+                    rotation_range=40,
+                    width_shift_range=0.2,
+                    height_shift_range=0.2,
+                    horizontal_flip=True,
+                    vertical_flip=True,
+                    fill_mode="nearest"
+                )
+                test_datagen = ImageDataGenerator(rescale=1.0/255)
+        else:
+            if self.architecture == "efficientnet":
+                from tensorflow.keras.applications.efficientnet import preprocess_input
+                train_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+                test_datagen = ImageDataGenerator(preprocessing_function=preprocess_input)
+            else:
+                train_datagen = ImageDataGenerator(rescale=1.0/255)
+                test_datagen = ImageDataGenerator(rescale=1.0/255)
+
+        # Create generators from file lists
+        train_generator = train_datagen.flow_from_dataframe(
+            dataframe=pd.DataFrame(train_files, columns=['filename', 'class']),
+            x_col='filename',
+            y_col='class',
             target_size=(self.img_height, self.img_width),
             batch_size=batch_size,
             class_mode="categorical",
-            subset="training",
             shuffle=True
         )
 
-        val_generator = train_datagen.flow_from_directory(
-            train_dir,
+        test_generator = test_datagen.flow_from_dataframe(
+            dataframe=pd.DataFrame(test_files, columns=['filename', 'class']),
+            x_col='filename',
+            y_col='class',
             target_size=(self.img_height, self.img_width),
             batch_size=batch_size,
             class_mode="categorical",
-            subset="validation",
             shuffle=False
         )
 
         # If augmentation is enabled, create enhanced generators with exact transformations
         if augment:
-            train_generator = self.create_enhanced_generator(train_generator, exact_rotations=True)
-            # Note: Validation generator keeps original augmentation for consistency
+            train_generator = self.create_enhanced_generator(train_generator, exact_rotations=exact_rotations, augmentation_factor=augmentation_factor)
+            # Note: Test generator keeps original images for consistency
 
-        return train_generator, val_generator
+        return train_generator, test_generator
 
-    def create_enhanced_generator(self, base_generator, exact_rotations: bool = True):
+    def create_enhanced_generator(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8):
         """Create enhanced generator with exact rotations and flips."""
-        return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations)
+        return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations, augmentation_factor=augmentation_factor)
 
     def custom_generator(self, generator):
         """Convert generator to work with dual-output model (like Flask app)."""
@@ -703,7 +811,8 @@ class CNNTrainer(ModelTrainer):
             yield batch_x, {"class_output": batch_y, "feature_output": dummy_feature_labels}
 
     def train(self, train_generator, val_generator=None, epochs: int = 20,
-              callbacks: List = None, progress_bar: bool = True, **kwargs):
+              callbacks: List = None, progress_bar: bool = True,
+              best_model_path: Optional[Union[str, Path]] = None, **kwargs):
         """Train the feature extraction model."""
         if self.model is None:
             raise ValueError("Model must be built before training. Call build_model() first.")
@@ -712,6 +821,8 @@ class CNNTrainer(ModelTrainer):
         if callbacks is None:
             try:
                 from tensorflow.keras.callbacks import ModelCheckpoint
+                checkpoint_path = Path(best_model_path) if best_model_path else Path(f'{self.model_name}_best.keras')
+                checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
                 callbacks = []
                 if progress_bar:
                     tqdm_callback = TQDMProgressBar()
@@ -720,7 +831,7 @@ class CNNTrainer(ModelTrainer):
                 else:
                     logger.info("Progress bars disabled")
                 callbacks.extend([
-                    ModelCheckpoint(f'{self.model_name}_best.keras', save_best_only=True)
+                    ModelCheckpoint(str(checkpoint_path), save_best_only=True)
                 ])
                 logger.info(f"Total callbacks configured: {len(callbacks)}")
             except ImportError:
@@ -734,22 +845,42 @@ class CNNTrainer(ModelTrainer):
         train_gen = self.custom_generator(train_generator)
         val_gen = self.custom_generator(val_generator) if val_generator else None
 
-        # Train model
-        history = self.model.fit(
-            train_gen,
-            epochs=epochs,
-            steps_per_epoch=steps_per_epoch,
-            validation_data=val_gen,
-            validation_steps=validation_steps,
-            callbacks=callbacks,
-            **kwargs
-        )
+        # Train model epoch by epoch to handle generator resets properly
+        full_history = None
+        for epoch in range(epochs):
+            logger.info(f"Training epoch {epoch + 1}/{epochs}")
+            
+            # Recreate generators for each epoch to ensure proper reset
+            train_gen = self.custom_generator(train_generator)
+            val_gen = self.custom_generator(val_generator) if val_generator else None
+            
+            history = self.model.fit(
+                train_gen,
+                epochs=epoch + 1,
+                initial_epoch=epoch,
+                steps_per_epoch=steps_per_epoch,
+                validation_data=val_gen,
+                validation_steps=validation_steps,
+                callbacks=callbacks,
+                **kwargs
+            )
+            
+            # Accumulate history
+            if full_history is None:
+                full_history = history
+            else:
+                # Merge histories
+                for key in history.history:
+                    if key in full_history.history:
+                        full_history.history[key].extend(history.history[key])
+                    else:
+                        full_history.history[key] = history.history[key]
 
         self.is_trained = True
-        self.training_history = history.history
+        self.training_history = full_history.history if full_history else {}
 
         logger.info(f"Feature extraction training completed. Model ready for vector similarity search.")
-        return history
+        return full_history
 
     def extract_features_from_array(self, img_array: np.ndarray) -> np.ndarray:
         """Extract feature vector from a preprocessed image array."""
@@ -763,10 +894,10 @@ class CNNTrainer(ModelTrainer):
         # Extract features using the feature model (outputs feature vector)
         feature_vector = self.feature_model.predict(img_array, verbose=0)[0]
 
-        # Truncate to 1024 dimensions to match database schema
-        if len(feature_vector) > 1024:
-            feature_vector = feature_vector[:1024]
-            logger.info(f"Truncated feature vector from {len(feature_vector)} to 1024 dimensions")
+        # Truncate to 1536 dimensions to match database schema
+        if len(feature_vector) > 1536:
+            feature_vector = feature_vector[:1536]
+            logger.info(f"Truncated feature vector from {len(feature_vector)} to 1536 dimensions")
 
         # Check for NaN values and handle them
         if np.any(np.isnan(feature_vector)):
@@ -775,6 +906,33 @@ class CNNTrainer(ModelTrainer):
 
         logger.info(f"Feature extraction completed. Feature vector shape: {feature_vector.shape}")
         return feature_vector
+
+    def extract_features(self, image_path: str) -> np.ndarray:
+        """Extract feature vector from an image file."""
+        try:
+            from tensorflow.keras.preprocessing.image import load_img, img_to_array
+        except ImportError:
+            raise ImportError("TensorFlow not available")
+
+        if not self.is_trained:
+            raise ValueError("Model must be trained before feature extraction")
+
+        # Load image
+        img = load_img(image_path, target_size=(self.img_height, self.img_width))
+        img_array = img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)
+
+        # Apply architecture-specific preprocessing
+        if self.architecture == "efficientnet":
+            # For custom trained EfficientNet models, use standard normalization
+            # (not the ImageNet EfficientNet preprocessing, since model was trained with standard normalization)
+            img_array = img_array / 255.0
+        else:
+            # ResNet50, VGG16, and other architectures use standard normalization
+            img_array = img_array / 255.0
+
+        # Extract features using the feature model
+        return self.extract_features_from_array(img_array)
 
     def predict_image(self, image_path: str) -> Tuple[int, np.ndarray]:
         """Predict class and extract features from an image."""
@@ -786,10 +944,17 @@ class CNNTrainer(ModelTrainer):
         if not self.is_trained:
             raise ValueError("Model must be trained before prediction")
 
-        # Load and preprocess image
+        # Load image
         img = load_img(image_path, target_size=(self.img_height, self.img_width))
-        img_array = img_to_array(img) / 255.0
+        img_array = img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0)
+
+        # Apply architecture-specific preprocessing
+        if self.architecture == "efficientnet":
+            # For custom trained EfficientNet models, use standard normalization
+            img_array = img_array / 255.0
+        else:
+            img_array = img_array / 255.0
 
         # Get predictions
         predictions = self.model.predict(img_array)
@@ -810,10 +975,17 @@ class CNNTrainer(ModelTrainer):
         if not self.is_trained:
             raise ValueError("Model must be trained before prediction")
 
-        # Load and preprocess image
+        # Load image
         img = load_img(image_path, target_size=(self.img_height, self.img_width))
-        img_array = img_to_array(img) / 255.0
+        img_array = img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0)
+
+        # Apply architecture-specific preprocessing
+        if self.architecture == "efficientnet":
+            # For custom trained EfficientNet models, use standard normalization
+            img_array = img_array / 255.0
+        else:
+            img_array = img_array / 255.0
 
         # Get predictions - handle both single and dual output models
         predictions = self.model.predict(img_array, verbose=0)
@@ -833,7 +1005,8 @@ class CNNTrainer(ModelTrainer):
         }
 
     def fine_tune(self, train_generator, val_generator=None, epochs: int = 10,
-                  unfreeze_layers: int = 10, learning_rate: float = 1e-5):
+                  unfreeze_layers: int = 10, learning_rate: float = 1e-5,
+                  best_model_path: Optional[Union[str, Path]] = None):
         """Fine-tune the model by unfreezing some base layers."""
         if not self.is_trained:
             raise ValueError("Model must be trained before fine-tuning")
@@ -864,7 +1037,12 @@ class CNNTrainer(ModelTrainer):
         logger.info(f"Fine-tuning with {unfreeze_layers} unfrozen layers and lr={learning_rate}")
 
         # Train with fine-tuning
-        return self.train(train_generator, val_generator, epochs=epochs)
+        return self.train(
+            train_generator,
+            val_generator,
+            epochs=epochs,
+            best_model_path=best_model_path
+        )
 
     def load_model(self, filepath: Union[str, Path]):
         """Load model from disk and setup feature model."""
@@ -905,10 +1083,10 @@ class CNNTrainer(ModelTrainer):
             else:
                 # Fallback: recreate from GAP layer (for backward compatibility)
                 gap_layer = self.model.get_layer('global_average_pooling2d')
-                reduction_layer = Dense(1024, activation='relu', name='feature_reduction')(gap_layer.output)
+                reduction_layer = Dense(1536, activation='relu', name='feature_reduction')(gap_layer.output)
                 self.feature_model = Model(inputs=self.model.input, outputs=reduction_layer)
-                self.feature_dim = 1024
-                logger.info("Feature model recreated using GAP layer with 1024-dim reduction")
+                self.feature_dim = 1536
+                logger.info("Feature model recreated using GAP layer with 1536-dim reduction")
         except Exception as e:
             logger.warning(f"Could not recreate feature model: {e}")
             self.feature_model = None
@@ -920,8 +1098,8 @@ def create_cnn_trainer(architecture: str = "resnet50", model_name: str = "cnn_mo
 
 
 def train_cnn_model(train_dir: str, num_classes: int, architecture: str = "resnet50",
-                   epochs: int = 20, batch_size: int = 32, feature_dim: int = 1024,
-                   validation_split: float = 0.2, model_name: str = "cnn_model") -> CNNTrainer:
+                   epochs: int = 20, batch_size: int = 32, feature_dim: int = 1536,
+                   test_split: float = 0.1, model_name: str = "cnn_model") -> CNNTrainer:
     """Convenience function to train a CNN model end-to-end."""
 
     # Create trainer
@@ -933,7 +1111,7 @@ def train_cnn_model(train_dir: str, num_classes: int, architecture: str = "resne
     # Create data generators
     train_gen, val_gen = trainer.create_data_generators(
         train_dir=train_dir,
-        validation_split=validation_split,
+        test_split=test_split,
         batch_size=batch_size
     )
 

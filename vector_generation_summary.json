@@ -1,9 +1,9 @@
 {
   "model_type": "resnet50",
-  "total_vectors": 9186,
+  "total_vectors": 4593,
   "total_original_images": 1531,
-  "augmentations_per_image": 6,
-  "expected_total_vectors": 9186,
+  "augmentations_per_image": 1,
+  "expected_total_vectors": 1531,
   "classes_processed": [
     "Abrasions",
     "Diabetic Wounds",
@@ -18,11 +18,12 @@
   ],
   "table_name": "images_features",
   "augmentations": [
-    "original",
-    "rotate_90",
-    "rotate_180",
-    "rotate_270",
-    "flip_horizontal",
-    "flip_vertical"
-  ]
+    "original"
+  ],
+  "skip_augmentation": true,
+  "target_vectors_per_class": 0,
+  "batch_size": 100,
+  "append_mode": false,
+  "replace_architecture_mode": true,
+  "vectors_inserted_this_run": 1531
 }

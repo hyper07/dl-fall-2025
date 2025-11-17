@@ -1,0 +1,39 @@
+{
+  "training_date": "2025-11-17T10:15:23.298353",
+  "model_name": "wound_classifier",
+  "architecture": "vgg16",
+  "num_classes": 10,
+  "class_counts": {
+    "Abrasions": 82,
+    "Diabetic Wounds": 231,
+    "Surgical Wounds": 210,
+    "Bruises": 121,
+    "Cut": 50,
+    "Venous Wounds": 247,
+    "Normal": 100,
+    "Pressure Wounds": 301,
+    "Laseration": 122,
+    "Burns": 67
+  },
+  "training_config": {
+    "epochs": 200,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "test_split": 0.05,
+    "feature_dim": 1536,
+    "augmentation": false,
+    "exact_rotations": false,
+    "augmentation_factor": 1,
+    "fine_tuning": false
+  },
+  "final_metrics": {
+    "train_accuracy": 0.9592982530593872,
+    "val_accuracy": 0.5,
+    "train_loss": 0.1153872087597847,
+    "val_loss": 3.7395219802856445
+  },
+  "model_paths": {
+    "model_file": "models/vgg16/wound_classifier.pkl",
+    "config_file": "models/vgg16/training_config.json"
+  }
+}

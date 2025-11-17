@@ -27,7 +27,7 @@ requests
 python-dotenv
 panel
 ipython
-opencv-python
+opencv-python-headless
 
 pikepdf
 pypdf

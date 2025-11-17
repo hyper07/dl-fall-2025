@@ -1,31 +1,28 @@
 # Wound Detection Platform
 
-AI-Powered Wound Classification & Medical Image Analysis System
+AI-assisted wound classification and similarity-search toolkit for clinical research and rapid prototyping.
 
-*Columbia University SPS × Advanced Medical Imaging - Deep Learning Project Fall 2025*
+Built for research and prototype deployments (Columbia University, Deep Learning — Fall 2025), this repository combines model training, feature-vector generation, and a lightweight Streamlit UI so clinicians and researchers can:
 
-## 🎯 Overview
+- Train and evaluate multi-class wound classifiers that output both per-class probabilities and compact feature vectors
+- Extract L2-normalized embeddings (1536-d) from trained CNNs and index them in PostgreSQL with pgvector for visual similarity search
+- Rapidly prototype workflows for case retrieval, dataset exploration, and model debugging via a browser UI or scripts
 
-This project implements an intelligent wound detection and classification system using deep learning techniques. The platform provides healthcare professionals with automated wound analysis capabilities, supporting the identification of various wound types through computer vision and machine learning.
+Key highlights:
 
-### Key Features
-
-- **Multi-Class Wound Classification**: Identifies 10 different wound types including abrasions, bruises, burns, cuts, diabetic wounds, lacerations, pressure wounds, surgical wounds, venous wounds, and normal skin
-- **Apple Silicon MPS Support**: Optimized for macOS with Metal Performance Shaders (MPS) acceleration for faster training on Apple Silicon Macs
-- **Web-Based Interface**: User-friendly Streamlit application for image upload and analysis
-- **Vector Search**: PostgreSQL with pgvector for efficient similarity search and image retrieval
-- **Model Training Pipeline**: Automated training scripts with support for multiple CNN architectures
-- **Docker Deployment**: Containerized environment for easy deployment and scaling
-- **Real-time Analysis**: Instant wound classification and confidence scoring
+- Multi-class wound classification + dual-output feature extractor (class probabilities + embeddings)
+- Vector similarity search with PostgreSQL + pgvector for efficient cosine-similarity retrieval
+- Streamlit demo UI for quick image upload, prediction, and similarity exploration
+- Training utilities with optional MPS (Apple Silicon) acceleration and Docker-based reproducibility
 
 ## 🏗️ Architecture
 
-The system consists of multiple interconnected services:
+The repository organizes functionality into clear components:
 
-- **Streamlit Web App**: Frontend interface for wound analysis
-- **PostgreSQL + pgvector**: Vector database for image embeddings and metadata
-- **Jupyter Environment**: Interactive notebooks for model development and experimentation
-- **Training Pipeline**: Standalone scripts for model training and evaluation
+- `app-streamlit/` — Streamlit demo UI (pages for training, similarity search, and management)
+- `core/` — Model utilities, preprocessing, vector generation, and DB helpers
+- `generate_vectors.py`, `train_model.py` — Utilities to produce embeddings and train models
+- `models/`, `files/` — Trained model artifacts and dataset layout
 
 ## 🚀 Quick Start
 
@@ -65,6 +62,12 @@ The system consists of multiple interconnected services:
    - **Jupyter Notebook**: http://localhost:48888 (token: empty)
    - **PostgreSQL**: localhost:45432
 
+5. **Generate Feature Vectors** (for similarity search)
+   ```bash
+   # After training a model, generate vectors for the database
+   python generate_vectors.py
+   ```
+
 ## 📊 Dataset
 
 The system uses a comprehensive wound image dataset with the following categories:
@@ -103,7 +106,7 @@ python train_model.py \
 
 # Minimal training without progress bars
 python train_model.py \
-  --augment \
+  --augment false \
   --exact_rotations=false \
   --progress_bar=false \
   --device auto
@@ -112,11 +115,17 @@ python train_model.py \
 python train_model.py --fine_tune --fine_tune_epochs 10 --unfreeze_layers 30
 ```
 
+> **Tip:** Boolean flags (`--augment`, `--exact_rotations`, `--progress_bar`,
+> `--quiet`, `--fine_tune`) accept explicit `true/false` values in addition to
+> the shorthand `--flag`. For example, `--augment false` disables augmentation
+> without touching other defaults.
+
 ### Data Augmentation
 
 The training pipeline supports comprehensive data augmentation:
 
 - **Standard Augmentation**: Random rotations (±40°), shifts, and flips
+- **Exact Rotations Mode**: Deterministic 90°/180°/270° rotations with mirrored variants (`rotate_90`, `rotate_180`, `rotate_270`, `rotate_90_flip`, `rotate_180_flip`, `rotate_270_flip`, `flip_vertical`) to keep augmentation parity with vector generation
 - **Enhanced Augmentation** (`--exact_rotations`): Exact 90°, 180°, 270° rotations + horizontal/vertical flips
 - **Effective Dataset Size**: Up to 8x multiplication with exact transformations
 
@@ -133,12 +142,44 @@ The training script provides detailed progress monitoring:
 - **Live Metrics**: Training loss, accuracy, and validation metrics displayed in progress bars
 - **Detailed Logging**: Comprehensive logging to console and training.log file
 - **Model Checkpoints**: Automatic saving of best models during training
+- **Checkpoint Location**: Best-performing weights are saved as `./models/<architecture>/<model_name>_best.keras`
 
 ### Supported Architectures
 
 - **ResNet50**: Default choice, good balance of accuracy and speed
 - **VGG16**: Deeper architecture for complex feature extraction
 - **EfficientNet**: Optimized for computational efficiency
+
+### Architectures (detailed guidance)
+
+This section explains the key architectures available in the project, their trade-offs, and practical guidance on when to use each one.
+
+- ResNet50 (recommended default)
+  - Overview: Residual networks use skip connections to enable much deeper models without vanishing gradients. ResNet50 is a widely-used, well-balanced backbone that performs strongly on a variety of image tasks.
+  - Pros: Good accuracy for moderate compute, robust feature extraction, stable training behavior.
+  - Cons: Larger than lightweight backbones; moderate inference cost.
+  - When to pick: Default choice for most experiments and when you want reliable embeddings without bespoke tuning.
+  - Feature vectors: We extract from the global average pooling (GAP) layer and optionally apply a Dense reduction to the canonical 1536-dim feature vector used by this project.
+
+- VGG16 (deeper, simpler blocks)
+  - Overview: VGG-style networks use repeated blocks of convolutional layers. They're conceptually simple and easy to reason about but are parameter-heavy.
+  - Pros: Straightforward architecture, sometimes useful as a sanity-check backbone or for transfer learning where simplicity helps.
+  - Cons: Large parameter count and slower inference; fewer accuracy gains per parameter compared with ResNet/EfficientNet.
+  - When to pick: Use when you need a legacy-compatible backbone or when experimenting with feature visualization and layer-wise analysis.
+  - Feature vectors: VGG-based feature maps tend to be higher-dimensional pre-reduction — the pipeline will reduce them to the configured feature dimension (1536 by default) to keep the DB schema consistent.
+
+- EfficientNet (compute-efficient)
+  - Overview: EfficientNet family scales depth/width/resolution in a principled way to maximize accuracy per FLOP. Lightweight variants offer excellent performance for constrained resources.
+  - Pros: Excellent accuracy-to-compute trade-off, especially on mobile/edge devices; variants available across compute budgets.
+  - Cons: Slightly more complex configuration and tuning relative to ResNet; some variants require specific preprocessing/scaling.
+  - When to pick: Choose EfficientNet when you need the best accuracy for a given compute budget or when training/inference will run on limited hardware.
+  - Feature vectors: EfficientNet embeddings are compact and high-quality; we still normalize and (if configured) reduce/pad to the project's feature dimension before storage.
+
+Recommendations and practical tips
+- Vector dimension: This repository standardizes on 1536-dimensional L2-normalized vectors. Make sure `VECTOR_DIMENSION` in your `.env` and any saved `training_summary.json` match the vectors stored in your database.
+- Dual-output models: All supported backbones are used in a dual-output setup (class probabilities + feature vector). The feature extraction path is implemented so a single forward pass returns both outputs where possible.
+- Training flags: Use `--device mps` on Apple Silicon for faster training, reduce `--batch_size` if you run out of GPU memory, and use `--progress_bar` / `--quiet` as needed for verbosity control.
+- Reproducibility: If you change the backbone or feature-dimension, regenerate vectors via `python generate_vectors.py` to avoid dimension mismatches during similarity search.
 
 ### Configuration
 
@@ -155,13 +196,189 @@ Training parameters can be customized via `training_config.json`:
 }
 ```
 
+## 🔍 Vector Generation & Database Insertion
+
+The platform includes automated vector generation and database insertion capabilities for similarity search functionality.
+
+### Vector Generation Process
+
+The system generates 1536-dimensional feature vectors from trained CNN models and stores them in PostgreSQL with pgvector for efficient similarity search.
+
+#### Key Features
+
+- **1536-Dimensional Vectors**: Optimized feature extraction from ResNet50 GAP layer
+- **Augmentation Support**: 6 augmentations per image (original + 5 transformations)
+- **Batch Processing**: Efficient batch insertion with progress tracking
+- **Normalization**: L2-normalized vectors for proper cosine similarity
+- **Metadata Storage**: Complete metadata including class, augmentation type, and original filename
+
+#### Vector Generation Workflow
+
+1. **Load Trained Model**: Load pre-trained ResNet50 model from `.keras` or `.pkl` file
+2. **Feature Extraction**: Extract 1536-dimensional features from GAP layer
+3. **Apply Augmentations**: Generate 6 versions per image (rotations + flips)
+4. **Vector Normalization**: L2-normalize for cosine similarity
+5. **Database Insertion**: Store vectors with metadata in PostgreSQL
+
+### Usage
+
+#### Generate Vectors from Scratch
+
+```bash
+# Generate vectors for all training images with augmentations
+python generate_vectors.py
+
+# The script will:
+# 1. Load model from './wound_classifier_best.keras'
+# 2. Process all images in './files/train_dataset'
+# 3. Apply 6 augmentations per image
+# 4. Store ~9,000+ vectors in database
+```
+
+```bash
+# Balanced incremental vector generation
+python generate_vectors.py \
+  --target-vectors-per-class 200 \
+  --batch-size 256 \
+  --append
+```
+
+- `--target-vectors-per-class` keeps each class close to a desired count by
+  sampling the source images (use `0` to process everything)
+- `--batch-size` controls how many embeddings are written per insert
+- `--append` skips the default table drop so you can incrementally add vectors
+
+#### Custom Vector Generation
+
+```python
+from generate_vectors import generate_vectors_for_class, get_image_paths_by_class
+from core.model_utils import CNNTrainer
+from core.database import get_vector_store
+
+# Load trained model
+trainer = CNNTrainer(architecture='resnet50', model_name='wound_classifier')
+trainer.load_model('./models/resnet50/wound_classifier.pkl')
+trainer.is_trained = True
+
+# Get images by class
+class_images = get_image_paths_by_class('./files/train_dataset')
+
+# Generate vectors for specific class
+vectors_data = generate_vectors_for_class(trainer, 'Burns', class_images['Burns'])
+
+# Insert to database
+vector_store = get_vector_store()
+vector_store.create_vector_table('images_features', vector_dim=1536)
+vector_store.insert_vectors('images_features', vectors_data)
+```
+
+#### Database Schema
+
+```sql
+CREATE TABLE images_features (
+    id SERIAL PRIMARY KEY,
+    content TEXT,                    -- Description of the vector
+    model_name VARCHAR(50),          -- Model architecture (e.g., 'resnet50')
+    label VARCHAR(100),              -- Class label (e.g., 'Burns')
+    augmentation VARCHAR(50),        -- Augmentation type (e.g., 'rotate_90')
+    original_image VARCHAR(255),     -- Original filename
+    embedding vector(1536),          -- 1536-dimensional feature vector
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### Augmentation Types
+
+The system generates 6 augmentations per image:
+
+- `original`: Original image
+- `rotate_90`: 90° clockwise rotation
+- `rotate_180`: 180° rotation
+- `rotate_270`: 270° clockwise rotation
+- `flip_horizontal`: Horizontal mirror
+- `flip_vertical`: Vertical mirror
+
+#### Configuration Options
+
+**In `generate_vectors.py`:**
+```python
+# Configuration variables
+model_path = './wound_classifier_best.keras'  # Path to trained model
+dataset_dir = './files/train_dataset'         # Dataset directory
+table_name = 'images_features'                # Database table name
+target_vectors_per_class = 200               # Target vectors per class
+```
+
+#### Prerequisites
+
+1. **Trained Model**: Ensure you have a trained model file (`.keras` or `.pkl`)
+2. **PostgreSQL + pgvector**: Database must be running with pgvector extension
+3. **Dataset**: Training images organized in class subdirectories
+
+#### Database Setup
+
+```bash
+# Start PostgreSQL with pgvector
+docker-compose up dl-postgres
+
+# Or ensure pgvector extension is installed
+psql -U admin -d db -c "CREATE EXTENSION IF NOT EXISTS vector;"
+```
+
+#### Verification
+
+```python
+from core.database import get_vector_store
+
+# Check vector count
+vector_store = get_vector_store()
+count = vector_store.get_vector_count('images_features')
+print(f"Total vectors in database: {count}")
+
+# Test similarity search
+query_vector = np.random.rand(1536)  # Replace with actual feature vector
+results = vector_store.search_similar('images_features', query_vector, limit=5)
+for result in results:
+    print(f"ID: {result[0]}, Similarity: {result[2]:.4f}, Class: {result[4]}")
+```
+
+### Troubleshooting
+
+**Model Loading Issues:**
+```bash
+# Ensure model file exists
+ls -la wound_classifier_best.keras
+
+# Try loading with explicit path
+python -c "from core.model_utils import CNNTrainer; t = CNNTrainer(); t.load_model('./models/resnet50/wound_classifier.pkl')"
+```
+
+**Database Connection Issues:**
+```bash
+# Check if PostgreSQL is running
+docker-compose ps dl-postgres
+
+# Test database connection
+python -c "from core.database import get_db_connection; conn = get_db_connection(); conn.connect(); print('Connected')"
+```
+
+**Memory Issues:**
+- Reduce batch size in the script
+- Process one class at a time
+- Use CPU instead of GPU for feature extraction
+
+**Vector Quality Issues:**
+- Ensure model is properly trained
+- Check that feature vectors are L2-normalized
+- Verify augmentation quality
+
 ## � Similarity Search
 
 The platform includes advanced image similarity search capabilities powered by PostgreSQL with pgvector extension, providing MongoDB Atlas Search-like functionality.
 
 ### Features
 
-- **1024-Dimensional Feature Vectors**: Optimized feature extraction from ResNet50 GAP layer with Dense reduction
+- **1536-Dimensional Feature Vectors**: Optimized feature extraction from ResNet50 GAP layer with Dense reduction
 - **Cosine Similarity Search**: Efficient vector similarity using pgvector exact search
 - **Class-Based Analysis**: Average similarity scores grouped by wound class
 - **Real-time Search**: Instant similarity search with numerical scores (no "nan" values)
@@ -170,8 +387,8 @@ The platform includes advanced image similarity search capabilities powered by P
 
 ### How It Works
 
-1. **Dual Output Prediction**: Single model forward pass extracts both class probabilities and 1024-dimensional feature vectors
-2. **Feature Extraction**: ResNet50 backbone with GAP pooling and Dense reduction to 1024 dimensions
+1. **Dual Output Prediction**: Single model forward pass extracts both class probabilities and 1536-dimensional feature vectors
+2. **Feature Extraction**: ResNet50 backbone with GAP pooling and Dense reduction to 1536 dimensions
 3. **Vector Storage**: Features stored in PostgreSQL with pgvector extension for efficient similarity search
 4. **Similarity Search**: Cosine similarity comparison between query image and database vectors
 5. **Class Analysis**: Results grouped by wound type with average similarity scores
@@ -188,7 +405,7 @@ trainer.load_model('wound_classifier_best.keras')
 # Single forward pass returns both class and features
 result = trainer.predict_dual('wound_image.jpg')
 print(f"Class probabilities: {result['class']}")  # Shape: (10,)
-print(f"Feature vector: {result['feature']}")     # Shape: (1024,)
+print(f"Feature vector: {result['feature']}")     # Shape: (1536,)
 
 # Similarity search with automatic class prediction
 from core.image_similarity import create_similarity_search
@@ -215,20 +432,69 @@ CREATE TABLE images_features (
     label VARCHAR(100),
     augmentation VARCHAR(50),
     original_image VARCHAR(255),
-    embedding VECTOR(1024)
+    embedding VECTOR(1536)
 );
 ```
 
 ### Performance
 
-- **Vector Dimension**: 1024 (optimized for pgvector HNSW compatibility)
+- **Vector Dimension**: 1536 (optimized for pgvector HNSW compatibility)
 - **Database Size**: 9,186+ vectors with augmentations
 - **Search Speed**: Sub-second similarity search
 - **Accuracy**: Numerical similarity scores with proper L2 normalization
 
 ## �🔧 Development
 
-### Project Structure
+
+## 🔁 Database backup & restore
+
+This project includes a small utility script to create, list, and restore PostgreSQL backups used by the vector store. The script is `database_backup.py` at the repository root and is intended to be run from the project directory. It works with a Dockerized PostgreSQL service by default but can be adapted to a different container name or backup directory.
+
+Usage examples (run from the repository root):
+
+Create a backup (default backup directory is `./backup` and default container name is `dl-postgres`):
+
+```bash
+python database_backup.py backup
+```
+
+List available backups in the backup directory:
+
+```bash
+python database_backup.py list
+```
+
+Restore from a specific backup file (provide the path to a backup file):
+
+```bash
+python database_backup.py restore --backup-file ./backup/wound_classifier_vectors.backup
+```
+
+Optional flags:
+- `--backup-dir, -d` : set a custom backup directory (default: `./backup`).
+- `--container, -c`  : Docker container name running PostgreSQL (default: `dl-postgres`).
+
+Notes and verification
+- The script assumes PostgreSQL is running inside a Docker container. If your DB is local or uses a different container name, set `--container` accordingly.
+- After creating a backup, verify the file exists in the backup directory and inspect its size:
+
+```bash
+ls -lh ./backup
+```
+
+- When restoring, ensure the Postgres container is running and that restoring won't overwrite important data. The script will call `pg_dump`/`pg_restore` inside the container context.
+
+If you need a non-Docker restore flow or to run the commands manually, here's a minimal example to create and restore using `pg_dump`/`pg_restore` on a running Postgres server (adjust user, host, and DB name to your environment):
+
+```bash
+# Create backup (local pg_dump)
+pg_dump -U <user> -h <host> -d <db> -F c -b -v -f ./backup/mydb.backup
+
+# Restore backup (local pg_restore)
+pg_restore -U <user> -h <host> -d <db> -v ./backup/mydb.backup
+```
+
+If anything in the script behavior needs clarification or you'd like the script extended (S3 upload, encryption, or scheduled backups), tell me what you'd like and I can add it.
 
 ```
 dl-fall-2025/
@@ -359,4 +625,4 @@ For questions, issues, or contributions:
 
 ---
 
-*Built with ❤️ for advancing healthcare through AI*
+

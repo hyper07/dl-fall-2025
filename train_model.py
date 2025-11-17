@@ -38,12 +38,40 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def str2bool(value):
+    """Parse flexible boolean CLI arguments."""
+    if isinstance(value, bool):
+        return value
+    if value is None:
+        return False
+    value_str = str(value).strip().lower()
+    if value_str in {"true", "t", "1", "yes", "y"}:
+        return True
+    if value_str in {"false", "f", "0", "no", "n"}:
+        return False
+    raise argparse.ArgumentTypeError(f"Boolean value expected, got '{value}'. Use true/false.")
+
+
+def add_boolean_arg(parser, name, default=False, help_text=None):
+    """Add a --flag [true|false] style argument with sensible defaults."""
+    parser.add_argument(
+        f'--{name}',
+        type=str2bool,
+        nargs='?',
+        const=True,
+        default=default,
+        metavar='{true,false}',
+        help=(help_text or f"Set {name.replace('_', ' ')} (true/false). "
+              f"Defaults to {str(default).lower()}.")
+    )
+
+
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Train CNN model for wound classification')
 
     # Data arguments
-    parser.add_argument('--data_dir', type=str, default='./static/train_dataset',
+    parser.add_argument('--data_dir', type=str, default='./files/train_dataset',
                        help='Path to training dataset directory')
     parser.add_argument('--output_dir', type=str, default='./models',
                        help='Directory to save trained models')
@@ -62,22 +90,25 @@ def parse_arguments():
                        help='Batch size for training')
     parser.add_argument('--learning_rate', type=float, default=0.001,
                        help='Initial learning rate')
-    parser.add_argument('--validation_split', type=float, default=0.2,
-                       help='Fraction of data to use for validation')
-    parser.add_argument('--feature_dim', type=int, default=1024,
+    parser.add_argument('--test_split', type=float, default=0.1,
+                       help='Fraction of data to use for testing (stratified by class)')
+    parser.add_argument('--feature_dim', type=int, default=1536,
                        help='Dimension of feature vectors for vector search')
 
     # Training options
-    parser.add_argument('--augment', action='store_true', default=True,
-                       help='Use data augmentation')
-    parser.add_argument('--exact_rotations', action='store_true', default=True,
-                       help='Use exact 90/180/270 degree rotations and flips for augmentation')
-    parser.add_argument('--progress_bar', action='store_true', default=True,
-                       help='Show TQDM progress bars during training')
-    parser.add_argument('--quiet', action='store_true', default=False,
-                       help='Suppress TensorFlow warnings and reduce output verbosity')
-    parser.add_argument('--fine_tune', action='store_true', default=False,
-                       help='Perform fine-tuning after initial training')
+    add_boolean_arg(parser, 'augment', default=True,
+                    help_text='Use data augmentation (true/false)')
+    add_boolean_arg(parser, 'exact_rotations', default=True,
+                    help_text='Use exact 90/180/270 degree rotations and flips (true/false)')
+    parser.add_argument('--augmentation_factor', type=int, default=None,
+                       help='Augmentation factor for enhanced data generation '
+                            '(defaults to 8 when exact_rotations is true)')
+    add_boolean_arg(parser, 'progress_bar', default=True,
+                    help_text='Show TQDM progress bars during training (true/false)')
+    add_boolean_arg(parser, 'quiet', default=False,
+                    help_text='Suppress TensorFlow warnings and reduce output verbosity (true/false)')
+    add_boolean_arg(parser, 'fine_tune', default=False,
+                    help_text='Perform fine-tuning after initial training (true/false)')
     parser.add_argument('--fine_tune_epochs', type=int, default=5,
                        help='Number of fine-tuning epochs')
     parser.add_argument('--unfreeze_layers', type=int, default=20,
@@ -166,9 +197,11 @@ def save_training_summary(model_dir, trainer, class_counts, training_history, ar
             'epochs': args.epochs,
             'batch_size': args.batch_size,
             'learning_rate': args.learning_rate,
-            'validation_split': args.validation_split,
+            'test_split': args.test_split,
             'feature_dim': args.feature_dim,
             'augmentation': args.augment,
+            'exact_rotations': args.exact_rotations,
+            'augmentation_factor': args.augmentation_factor,
             'fine_tuning': args.fine_tune
         },
         'final_metrics': {
@@ -198,10 +231,16 @@ def main():
     """Main training function."""
     args = parse_arguments()
 
+    # Derive augmentation factor if not explicitly provided
+    if args.augmentation_factor is None:
+        args.augmentation_factor = 8 if args.exact_rotations else 1
+        logger.info(f"Auto-selected augmentation_factor={args.augmentation_factor} "
+                    f"(exact_rotations={'enabled' if args.exact_rotations else 'disabled'})")
+
     # Configure TensorFlow logging based on quiet flag
     if args.quiet:
         import os
-        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow warnings
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TensorFlow warnings and info
         os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # Disable oneDNN optimizations
 
     # Initialize app
@@ -258,10 +297,11 @@ def main():
 
         train_gen, val_gen = trainer.create_data_generators(
             train_dir=args.data_dir,
-            validation_split=args.validation_split,
+            test_split=args.test_split,
             batch_size=args.batch_size,
             augment=args.augment,
-            exact_rotations=args.exact_rotations
+            exact_rotations=args.exact_rotations,
+            augmentation_factor=args.augmentation_factor
         )
 
         logger.info(f"Training samples: {train_gen.samples}")
@@ -277,11 +317,14 @@ def main():
         else:
             logger.info("Progress bars disabled - using standard Keras output")
         
+        best_model_path = model_dir / f"{trainer.model_name}_best.keras"
+
         training_history = trainer.train(
             train_gen,
             val_gen,
             epochs=args.epochs,
-            progress_bar=args.progress_bar
+            progress_bar=args.progress_bar,
+            best_model_path=best_model_path
         )
 
         # Fine-tune if requested
@@ -292,7 +335,8 @@ def main():
                 val_gen,
                 epochs=args.fine_tune_epochs,
                 unfreeze_layers=args.unfreeze_layers,
-                learning_rate=args.learning_rate / 10  # Lower LR for fine-tuning
+                learning_rate=args.learning_rate / 10,  # Lower LR for fine-tuning
+                best_model_path=best_model_path
             )
 
         # Save the trained model

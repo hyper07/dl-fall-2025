@@ -1,0 +1,22 @@
+{
+  "data_dir": "./files/train_dataset",
+  "output_dir": "./models",
+  "architecture": "vgg16",
+  "model_name": "wound_classifier",
+  "epochs": 200,
+  "batch_size": 32,
+  "learning_rate": 0.0001,
+  "test_split": 0.05,
+  "feature_dim": 1536,
+  "augment": false,
+  "exact_rotations": false,
+  "augmentation_factor": 1,
+  "progress_bar": false,
+  "quiet": false,
+  "fine_tune": false,
+  "fine_tune_epochs": 5,
+  "unfreeze_layers": 20,
+  "device": "auto",
+  "config": null,
+  "save_config": false
+}

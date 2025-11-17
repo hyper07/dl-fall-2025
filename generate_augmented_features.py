@@ -90,7 +90,7 @@ def generate_augmented_features(trainer: CNNTrainer, image_path: str, class_name
             # We need to expand dims for the model input
             img_array = np.expand_dims(transformed_image, axis=0)
 
-            # Get feature vector (this will be truncated to 1024 dimensions by extract_features)
+            # Get feature vector (this will be truncated to 1536 dimensions by extract_features)
             feature_vector = trainer.extract_features_from_array(img_array)
 
             # Normalize the feature vector
@@ -227,7 +227,7 @@ def main():
         'total_vectors_in_db': final_count,
         'classes_processed': list(set(class_labels)),
         'table_name': table_name,
-        'vector_dimension': 1024,
+        'vector_dimension': 1536,
         'augmentation_types': [
             'original', 'rot90', 'rot180', 'rot270',
             'rot90_flip_h', 'rot180_flip_h', 'rot270_flip_h', 'flip_v'

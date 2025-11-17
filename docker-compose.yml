@@ -56,6 +56,7 @@ services:
       - ./core:/usr/src/app/core
       - ./files:/usr/src/app/files
       - ./models:/usr/src/app/models
+      - ./backup:/usr/src/backup
       - ./training_config.json:/usr/src/app/training_config.json
     ports:
       - 48501:18501

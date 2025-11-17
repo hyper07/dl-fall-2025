@@ -17,7 +17,7 @@
     "Burns"
   ],
   "table_name": "images_features",
-  "vector_dimension": 1024,
+  "vector_dimension": 1536,
   "augmentation_types": [
     "original",
     "rot90",

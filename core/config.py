@@ -38,7 +38,7 @@ class DatabaseConfig:
 @dataclass
 class ModelConfig:
     """Model configuration."""
-    vector_dimension: int = 1024
+    vector_dimension: int = 1536
     batch_size: int = 32
     learning_rate: float = 0.001
     epochs: int = 100

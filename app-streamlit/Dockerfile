@@ -14,8 +14,22 @@ ENV PYTHONUNBUFFERED=1
 COPY ${REQUIREMENTS_PATH} /usr/src/app/requirements.txt
 COPY ${REQUIREMENTS_DEV_PATH} /usr/src/app/requirements-dev.txt
 
-# RUN apt-get update && apt-get install -y libgomp1 libglib2.0-0
-RUN apt-get update && apt-get install -y libgomp1 libglib2.0-0 libsm6 libxext6 libxrender-dev libgthread-2.0-0 poppler-utils tesseract-ocr libtesseract-dev libleptonica-dev build-essential
+## Install runtime deps commonly required by image-processing libraries.
+# Note: libgl1-mesa-glx may not exist in slim images; use libgl1 and smaller runtime packages instead.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender1 \
+    libgthread-2.0-0 \
+    poppler-utils \
+    tesseract-ocr \
+    libtesseract-dev \
+    libleptonica-dev \
+    build-essential \
+    libgl1 \
+ && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get -y install --no-install-recommends \
     curl sqlite3 libsqlite3-dev gcc 

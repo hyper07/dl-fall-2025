@@ -20,18 +20,19 @@ class OllamaClient:
         self.timeout = timeout or config.ollama.timeout
         self.session = requests.Session()
 
-    def _make_request(self, endpoint: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+    def _make_request(self, endpoint: str, payload: Dict[str, Any]) -> Union[Dict[str, Any], requests.Response]:
         """Make HTTP request to Ollama API."""
-        url = f"{self.api_url}/{endpoint}"
+        url = f"{self.api_url}/api/{endpoint}"
 
         try:
             response = self.session.post(
                 url,
                 json=payload,
-                timeout=self.timeout
+                timeout=self.timeout,
+                stream=payload.get("stream", False)
             )
             response.raise_for_status()
-            return response.json()
+            return response
         except requests.exceptions.RequestException as e:
             logger.error(f"Ollama API request failed: {e}")
             raise
@@ -58,7 +59,32 @@ class OllamaClient:
         if stream:
             return response
         else:
-            return response.get("response", "")
+            return response.json().get("response", "")
+
+    def generate_text_stream(self, prompt: str, model: str = "llama2", options: Optional[Dict[str, Any]] = None):
+        """Generate text with streaming using Ollama model."""
+        payload = {
+            "model": model,
+            "prompt": prompt,
+            "stream": True
+        }
+
+        if options:
+            payload["options"] = options
+
+        response = self._make_request("generate", payload)
+
+        for line in response.iter_lines():
+            if line:
+                try:
+                    chunk = json.loads(line.decode('utf-8'))
+                    if chunk.get("done", False):
+                        break
+                    token = chunk.get("response", "")
+                    if token:
+                        yield token
+                except json.JSONDecodeError:
+                    continue
 
     def get_embeddings(self, text: Union[str, List[str]], model: Optional[str] = None) -> List[List[float]]:
         """Get embeddings for text using Ollama."""
@@ -88,7 +114,7 @@ class OllamaClient:
     def list_models(self) -> List[Dict[str, Any]]:
         """List available models."""
         try:
-            response = self.session.get(f"{self.api_url}/tags", timeout=self.timeout)
+            response = self.session.get(f"{self.api_url}/api/tags", timeout=self.timeout)
             response.raise_for_status()
             return response.json().get("models", [])
         except requests.exceptions.RequestException as e:

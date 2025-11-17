@@ -267,7 +267,7 @@ def main():
         'total_vectors_in_db': final_db_count,
         'classes_processed': [d.name for d in dataset_dir.iterdir() if d.is_dir()],
         'table_name': table_name,
-        'vector_dimension': 1024,
+        'vector_dimension': 1536,
         'augmentation_types': [
             'original', 'rot90', 'rot180', 'rot270',
             'mirror_h', 'mirror_v',

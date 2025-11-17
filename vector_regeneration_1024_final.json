@@ -14,7 +14,7 @@
     "Cut"
   ],
   "table_name": "images_features",
-  "vector_dimension": 1024,
+  "vector_dimension": 1536,
   "regeneration_date": "2025-11-16",
-  "note": "Truncated from 2000 to 1024 dimensions to match training config"
+  "note": "Truncated from 2000 to 1536 dimensions to match training config"
 }

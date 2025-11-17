@@ -3,6 +3,7 @@ Database utilities for PostgreSQL with vector search support.
 """
 
 import os
+from urllib.parse import urlparse
 import psycopg2
 from psycopg2.extras import execute_values
 from pgvector.psycopg2 import register_vector
@@ -20,11 +21,30 @@ class DatabaseConnection:
     """Database connection manager for PostgreSQL with pgvector support."""
 
     def __init__(self):
-        self.host = os.getenv("DB_HOST", "dl-postgres")
-        self.port = os.getenv("DB_PORT", "5432")
-        self.user = os.getenv("DB_USER", "admin")
-        self.password = os.getenv("DB_PASSWORD", "PassW0rd")
-        self.database = os.getenv("DB_NAME", "db")
+        # Prefer an explicit DATABASE_URL if present (useful in Docker compose)
+        db_url = os.getenv("DATABASE_URL")
+        if db_url:
+            try:
+                parsed = urlparse(db_url)
+                self.host = parsed.hostname or os.getenv("DB_HOST", "localhost")
+                self.port = str(parsed.port) if parsed.port else os.getenv("DB_PORT", "45432")
+                self.user = parsed.username or os.getenv("DB_USER", "admin")
+                self.password = parsed.password or os.getenv("DB_PASSWORD", "PassW0rd")
+                self.database = (parsed.path.lstrip('/') if parsed.path else None) or os.getenv("DB_NAME", "db")
+            except Exception:
+                # Fall back to environment variables if parsing fails
+                self.host = os.getenv("DB_HOST", "localhost")
+                self.port = os.getenv("DB_PORT", "45432")
+                self.user = os.getenv("DB_USER", "admin")
+                self.password = os.getenv("DB_PASSWORD", "PassW0rd")
+                self.database = os.getenv("DB_NAME", "db")
+        else:
+            # Support both DB_* and POSTGRES_* env var conventions
+            self.host = os.getenv("DB_HOST") or os.getenv("POSTGRES_HOST") or "localhost"
+            self.port = os.getenv("DB_PORT") or os.getenv("POSTGRES_PORT") or "45432"
+            self.user = os.getenv("DB_USER") or os.getenv("POSTGRES_USER") or "admin"
+            self.password = os.getenv("DB_PASSWORD") or os.getenv("POSTGRES_PASSWORD") or "PassW0rd"
+            self.database = os.getenv("DB_NAME") or os.getenv("POSTGRES_DB") or "db"
         self.conn = None
 
     def connect(self):
@@ -64,7 +84,7 @@ class VectorStore:
     def __init__(self, db_conn: DatabaseConnection):
         self.db = db_conn
 
-    def create_vector_table(self, table_name: str = "images_features", vector_dim: int = 1024):
+    def create_vector_table(self, table_name: str = "images_features", vector_dim: int = 1536):
         """Create a unified table with vector column for embeddings and separate metadata columns."""
         with self.db as conn:
             cur = conn.cursor()
@@ -102,7 +122,21 @@ class VectorStore:
 
     def search_similar(self, table_name: str, query_embedding: np.ndarray,
                       limit: int = 10) -> List[Tuple[int, str, float, str, str, str, str]]:
-        """Search for similar vectors using cosine distance with normalization."""
+        """Search for similar vectors using cosine distance with normalization and epsilon for numerical stability."""
+        # Validate that the query embedding dimension matches the stored vector dimension
+        try:
+            db_dim = self.get_table_vector_dim(table_name)
+        except Exception:
+            db_dim = None
+
+        if db_dim is not None and len(query_embedding) != db_dim:
+            # Provide a helpful error explaining the mismatch and how to resolve it
+            raise ValueError(
+                f"Vector dimension mismatch: query vector has {len(query_embedding)} dims but table '{table_name}' stores {db_dim} dims. "
+                "This usually means your environment variable VECTOR_DIMENSION or model feature_dim differs from the stored vectors. "
+                "Regenerate vectors with the correct dimension or update the configuration (e.g. .env or core/config.py) to match."
+            )
+
         # Normalize the query embedding
         query_norm = np.linalg.norm(query_embedding)
         if query_norm > 0:
@@ -110,9 +144,10 @@ class VectorStore:
 
         with self.db as conn:
             cur = conn.cursor()
+            # Add small epsilon to avoid perfect 1.0 similarities
             cur.execute(f"""
                 SELECT id, content,
-                       1 - (embedding <=> %s::vector) as similarity,
+                       GREATEST(0.0, LEAST(0.9999, 1 - (embedding <=> %s::vector))) as similarity,
                        model_name, label, augmentation, original_image
                 FROM {table_name}
                 ORDER BY embedding <=> %s::vector
@@ -128,6 +163,28 @@ class VectorStore:
             cur = conn.cursor()
             cur.execute(f"SELECT COUNT(*) FROM {table_name}")
             return cur.fetchone()[0]
+
+    def get_table_vector_dim(self, table_name: str) -> Optional[int]:
+        """Return the stored vector dimension for the given table (or None if not determinable)."""
+        with self.db as conn:
+            cur = conn.cursor()
+            try:
+                cur.execute(f"SELECT vector_dims(embedding) as dim FROM {table_name} LIMIT 1")
+                result = cur.fetchone()
+                if result and result[0] is not None:
+                    return int(result[0])
+                return None
+            except Exception as e:
+                logger.debug(f"Could not determine vector dimension for table {table_name}: {e}")
+                return None
+
+    def clear_table(self, table_name: str):
+        """Delete all rows from the vector table."""
+        with self.db as conn:
+            cur = conn.cursor()
+            cur.execute(f"DELETE FROM {table_name}")
+            conn.commit()
+            logger.info(f"Cleared all data from table: {table_name}")
 
 
 def get_db_connection() -> DatabaseConnection:
