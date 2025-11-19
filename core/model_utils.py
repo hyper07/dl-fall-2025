@@ -1006,7 +1006,7 @@ class CNNTrainer(ModelTrainer):
 
     def fine_tune(self, train_generator, val_generator=None, epochs: int = 10,
                   unfreeze_layers: int = 10, learning_rate: float = 1e-5,
-                  best_model_path: Optional[Union[str, Path]] = None):
+                  best_model_path: Optional[Union[str, Path]] = None, callbacks: List = None):
         """Fine-tune the model by unfreezing some base layers."""
         if not self.is_trained:
             raise ValueError("Model must be trained before fine-tuning")
@@ -1041,7 +1041,8 @@ class CNNTrainer(ModelTrainer):
             train_generator,
             val_generator,
             epochs=epochs,
-            best_model_path=best_model_path
+            best_model_path=best_model_path,
+            callbacks=callbacks
         )
 
     def load_model(self, filepath: Union[str, Path]):

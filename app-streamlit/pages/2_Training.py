@@ -95,6 +95,12 @@ with st.expander("Configuration", expanded=True):
     col1, col2 = st.columns(2)
 
     with col1:
+        data_dir_input = st.text_input(
+            "Dataset Directory",
+            value="./files/train_dataset",
+            help="Path to the training dataset directory"
+        )
+
         architecture = st.selectbox(
             "Model Architecture",
             ["resnet50", "vgg16", "efficientnet"],
@@ -138,6 +144,37 @@ with st.expander("Configuration", expanded=True):
             help="Perform fine-tuning after initial training"
         )
 
+        if fine_tune:
+            col1, col2 = st.columns(2)
+            with col1:
+                fine_tune_epochs = st.slider(
+                    "Fine-tuning Epochs",
+                    min_value=1,
+                    max_value=20,
+                    value=5,
+                    step=1,
+                    help="Number of fine-tuning epochs"
+                )
+                unfreeze_layers = st.slider(
+                    "Unfreeze Layers",
+                    min_value=5,
+                    max_value=100,
+                    value=20,
+                    step=5,
+                    help="Number of layers to unfreeze for fine-tuning"
+                )
+            with col2:
+                fine_tune_lr = st.selectbox(
+                    "Fine-tuning Learning Rate",
+                    [0.0001, 0.00001, 0.000001],
+                    index=1,
+                    help="Learning rate for fine-tuning (typically lower than initial)"
+                )
+        else:
+            fine_tune_epochs = 5
+            unfreeze_layers = 20
+            fine_tune_lr = learning_rate / 10
+
 
 with st.expander("Training Controls", expanded=True):
     col_start, col_stop, col_clear = st.columns(3)
@@ -149,9 +186,10 @@ with st.expander("Training Controls", expanded=True):
 
         st.session_state.training_status = 'running'
         st.session_state.training_logs = []
+        total_training_epochs = epochs + (fine_tune_epochs if fine_tune else 0)
         st.session_state.training_progress = {
             'epoch': 0,
-            'total_epochs': epochs,
+            'total_epochs': total_training_epochs,
             'train_acc': 0.0,
             'val_acc': 0.0,
             'message': 'Initializing training...'
@@ -161,7 +199,7 @@ with st.expander("Training Controls", expanded=True):
         # Start training in background thread
         st.session_state.training_thread = threading.Thread(
             target=train_model_background,
-            args=(architecture, epochs, batch_size, learning_rate, use_augmentation, fine_tune, data_dir)
+            args=(architecture, epochs, batch_size, learning_rate, use_augmentation, fine_tune, data_dir_input, fine_tune_epochs, unfreeze_layers, fine_tune_lr)
         )
         st.session_state.training_thread.daemon = True
         st.session_state.training_thread.start()
@@ -332,9 +370,10 @@ def clear_logs():
         'message': ''
     }
 
-def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir):
+def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir_str, fine_tune_epochs=5, unfreeze_layers=20, fine_tune_lr=0.00001):
     """Background training function"""
     try:
+        data_dir = Path(data_dir_str)
         # Update progress
         st.session_state.training_progress['message'] = f"Starting training with {architecture}..."
 
@@ -418,12 +457,29 @@ def train_model_background(architecture, epochs, batch_size, learning_rate, augm
         if fine_tune and not st.session_state.stop_training:
             log_message("Starting fine-tuning...")
             st.session_state.training_progress['message'] = "Fine-tuning in progress..."
+
+            # Create callback for fine-tuning
+            class FineTuneCallback:
+                def __init__(self, initial_epochs):
+                    self.initial_epochs = initial_epochs
+
+                def on_epoch_end(self, epoch, logs=None):
+                    self.epoch = self.initial_epochs + epoch + 1
+                    st.session_state.training_progress['epoch'] = self.epoch
+                    st.session_state.training_progress['train_acc'] = float(logs.get('class_output_accuracy', 0.0))
+                    st.session_state.training_progress['val_acc'] = float(logs.get('val_class_output_accuracy', 0.0))
+
+                    log_message(f"Fine-tuning Epoch {self.epoch}/{epochs + fine_tune_epochs} - Train Acc: {logs.get('class_output_accuracy', 0.0):.4f}, Val Acc: {logs.get('val_class_output_accuracy', 0.0):.4f}")
+
+            fine_tune_callback = FineTuneCallback(epochs)
+
             trainer.fine_tune(
                 train_gen,
                 val_gen,
-                epochs=5,
-                unfreeze_layers=20,
-                learning_rate=learning_rate / 10
+                epochs=fine_tune_epochs,
+                unfreeze_layers=unfreeze_layers,
+                learning_rate=fine_tune_lr,
+                callbacks=[fine_tune_callback]
             )
 
         # Save the model
@@ -450,7 +506,10 @@ def train_model_background(architecture, epochs, batch_size, learning_rate, augm
                 'batch_size': batch_size,
                 'learning_rate': learning_rate,
                 'augmentation': augment,
-                'fine_tuning': fine_tune
+                'fine_tuning': fine_tune,
+                'fine_tune_epochs': fine_tune_epochs if fine_tune else 0,
+                'unfreeze_layers': unfreeze_layers if fine_tune else 0,
+                'fine_tune_learning_rate': fine_tune_lr if fine_tune else 0
             },
             'final_metrics': {
                 'train_accuracy': float(training_history.history.get('class_output_accuracy', [-1])[-1]),
