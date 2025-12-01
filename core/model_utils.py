@@ -34,7 +34,9 @@ try:
         tf.config.set_visible_devices(mps_devices, 'MPS')
         logger.info("MPS devices configured globally for macOS")
     _tensorflow_configured = True
-except ImportError:
+except (ImportError, Exception) as e:
+    # Catching Exception to handle platform-specific loading errors (like libmetal on macOS)
+    logger.warning(f"TensorFlow import failed: {e}")
     tf = None
     _tensorflow_configured = False
 
@@ -261,7 +263,7 @@ class TQDMProgressBar(CallbackBase):
 
     def set_model(self, model):
         """Set the model for the callback. Required by Keras."""
-        self.model = model
+        self._model = model
 
     def on_train_batch_begin(self, batch, logs=None):
         """Called at the beginning of each training batch."""
@@ -400,7 +402,7 @@ class TQDMProgressBar(CallbackBase):
 class EnhancedDataGenerator(SequenceBase):
     """Enhanced data generator that applies exact rotations and flips to augment data."""
 
-    def __init__(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8):
+    def __init__(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8, augmentation_config: dict = None):
         if hasattr(super(), "__init__"):
             try:
                 super().__init__()
@@ -408,34 +410,56 @@ class EnhancedDataGenerator(SequenceBase):
                 super().__init__()
         self.base_generator = base_generator
         self.exact_rotations = exact_rotations
-
-        # Use provided augmentation factor or default based on exact_rotations
-        if augmentation_factor is not None:
-            self._augmentation_factor = augmentation_factor
-        else:
-            self._augmentation_factor = 8 if exact_rotations else 1
         
-        # Limit to maximum available transformations (8)
-        self._augmentation_factor = min(self._augmentation_factor, 8)
+        # Define transformation functions
+        import numpy as np
+        
+        # Always include original
+        self.transformations = [lambda x: x]
+        
+        if augmentation_config:
+            # Use user-provided configuration
+            if augmentation_config.get('rotate_90', False):
+                self.transformations.append(lambda x: np.rot90(x, k=1, axes=(0, 1)))
+            if augmentation_config.get('rotate_180', False):
+                self.transformations.append(lambda x: np.rot90(x, k=2, axes=(0, 1)))
+            if augmentation_config.get('rotate_270', False):
+                self.transformations.append(lambda x: np.rot90(x, k=3, axes=(0, 1)))
+            if augmentation_config.get('horizontal_flip', False):
+                self.transformations.append(lambda x: np.fliplr(x))
+            if augmentation_config.get('vertical_flip', False):
+                self.transformations.append(lambda x: np.flipud(x))
+                
+            # Update augmentation factor based on selected transformations
+            self._augmentation_factor = len(self.transformations)
+            
+        else:
+            # Default behavior (backward compatibility)
+            if exact_rotations:
+                self.transformations.extend([
+                    lambda x: np.rot90(x, k=1, axes=(0, 1)),  # 90 degrees
+                    lambda x: np.rot90(x, k=2, axes=(0, 1)),  # 180 degrees
+                    lambda x: np.rot90(x, k=3, axes=(0, 1)),  # 270 degrees
+                    lambda x: np.fliplr(np.rot90(x, k=1, axes=(0, 1))),  # 90 + horizontal flip
+                    lambda x: np.fliplr(np.rot90(x, k=2, axes=(0, 1))),  # 180 + horizontal flip
+                    lambda x: np.fliplr(np.rot90(x, k=3, axes=(0, 1))),  # 270 + horizontal flip
+                    lambda x: np.flipud(x),  # vertical flip
+                ])
+            
+            # Use provided augmentation factor or default based on exact_rotations
+            if augmentation_factor is not None:
+                self._augmentation_factor = augmentation_factor
+            else:
+                self._augmentation_factor = 8 if exact_rotations else 1
+            
+            # Limit to maximum available transformations
+            self._augmentation_factor = min(self._augmentation_factor, len(self.transformations))
         
         self.batch_size = base_generator.batch_size
 
         # Store original samples count
         self._original_samples = base_generator.samples
         self._original_batch_size = base_generator.batch_size
-
-        # Define transformation functions
-        import numpy as np
-        self.transformations = [
-            lambda x: x,  # original
-            lambda x: np.rot90(x, k=1, axes=(0, 1)),  # 90 degrees
-            lambda x: np.rot90(x, k=2, axes=(0, 1)),  # 180 degrees
-            lambda x: np.rot90(x, k=3, axes=(0, 1)),  # 270 degrees
-            lambda x: np.fliplr(np.rot90(x, k=1, axes=(0, 1))),  # 90 + horizontal flip
-            lambda x: np.fliplr(np.rot90(x, k=2, axes=(0, 1))),  # 180 + horizontal flip
-            lambda x: np.fliplr(np.rot90(x, k=3, axes=(0, 1))),  # 270 + horizontal flip
-            lambda x: np.flipud(x),  # vertical flip
-        ]
 
     def _apply_exact_transformations(self, image):
         """Apply exact 90, 180, 270 rotations and flips to an image."""
@@ -625,8 +649,8 @@ class CNNTrainer(ModelTrainer):
                     else:
                         logger.info("Auto-detected CPU usage")
 
-        except ImportError:
-            raise ImportError("TensorFlow/Keras not available. Install with: pip install tensorflow")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow/Keras not available. Install with: pip install tensorflow. Error: {e}")
 
         # Select base model
         if self.architecture == "resnet50":
@@ -654,54 +678,66 @@ class CNNTrainer(ModelTrainer):
         if freeze_base:
             base_model.trainable = False
 
-        # Build model with DUAL outputs (like Flask app)
+        # Build model with Two outputs (like Flask app)
         inputs = base_model.input
         x = base_model(inputs, training=False)
         x = GlobalAveragePooling2D()(x)
 
-        # Feature layer - dimensional vectors for similarity search
-        feature_output = Dense(feature_dim, activation=None, name="feature_output")(x)
+        # CHAINED ARCHITECTURE (Deep Classification Head)
+        # 1. Full feature layer (1536) - Intermediate rich representation
+        feature_output = Dense(1536, activation='relu', name="feature_output")(x)
+        
+        # 2. Intermediate Dense Layer (384) - Gradual compression
+        x_class = Dense(384, activation='relu', name="dense_384")(feature_output)
 
-        # Classification output
-        class_output = Dense(num_classes, activation="softmax", name="class_output")(feature_output)
+        # 3. Compact feature layer (86) - Final embedding before classification
+        x2_class = Dense(86, activation='relu', name="dense_86")(x_class)
 
-        # Model with DUAL outputs: [class_output, feature_output]
+        # 4. Classification output
+        class_output = Dense(num_classes, activation="softmax", name="class_output")(x2_class)
+
+        # Model with TWO outputs: [class_output, feature_output]
         self.model = Model(inputs=inputs, outputs=[class_output, feature_output])
 
-        # Store feature model for extraction (outputs features only)
+        # Store feature model for extraction (outputs full features only)
         self.feature_model = Model(inputs=inputs, outputs=feature_output)
-
-        # Compile model for dual-output training
+        # Compile model
+        # IMPORTANT: We set loss_weights to 0 for features so we don't train them against dummy zeros
         self.model.compile(
             optimizer=Adam(learning_rate=0.001),
             loss={
                 "class_output": "categorical_crossentropy",
-                "feature_output": "mean_squared_error"
+                "feature_output": "mse"  # Ignored due to weight 0
+            },
+            loss_weights={
+                "class_output": 1.0,       # Only drive training with classification accuracy
+                "feature_output": 0.0
             },
             metrics={"class_output": "accuracy"}
         )
 
-        logger.info(f"Built {self.architecture} model with {num_classes} classes and {feature_dim}-dimensional feature vectors")
+        logger.info(f"Built {self.architecture} model with chained features: Base -> 1536 -> 384 -> 86 -> {num_classes} classes")
         return self
 
-    def create_data_generators(self, train_dir: str, test_split: float = 0.1,
+    def create_data_generators(self, train_dir: str, test_split: float = 0.2,
                               batch_size: int = 32, augment: bool = True, exact_rotations: bool = True,
-                              augmentation_factor: int = 8):
-        """Create training and test data generators with stratified splitting (90% train, 10% test per class)."""
+                              augmentation_factor: int = 8, augmentation_config: dict = None):
+        """Create training and test data generators with stratified splitting (80% train, 20% test per class)."""
         try:
             from tensorflow.keras.preprocessing.image import ImageDataGenerator
             import os
             import numpy as np
             from pathlib import Path
             import pandas as pd
-        except ImportError:
-            raise ImportError("TensorFlow not available")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow not available. Error: {e}")
 
         train_dir = Path(train_dir)
 
-        # Collect all image files by class for stratified splitting
+        # Collect all image files by class for stratified splitting, limited to 150 per class
         class_files = {}
         supported_extensions = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}
+        max_images_per_class = 150
 
         for class_dir in train_dir.iterdir():
             if class_dir.is_dir():
@@ -710,12 +746,14 @@ class CNNTrainer(ModelTrainer):
                 for ext in supported_extensions:
                     image_files.extend(class_dir.glob(f'*{ext}'))
                     image_files.extend(class_dir.glob(f'*{ext.upper()}'))
-                class_files[class_name] = sorted([str(f) for f in image_files])
+                # Limit to max_images_per_class and sort
+                image_files = sorted([str(f) for f in image_files])[:max_images_per_class]
+                class_files[class_name] = image_files
 
         if not class_files:
             raise ValueError(f"No image files found in {train_dir}")
 
-        # Stratified split: 90% train, 10% test per class
+        # Stratified split: 80% train, 20% test per class
         train_files = []
         test_files = []
 
@@ -794,20 +832,22 @@ class CNNTrainer(ModelTrainer):
 
         # If augmentation is enabled, create enhanced generators with exact transformations
         if augment:
-            train_generator = self.create_enhanced_generator(train_generator, exact_rotations=exact_rotations, augmentation_factor=augmentation_factor)
+            train_generator = self.create_enhanced_generator(train_generator, exact_rotations=exact_rotations, 
+                                                           augmentation_factor=augmentation_factor,
+                                                           augmentation_config=augmentation_config)
             # Note: Test generator keeps original images for consistency
 
         return train_generator, test_generator
 
-    def create_enhanced_generator(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8):
+    def create_enhanced_generator(self, base_generator, exact_rotations: bool = True, augmentation_factor: int = 8, augmentation_config: dict = None):
         """Create enhanced generator with exact rotations and flips."""
-        return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations, augmentation_factor=augmentation_factor)
+        return EnhancedDataGenerator(base_generator, exact_rotations=exact_rotations, augmentation_factor=augmentation_factor, augmentation_config=augmentation_config)
 
     def custom_generator(self, generator):
         """Convert generator to work with dual-output model (like Flask app)."""
         for batch_x, batch_y in generator:
-            # Create dummy labels for feature output (same shape as feature vectors)
-            dummy_feature_labels = np.zeros((batch_y.shape[0], self.feature_dim))
+            # Create dummy labels for feature outputs
+            dummy_feature_labels = np.zeros((batch_y.shape[0], 1536))  # Full features
             yield batch_x, {"class_output": batch_y, "feature_output": dummy_feature_labels}
 
     def train(self, train_generator, val_generator=None, epochs: int = 20,
@@ -911,8 +951,8 @@ class CNNTrainer(ModelTrainer):
         """Extract feature vector from an image file."""
         try:
             from tensorflow.keras.preprocessing.image import load_img, img_to_array
-        except ImportError:
-            raise ImportError("TensorFlow not available")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow not available. Error: {e}")
 
         if not self.is_trained:
             raise ValueError("Model must be trained before feature extraction")
@@ -938,8 +978,8 @@ class CNNTrainer(ModelTrainer):
         """Predict class and extract features from an image."""
         try:
             from tensorflow.keras.preprocessing.image import load_img, img_to_array
-        except ImportError:
-            raise ImportError("TensorFlow not available")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow not available. Error: {e}")
 
         if not self.is_trained:
             raise ValueError("Model must be trained before prediction")
@@ -969,8 +1009,8 @@ class CNNTrainer(ModelTrainer):
         """Predict both class and features from an image (like Flask app)."""
         try:
             from tensorflow.keras.preprocessing.image import load_img, img_to_array
-        except ImportError:
-            raise ImportError("TensorFlow not available")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow not available. Error: {e}")
 
         if not self.is_trained:
             raise ValueError("Model must be trained before prediction")
@@ -990,18 +1030,23 @@ class CNNTrainer(ModelTrainer):
         # Get predictions - handle both single and dual output models
         predictions = self.model.predict(img_array, verbose=0)
 
-        if len(predictions) == 2:
-            # Dual output model (new architecture)
+        if isinstance(predictions, list) and len(predictions) == 2:
+            # Dual output model
             class_predictions = predictions[0]  # Class probabilities
             feature_predictions = predictions[1]  # Feature vector
         else:
-            # Single output model (old architecture) - get features separately
-            class_predictions = predictions[0]  # Class probabilities
-            feature_predictions = self.feature_model.predict(img_array, verbose=0)  # Feature vector
+            # Fallback or single output
+            # If it's a single output (just class), we need to extract features separately
+            if isinstance(predictions, list):
+                 class_predictions = predictions[0]
+            else:
+                 class_predictions = predictions
+            
+            feature_predictions = self.feature_model.predict(img_array, verbose=0)
 
         return {
             "class": class_predictions,  # Class probabilities for all classes
-            "feature": feature_predictions.squeeze()  # Feature vector (remove batch dimension)
+            "feature": feature_predictions.squeeze()  # Full feature vector (1536-dim)
         }
 
     def fine_tune(self, train_generator, val_generator=None, epochs: int = 10,
@@ -1013,8 +1058,8 @@ class CNNTrainer(ModelTrainer):
 
         try:
             from tensorflow.keras.optimizers import Adam
-        except ImportError:
-            raise ImportError("TensorFlow not available")
+        except (ImportError, Exception) as e:
+            raise ImportError(f"TensorFlow not available. Error: {e}")
 
         # Unfreeze base model layers for fine-tuning
         self.model.layers[1].trainable = True  # Base model is typically at index 1
@@ -1029,7 +1074,11 @@ class CNNTrainer(ModelTrainer):
             optimizer=Adam(learning_rate=learning_rate),
             loss={
                 "class_output": "categorical_crossentropy",
-                "feature_output": "mean_squared_error"
+                "feature_output": "mse"
+            },
+            loss_weights={
+                "class_output": 1.0,
+                "feature_output": 0.0
             },
             metrics={"class_output": "accuracy"}
         )
@@ -1075,12 +1124,12 @@ class CNNTrainer(ModelTrainer):
         try:
             from tensorflow.keras.models import Model
             from tensorflow.keras.layers import Dense
-            # For dual-output model, feature output is the second output
+            # For dual-output model, feature1 output is the second output
             if len(self.model.outputs) >= 2:
-                # Use the feature output directly from the dual-output model
+                # Use the feature1 output directly from the model
                 self.feature_model = Model(inputs=self.model.input, outputs=self.model.outputs[1])
                 self.feature_dim = self.model.outputs[1].shape[-1]
-                logger.info(f"Feature model recreated from dual-output model with {self.feature_dim}-dim features")
+                logger.info(f"Feature model recreated from model with {self.feature_dim}-dim features")
             else:
                 # Fallback: recreate from GAP layer (for backward compatibility)
                 gap_layer = self.model.get_layer('global_average_pooling2d')

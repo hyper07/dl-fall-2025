@@ -128,6 +128,7 @@ The training pipeline supports comprehensive data augmentation:
 - **Exact Rotations Mode**: Deterministic 90°/180°/270° rotations with mirrored variants (`rotate_90`, `rotate_180`, `rotate_270`, `rotate_90_flip`, `rotate_180_flip`, `rotate_270_flip`, `flip_vertical`) to keep augmentation parity with vector generation
 - **Enhanced Augmentation** (`--exact_rotations`): Exact 90°, 180°, 270° rotations + horizontal/vertical flips
 - **Effective Dataset Size**: Up to 8x multiplication with exact transformations
+- **Granular Control**: Enable/disable specific augmentations via CLI flags (e.g., `--rotate_90 false`, `--horizontal_flip true`)
 
 **Augmentation Types:**
 - Rotations: 0°, 90°, 180°, 270°

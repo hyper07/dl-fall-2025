@@ -110,17 +110,17 @@ with st.expander("Configuration", expanded=True):
 
         epochs = st.slider(
             "Training Epochs",
-            min_value=5,
+            min_value=1,
             max_value=100,
             value=20,
-            step=5,
+            step=1,
             help="Number of training epochs"
         )
 
         batch_size = st.selectbox(
             "Batch Size",
-            [16, 32, 64],
-            index=1,
+            [2, 4, 8, 16, 32, 64],
+            index=0,
             help="Batch size for training"
         )
 
@@ -137,6 +137,26 @@ with st.expander("Configuration", expanded=True):
             value=False,
             help="Use data augmentation during training"
         )
+        
+        augmentation_config = {}
+        if use_augmentation:
+            st.markdown("Select Augmentations:")
+            col_aug1, col_aug2 = st.columns(2)
+            with col_aug1:
+                aug_90 = st.checkbox("Rotate 90°", value=True)
+                aug_180 = st.checkbox("Rotate 180°", value=True)
+                aug_270 = st.checkbox("Rotate 270°", value=True)
+            with col_aug2:
+                aug_hflip = st.checkbox("Horizontal Flip", value=True)
+                aug_vflip = st.checkbox("Vertical Flip", value=True)
+            
+            augmentation_config = {
+                'rotate_90': aug_90,
+                'rotate_180': aug_180,
+                'rotate_270': aug_270,
+                'horizontal_flip': aug_hflip,
+                'vertical_flip': aug_vflip
+            }
 
         fine_tune = st.checkbox(
             "Fine-tuning",
@@ -199,7 +219,7 @@ with st.expander("Training Controls", expanded=True):
         # Start training in background thread
         st.session_state.training_thread = threading.Thread(
             target=train_model_background,
-            args=(architecture, epochs, batch_size, learning_rate, use_augmentation, fine_tune, data_dir_input, fine_tune_epochs, unfreeze_layers, fine_tune_lr)
+            args=(architecture, epochs, batch_size, learning_rate, use_augmentation, fine_tune, data_dir_input, fine_tune_epochs, unfreeze_layers, fine_tune_lr, augmentation_config)
         )
         st.session_state.training_thread.daemon = True
         st.session_state.training_thread.start()
@@ -370,7 +390,7 @@ def clear_logs():
         'message': ''
     }
 
-def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir_str, fine_tune_epochs=5, unfreeze_layers=20, fine_tune_lr=0.00001):
+def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir_str, fine_tune_epochs=5, unfreeze_layers=20, fine_tune_lr=0.00001, augmentation_config=None):
     """Background training function"""
     try:
         data_dir = Path(data_dir_str)
@@ -420,7 +440,8 @@ def train_model_background(architecture, epochs, batch_size, learning_rate, augm
             train_dir=str(data_dir),
             validation_split=0.2,
             batch_size=batch_size,
-            augment=augment
+            augment=augment,
+            augmentation_config=augmentation_config
         )
 
         log_message(f"Data generators created. Train: {train_gen.samples}, Val: {val_gen.samples}")
