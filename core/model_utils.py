@@ -16,6 +16,11 @@ import math
 
 logger = logging.getLogger(__name__)
 
+AUGMENTED_NAME_MARKERS = (
+    "_rot",
+    "_mirror"
+)
+
 # Global TensorFlow configuration to prevent mutex issues
 try:
     import tensorflow as tf
@@ -713,7 +718,8 @@ class CNNTrainer(ModelTrainer):
 
     def create_data_generators(self, train_dir: str, test_split: float = 0.2,
                               batch_size: int = 32, augment: bool = True, exact_rotations: bool = True,
-                              augmentation_factor: int = 8, augmentation_config: dict = None):
+                              augmentation_factor: int = 8, augmentation_config: dict = None,
+                              include_augmented_files: bool = True):
         """Create training and test data generators with stratified splitting (80% train, 20% test per class)."""
         try:
             from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -738,6 +744,19 @@ class CNNTrainer(ModelTrainer):
                 for ext in supported_extensions:
                     image_files.extend(class_dir.glob(f'*{ext}'))
                     image_files.extend(class_dir.glob(f'*{ext.upper()}'))
+                # Optionally filter out augmented filenames
+                if not include_augmented_files:
+                    filtered_images = [
+                        f for f in image_files
+                        if not any(marker in f.name.lower() for marker in AUGMENTED_NAME_MARKERS)
+                    ]
+                    if filtered_images:
+                        image_files = filtered_images
+                    else:
+                        logger.warning(
+                            "All images for class %s were flagged as augmented; using full set instead.",
+                            class_name
+                        )
                 # Limit to max_images_per_class and sort
                 image_files = sorted([str(f) for f in image_files])[:max_images_per_class]
                 class_files[class_name] = image_files

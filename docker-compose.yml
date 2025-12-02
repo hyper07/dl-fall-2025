@@ -58,6 +58,7 @@ services:
       - ./models:/usr/src/app/models
       - ./backup:/usr/src/backup
       - ./training_config.json:/usr/src/app/training_config.json
+      - ./training.log:/usr/src/app/training.log
     ports:
       - 48501:18501
     env_file:

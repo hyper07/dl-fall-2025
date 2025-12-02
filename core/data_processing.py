@@ -206,3 +206,28 @@ def split_data(df: pd.DataFrame,
 
     logger.info(f"Data split - Train: {train_df.shape}, Val: {val_df.shape}, Test: {test_df.shape}")
     return train_df, val_df, test_df, pd.concat([X_test, y_test], axis=1)
+
+
+def get_image_paths_by_class(dataset_dir: Union[str, Path]) -> Dict[str, List[str]]:
+    """Get all image paths organized by class from a dataset directory.
+    
+    Args:
+        dataset_dir: Path to dataset directory containing class subdirectories
+        
+    Returns:
+        Dictionary mapping class names to lists of image paths
+    """
+    dataset_path = Path(dataset_dir)
+    class_images = {}
+
+    for class_dir in dataset_path.iterdir():
+        if class_dir.is_dir():
+            class_name = class_dir.name
+            image_paths = []
+            for ext in ['*.jpg', '*.jpeg', '*.png', '*.JPG', '*.JPEG', '*.PNG']:
+                image_paths.extend(class_dir.glob(ext))
+
+            class_images[class_name] = [str(p) for p in sorted(image_paths)]
+            logger.info(f"Found {len(image_paths)} images in class '{class_name}'")
+
+    return class_images

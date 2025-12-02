@@ -143,9 +143,6 @@ with st.expander("Encoder Setup", expanded=True):
                 elif disabled:
                     st.caption("💡 Install pgvector dependencies to enable activation in this environment.")
 
-            
-            st.info("Need data? Ensure the vector database already contains embeddings. Use the Training page to populate it after a successful run.")
-
 with st.expander("Upload & Analyse", expanded=True):
     st.markdown(
         """
@@ -288,7 +285,12 @@ with st.expander("AI Medical Analysis", expanded=True):
 
     if not OLLAMA_AVAILABLE:
         st.warning("⚠️ Ollama client not available. Install dependencies or ensure Ollama service is running.")
+    elif not st.session_state.search_results:
+        st.info("ℹ️ Upload an image and run a similarity search first to get AI medical analysis.")
     else:
+        results = st.session_state.search_results
+        similar_images = results.get('similar_images', [])
+        
         # Create summary string from results
         summary_lines = []
         for i, img in enumerate(similar_images, 1):
@@ -327,7 +329,6 @@ with st.expander("AI Medical Analysis", expanded=True):
                         options={"temperature": 0.3, "num_predict": 2000}
                     )
                     
-                    st.success("✅ AI analysis completed!")
                     st.markdown("### AI Medical Opinion")
                     st.write_stream(response)
                     

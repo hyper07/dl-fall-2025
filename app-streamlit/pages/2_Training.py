@@ -43,6 +43,237 @@ if 'training_thread' not in st.session_state:
 if 'stop_training' not in st.session_state:
     st.session_state.stop_training = False
 
+# Define background training function before UI code
+def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir_str, fine_tune_epochs=5, unfreeze_layers=20, fine_tune_lr=0.00001, augmentation_config=None):
+    """Background training function"""
+    try:
+        from tensorflow.keras.callbacks import Callback
+        
+        data_dir = Path(data_dir_str)
+        # Update progress
+        st.session_state.training_progress['message'] = f"Starting training with {architecture}..."
+
+        # Log to file and session state
+        log_file = Path("./logs/training.log")
+        log_file.parent.mkdir(parents=True, exist_ok=True)
+
+        def log_message(message):
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            log_entry = f"[{timestamp}] {message}\n"
+            st.session_state.training_logs.append(log_entry)
+
+            # Also write to file
+            with open(log_file, 'a') as f:
+                f.write(log_entry)
+
+        log_message("Initializing CNN Trainer...")
+
+        # Create trainer
+        trainer = CNNTrainer(
+            architecture=architecture,
+            model_name=f"wound_classifier_{architecture}"
+        )
+
+        log_message("Counting dataset images...")
+
+        # Get class counts for num_classes
+        class_dirs = [d for d in data_dir.iterdir() if d.is_dir()]
+        class_counts = {}
+        for class_dir in class_dirs:
+            image_files = list(class_dir.glob('*.jpg')) + list(class_dir.glob('*.jpeg')) + list(class_dir.glob('*.png'))
+            class_counts[class_dir.name] = len(image_files)
+        num_classes = len(class_counts)
+
+        log_message(f"Found {num_classes} classes: {list(class_counts.keys())}")
+
+        # Build model
+        log_message(f"Building {architecture} model...")
+        trainer.build_model(
+            num_classes=num_classes,
+            feature_dim=1536,
+            freeze_base=True
+        )
+
+        log_message(f"Model built with {num_classes} classes")
+
+        # Create data generators
+        log_message("Creating data generators...")
+        train_gen, val_gen = trainer.create_data_generators(
+            train_dir=str(data_dir),
+            test_split=0.2,
+            batch_size=batch_size,
+            augment=augment,
+            augmentation_config=augmentation_config
+        )
+
+        log_message(f"Data generators created. Train: {train_gen.samples}, Val: {val_gen.samples}")
+
+        # Custom callback to update progress
+        class StreamlitCallback(Callback):
+            def __init__(self):
+                super().__init__()
+                self.epoch = 0
+
+            def on_epoch_begin(self, epoch, logs=None):
+                log_message(f"Starting epoch {epoch + 1}/{epochs}")
+
+            def on_epoch_end(self, epoch, logs=None):
+                self.epoch = epoch + 1
+                st.session_state.training_progress['epoch'] = self.epoch
+                
+                # Try multiple possible metric names
+                train_acc = (logs.get('class_output_accuracy') or 
+                           logs.get('accuracy') or 
+                           logs.get('categorical_accuracy') or 0.0)
+                val_acc = (logs.get('val_class_output_accuracy') or 
+                         logs.get('val_accuracy') or 
+                         logs.get('val_categorical_accuracy') or 0.0)
+                
+                st.session_state.training_progress['train_acc'] = float(train_acc)
+                st.session_state.training_progress['val_acc'] = float(val_acc)
+
+                log_message(f"Epoch {self.epoch}/{epochs} - Train Acc: {train_acc:.4f}, Val Acc: {val_acc:.4f}")
+                log_message(f"Available metrics: {list(logs.keys())}")
+
+                if st.session_state.stop_training:
+                    log_message("Training stopped by user")
+                    self.model.stop_training = True
+
+        callback = StreamlitCallback()
+
+        # Train the model
+        log_message(f"Starting training for {epochs} epochs...")
+        st.session_state.training_progress['message'] = "Training in progress..."
+        
+        try:
+            training_history = trainer.train(
+                train_gen,
+                val_gen,
+                epochs=epochs,
+                callbacks=[callback],
+                progress_bar=False
+            )
+            log_message("Training completed successfully")
+        except Exception as train_error:
+            log_message(f"Training error: {str(train_error)}")
+            raise
+
+        # Fine-tune if requested
+        if fine_tune and not st.session_state.stop_training:
+            log_message("Starting fine-tuning...")
+            st.session_state.training_progress['message'] = "Fine-tuning in progress..."
+
+            # Create callback for fine-tuning
+            class FineTuneCallback(Callback):
+                def __init__(self, initial_epochs):
+                    super().__init__()
+                    self.initial_epochs = initial_epochs
+
+                def on_epoch_begin(self, epoch, logs=None):
+                    log_message(f"Starting fine-tune epoch {epoch + 1}/{fine_tune_epochs}")
+
+                def on_epoch_end(self, epoch, logs=None):
+                    self.epoch = self.initial_epochs + epoch + 1
+                    st.session_state.training_progress['epoch'] = self.epoch
+                    
+                    # Try multiple possible metric names
+                    train_acc = (logs.get('class_output_accuracy') or 
+                               logs.get('accuracy') or 
+                               logs.get('categorical_accuracy') or 0.0)
+                    val_acc = (logs.get('val_class_output_accuracy') or 
+                             logs.get('val_accuracy') or 
+                             logs.get('val_categorical_accuracy') or 0.0)
+                    
+                    st.session_state.training_progress['train_acc'] = float(train_acc)
+                    st.session_state.training_progress['val_acc'] = float(val_acc)
+
+                    log_message(f"Fine-tuning Epoch {self.epoch}/{epochs + fine_tune_epochs} - Train Acc: {train_acc:.4f}, Val Acc: {val_acc:.4f}")
+
+                    if st.session_state.stop_training:
+                        log_message("Fine-tuning stopped by user")
+                        self.model.stop_training = True
+
+            fine_tune_callback = FineTuneCallback(epochs)
+
+            fine_tune_history = trainer.fine_tune(
+                train_gen,
+                val_gen,
+                epochs=fine_tune_epochs,
+                unfreeze_layers=unfreeze_layers,
+                learning_rate=fine_tune_lr,
+                callbacks=[fine_tune_callback]
+            )
+
+        # Save the model
+        model_dir = Path("./models")
+        model_dir.mkdir(exist_ok=True)
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        save_dir = model_dir / f"{timestamp}_{trainer.model_name}"
+        save_dir.mkdir(exist_ok=True)
+
+        model_path = save_dir / f"{trainer.model_name}.pkl"
+        trainer.save_model(str(model_path))
+
+        log_message(f"Model saved to {model_path}")
+
+        # Save training summary
+        summary = {
+            'training_date': datetime.now().isoformat(),
+            'model_name': trainer.model_name,
+            'architecture': architecture,
+            'num_classes': num_classes,
+            'class_counts': class_counts,
+            'training_config': {
+                'epochs': epochs,
+                'batch_size': batch_size,
+                'learning_rate': learning_rate,
+                'augmentation': augment,
+                'fine_tuning': fine_tune,
+                'fine_tune_epochs': fine_tune_epochs if fine_tune else 0,
+                'unfreeze_layers': unfreeze_layers if fine_tune else 0,
+                'fine_tune_learning_rate': fine_tune_lr if fine_tune else 0
+            },
+            'final_metrics': {
+                'train_accuracy': float(training_history.history.get('class_output_accuracy', [-1])[-1]),
+                'val_accuracy': float(training_history.history.get('val_class_output_accuracy', [-1])[-1]),
+                'train_loss': float(training_history.history.get('class_output_loss', [-1])[-1]),
+                'val_loss': float(training_history.history.get('val_loss', [-1])[-1])
+            } if training_history else None,
+            'model_paths': {
+                'model_file': str(model_path),
+                'log_file': str(log_file)
+            }
+        }
+
+        summary_file = save_dir / 'training_summary.json'
+        with open(summary_file, 'w') as f:
+            json.dump(summary, f, indent=2, default=str)
+
+        log_message(f"Training summary saved to {summary_file}")
+
+        st.session_state.training_progress['message'] = "Training completed successfully!"
+        st.session_state.training_status = 'completed'
+
+    except KeyboardInterrupt:
+        st.session_state.training_progress['message'] = "Training stopped by user"
+        st.session_state.training_status = 'stopped'
+        try:
+            log_message("Training stopped by user")
+        except:
+            pass
+    except Exception as e:
+        import traceback
+        error_msg = f"Training failed: {str(e)}"
+        error_details = traceback.format_exc()
+        st.session_state.training_progress['message'] = error_msg
+        st.session_state.training_status = 'error'
+        # Try to log the error if log_message is available
+        try:
+            log_message(error_msg)
+            log_message(f"Error details: {error_details}")
+        except:
+            pass  # log_message may not be defined if error occurred early
+
 status = st.session_state.training_status
 progress_state = st.session_state.training_progress
 total_epochs = progress_state.get('total_epochs', 0) or 0
@@ -82,13 +313,6 @@ with st.container(border=True):
         # Accuracy with better labeling
         st.metric("Accuracy (Train/Val)", f"{train_acc:.3f} / {val_acc:.3f}")
 
-# col1, col2, col3 = st.columns(3)
-# with col1:
-#     st.metric("📋 Training Status", status.capitalize(), help=status_descriptions)
-# with col2:
-#     st.metric("🔢 Epochs", f"{current_epoch} / {total_epochs if total_epochs else '—'}", f"{progress_pct * 100:.0f}% complete")
-# with col3:
-#     st.metric("💬 Current Message", progress_state.get('message', 'Awaiting updates...')[:20] + ('...' if len(progress_state.get('message', '')) > 20 else ''), help=progress_state.get('message', 'Awaiting updates...'))
 
 with st.expander("Configuration", expanded=True):
 
@@ -97,7 +321,7 @@ with st.expander("Configuration", expanded=True):
     with col1:
         data_dir_input = st.text_input(
             "Dataset Directory",
-            value="./files/train_dataset",
+            value="./files/train_dataset_augmented",
             help="Path to the training dataset directory"
         )
 
@@ -215,6 +439,11 @@ with st.expander("Training Controls", expanded=True):
             'message': 'Initializing training...'
         }
         st.session_state.stop_training = False
+        
+        # Add initial log entry
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        st.session_state.training_logs.append(f"[{timestamp}] Training started with {architecture} architecture\n")
+        st.session_state.training_logs.append(f"[{timestamp}] Configuration: {epochs} epochs, batch size {batch_size}, learning rate {learning_rate}\n")
 
         # Start training in background thread
         st.session_state.training_thread = threading.Thread(
@@ -345,219 +574,31 @@ if st.session_state.training_status in ['completed', 'stopped']:
         except Exception as exc:
             st.error(f"Error loading training summary: {exc}")
 
+# Training Logs Viewer
+with st.expander("Training Logs", expanded=False):
 
-data_dir = Path("./files/train_dataset")
-class_counts = {}
-total_images = 0
-dataset_error = None
-
-
-def start_training():
-    if st.session_state.training_status == 'running':
-        st.error("Training is already running")
-        return
-
-    st.session_state.training_status = 'running'
-    st.session_state.training_logs = []
-    st.session_state.training_progress = {
-        'epoch': 0,
-        'total_epochs': epochs,
-        'train_acc': 0.0,
-        'val_acc': 0.0,
-        'message': 'Initializing training...'
-    }
-    st.session_state.stop_training = False
-
-    # Start training in background thread
-    st.session_state.training_thread = threading.Thread(
-        target=train_model_background,
-        args=(architecture, epochs, batch_size, learning_rate, use_augmentation, fine_tune, data_dir)
-    )
-    st.session_state.training_thread.daemon = True
-    st.session_state.training_thread.start()
-
-def stop_training():
-    st.session_state.stop_training = True
-    st.session_state.training_progress['message'] = 'Stopping training...'
-
-def clear_logs():
-    st.session_state.training_logs = []
-    st.session_state.training_progress = {
-        'epoch': 0,
-        'total_epochs': 0,
-        'train_acc': 0.0,
-        'val_acc': 0.0,
-        'message': ''
-    }
-
-def train_model_background(architecture, epochs, batch_size, learning_rate, augment, fine_tune, data_dir_str, fine_tune_epochs=5, unfreeze_layers=20, fine_tune_lr=0.00001, augmentation_config=None):
-    """Background training function"""
     try:
-        data_dir = Path(data_dir_str)
-        # Update progress
-        st.session_state.training_progress['message'] = f"Starting training with {architecture}..."
-
-        # Log to file and session state
-        log_file = Path("./logs/training.log")
-        log_file.parent.mkdir(exist_ok=True)
-
-        def log_message(message):
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            log_entry = f"[{timestamp}] {message}\n"
-            st.session_state.training_logs.append(log_entry)
-
-            # Also write to file
-            with open(log_file, 'a') as f:
-                f.write(log_entry)
-
-        log_message("Initializing CNN Trainer...")
-
-        # Create trainer
-        trainer = CNNTrainer(
-            architecture=architecture,
-            model_name=f"wound_classifier_{architecture}"
-        )
-
-        # Get class counts for num_classes
-        class_dirs = [d for d in data_dir.iterdir() if d.is_dir()]
-        class_counts = {}
-        for class_dir in class_dirs:
-            image_files = list(class_dir.glob('*.jpg')) + list(class_dir.glob('*.jpeg')) + list(class_dir.glob('*.png'))
-            class_counts[class_dir.name] = len(image_files)
-        num_classes = len(class_counts)
-
-        # Build model
-        trainer.build_model(
-            num_classes=num_classes,
-            feature_dim=1536,
-            freeze_base=True
-        )
-
-        log_message(f"Model built with {num_classes} classes")
-
-        # Create data generators
-        train_gen, val_gen = trainer.create_data_generators(
-            train_dir=str(data_dir),
-            validation_split=0.2,
-            batch_size=batch_size,
-            augment=augment,
-            augmentation_config=augmentation_config
-        )
-
-        log_message(f"Data generators created. Train: {train_gen.samples}, Val: {val_gen.samples}")
-
-        # Custom callback to update progress
-        class StreamlitCallback:
-            def __init__(self):
-                self.epoch = 0
-
-            def on_epoch_end(self, epoch, logs=None):
-                self.epoch = epoch + 1
-                st.session_state.training_progress['epoch'] = self.epoch
-                st.session_state.training_progress['train_acc'] = float(logs.get('class_output_accuracy', 0.0))
-                st.session_state.training_progress['val_acc'] = float(logs.get('val_class_output_accuracy', 0.0))
-
-                log_message(f"Epoch {self.epoch}/{epochs} - Train Acc: {logs.get('class_output_accuracy', 0.0):.4f}, Val Acc: {logs.get('val_class_output_accuracy', 0.0):.4f}")
-
-                if st.session_state.stop_training:
-                    log_message("Training stopped by user")
-                    raise KeyboardInterrupt("Training stopped")
-
-        callback = StreamlitCallback()
-
-        # Train the model
-        st.session_state.training_progress['message'] = "Training in progress..."
-        training_history = trainer.train(
-            train_gen,
-            val_gen,
-            epochs=epochs,
-            callbacks=[callback]
-        )
-
-        # Fine-tune if requested
-        if fine_tune and not st.session_state.stop_training:
-            log_message("Starting fine-tuning...")
-            st.session_state.training_progress['message'] = "Fine-tuning in progress..."
-
-            # Create callback for fine-tuning
-            class FineTuneCallback:
-                def __init__(self, initial_epochs):
-                    self.initial_epochs = initial_epochs
-
-                def on_epoch_end(self, epoch, logs=None):
-                    self.epoch = self.initial_epochs + epoch + 1
-                    st.session_state.training_progress['epoch'] = self.epoch
-                    st.session_state.training_progress['train_acc'] = float(logs.get('class_output_accuracy', 0.0))
-                    st.session_state.training_progress['val_acc'] = float(logs.get('val_class_output_accuracy', 0.0))
-
-                    log_message(f"Fine-tuning Epoch {self.epoch}/{epochs + fine_tune_epochs} - Train Acc: {logs.get('class_output_accuracy', 0.0):.4f}, Val Acc: {logs.get('val_class_output_accuracy', 0.0):.4f}")
-
-            fine_tune_callback = FineTuneCallback(epochs)
-
-            trainer.fine_tune(
-                train_gen,
-                val_gen,
-                epochs=fine_tune_epochs,
-                unfreeze_layers=unfreeze_layers,
-                learning_rate=fine_tune_lr,
-                callbacks=[fine_tune_callback]
+        log_file_path = Path("./training.log")
+        if log_file_path.exists():
+            with open(log_file_path, 'r') as f:
+                log_content = f.read()
+            
+            # Display last 1000 lines to avoid overwhelming the UI
+            lines = log_content.split('\n')
+            if len(lines) > 100:
+                log_content = '\n'.join(lines[-100:])
+                st.info(f"Showing last 100 lines of {len(lines)} total lines.")
+            
+            st.code(log_content, language='log')
+            
+            # Download button
+            st.download_button(
+                label="Download Full Log File",
+                data=log_content,
+                file_name="training.log",
+                mime="text/plain"
             )
-
-        # Save the model
-        model_dir = Path("./models")
-        model_dir.mkdir(exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        save_dir = model_dir / f"{timestamp}_{trainer.model_name}"
-        save_dir.mkdir(exist_ok=True)
-
-        model_path = save_dir / f"{trainer.model_name}.pkl"
-        trainer.save_model(str(model_path))
-
-        log_message(f"Model saved to {model_path}")
-
-        # Save training summary
-        summary = {
-            'training_date': datetime.now().isoformat(),
-            'model_name': trainer.model_name,
-            'architecture': architecture,
-            'num_classes': num_classes,
-            'class_counts': class_counts,
-            'training_config': {
-                'epochs': epochs,
-                'batch_size': batch_size,
-                'learning_rate': learning_rate,
-                'augmentation': augment,
-                'fine_tuning': fine_tune,
-                'fine_tune_epochs': fine_tune_epochs if fine_tune else 0,
-                'unfreeze_layers': unfreeze_layers if fine_tune else 0,
-                'fine_tune_learning_rate': fine_tune_lr if fine_tune else 0
-            },
-            'final_metrics': {
-                'train_accuracy': float(training_history.history.get('class_output_accuracy', [-1])[-1]),
-                'val_accuracy': float(training_history.history.get('val_class_output_accuracy', [-1])[-1]),
-                'train_loss': float(training_history.history.get('class_output_loss', [-1])[-1]),
-                'val_loss': float(training_history.history.get('val_class_output_loss', [-1])[-1])
-            } if training_history else None,
-            'model_paths': {
-                'model_file': str(model_path),
-                'log_file': str(log_file)
-            }
-        }
-
-        summary_file = save_dir / 'training_summary.json'
-        with open(summary_file, 'w') as f:
-            json.dump(summary, f, indent=2, default=str)
-
-        log_message(f"Training summary saved to {summary_file}")
-
-        st.session_state.training_progress['message'] = "Training completed successfully!"
-        st.session_state.training_status = 'completed'
-
-    except KeyboardInterrupt:
-        st.session_state.training_progress['message'] = "Training stopped by user"
-        st.session_state.training_status = 'stopped'
+        else:
+            st.info("No training.log file found. Logs will appear here after training runs.")
     except Exception as e:
-        error_msg = f"Training failed: {str(e)}"
-        st.session_state.training_progress['message'] = error_msg
-        st.session_state.training_status = 'error'
-        log_message(error_msg)
+        st.error(f"Error reading training.log: {e}")

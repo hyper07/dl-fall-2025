@@ -46,11 +46,11 @@ class ImageSimilaritySearch:
         with open(config_path, 'r') as f:
             config = json.load(f)
         
-        architecture = config.get('architecture', 'resnet50')  # Default to resnet50 if not specified
+        self.architecture = config.get('architecture', 'resnet50')  # Store architecture
         
-        self.trainer = CNNTrainer(architecture=architecture)
+        self.trainer = CNNTrainer(architecture=self.architecture)
         self.trainer.load_model(model_path)
-        logger.info(f"Loaded {architecture} model from {model_path}")
+        logger.info(f"Loaded {self.architecture} model from {model_path}")
 
     def extract_features_batch(self, image_paths: List[str]) -> np.ndarray:
         """Extract 1536-dimensional features from a batch of images."""
@@ -85,6 +85,17 @@ class ImageSimilaritySearch:
         if self.trainer is None:
             raise ValueError("Model not loaded. Call load_trainer() first.")
 
+        # Delete existing vectors for this architecture before inserting new ones
+        try:
+            with self.vector_store.db as conn:
+                cur = conn.cursor()
+                cur.execute(f"DELETE FROM {self.table_name} WHERE model_name = %s", (self.architecture,))
+                deleted_count = cur.rowcount
+                conn.commit()
+                logger.info(f"Deleted {deleted_count} existing vectors for architecture '{self.architecture}'")
+        except Exception as e:
+            logger.warning(f"Could not delete existing vectors for architecture {self.architecture}: {e}")
+
         total_images = len(image_paths)
         logger.info(f"Processing {total_images} images for feature extraction...")
 
@@ -100,7 +111,7 @@ class ImageSimilaritySearch:
             vectors_data = []
             for j, (path, label, feature) in enumerate(zip(batch_paths, batch_labels, features)):
                 content = f"Image: {Path(path).name} | Class: {label}"
-                model_name = 'resnet50'  # Default model
+                model_name = self.architecture  # Use actual architecture
                 augmentation = 'original'  # Default augmentation
                 original_image = Path(path).name
                 vectors_data.append((content, model_name, label, augmentation, original_image, feature))

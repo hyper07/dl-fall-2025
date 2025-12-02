@@ -121,99 +121,98 @@ with st.expander("Model Catalogue", expanded=True):
                 st.metric("Loss profile", f"{train_loss} / {val_loss}", "Train / validation")
 
             # Display evaluation metrics if available
-            if has_evaluation:
-                st.markdown("### Test Set Evaluation Metrics")
+with st.expander("Evaluation Metrics", expanded=False):
 
-                # Create metrics table with metrics as columns
-                import pandas as pd
-                metrics_data = {
-                    'Accuracy': [f"{evaluation_metrics.get('accuracy', 0):.4f}"],
-                    'Precision': [f"{evaluation_metrics.get('precision', 0):.4f}"],
-                    'Recall': [f"{evaluation_metrics.get('recall', 0):.4f}"],
-                    'F1-Score': [f"{evaluation_metrics.get('f1_score', 0):.4f}"]
-                }
+    if has_evaluation:
+        # Create metrics table with metrics as columns
+        import pandas as pd
+        metrics_data = {
+            'Accuracy': [f"{evaluation_metrics.get('accuracy', 0):.4f}"],
+            'Precision': [f"{evaluation_metrics.get('precision', 0):.4f}"],
+            'Recall': [f"{evaluation_metrics.get('recall', 0):.4f}"],
+            'F1-Score': [f"{evaluation_metrics.get('f1_score', 0):.4f}"]
+        }
 
-                metrics_df = pd.DataFrame(metrics_data)
 
-                # Center the table and make it look better
-                col1, col2, col3 = st.columns([1, 3, 1])
-                with col2:
-                    # Use HTML table for better control over styling
-                    table_html = f"""
-                    <table style="width: 100%; border-collapse: collapse; margin: 0 auto; font-size: 16px;">
-                        <thead>
-                            <tr style="background-color: #f0f2f6;">
-                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Accuracy</th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Precision</th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Recall</th>
-                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">F1-Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('accuracy', 0):.4f}</td>
-                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('precision', 0):.4f}</td>
-                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('recall', 0):.4f}</td>
-                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('f1_score', 0):.4f}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    """
-                    st.markdown(table_html, unsafe_allow_html=True)
+        metrics_df = pd.DataFrame(metrics_data)
 
-                # Display confusion matrix if available
-                confusion_matrix_path = Path("./models") / selected / "confusion_matrix.png"
-                if confusion_matrix_path.exists():
-                    st.markdown("### Confusion Matrix")
-                    st.image(str(confusion_matrix_path), caption=f"Confusion Matrix - {selected} Model", use_column_width=True)
+        # Center the table and make it look better
+        col1, col2, col3 = st.columns([1, 3, 1])
+        with col2:
+            # Use HTML table for better control over styling
+            table_html = f"""
+            <table style="width: 100%; border-collapse: collapse; margin: 0 auto; font-size: 16px;">
+                <thead>
+                    <tr style="background-color: #f0f2f6;">
+                        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Accuracy</th>
+                        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Precision</th>
+                        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Recall</th>
+                        <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">F1-Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('accuracy', 0):.4f}</td>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('precision', 0):.4f}</td>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('recall', 0):.4f}</td>
+                        <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('f1_score', 0):.4f}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            """
 
-                # Display evaluation details
-                with st.expander("Evaluation Details"):
-                    if selected_info['evaluation_summary']:
-                        st.json(selected_info['evaluation_summary'])
-            else:
-                st.info("💡 No evaluation results available. Run evaluation to see test performance metrics.")
-        else:
-            st.info("No training summary available for this model.")
+            st.markdown(table_html, unsafe_allow_html=True)
 
-        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+with st.expander("Confusion Matrix", expanded=False):
+    # Display confusion matrix if available
+    confusion_matrix_path = Path("./models") / selected / "confusion_matrix.png"
+    if confusion_matrix_path.exists():
+        st.image(str(confusion_matrix_path), caption=f"Confusion Matrix - {selected} Model", use_container_width=True)
 
-        init_col1, init_col2 = st.columns(2)
-      
-        button_disabled = not has_config or not create_similarity_search
-        if st.button("Activate Similarity Search", key="init_similarity", disabled=button_disabled, type="primary", use_container_width=True):
-            if not has_config:
-                st.error("❌ Model does not have a config file (training_args.json). Cannot initialize similarity search.")
-                st.info("💡 Ensure training_args.json is saved alongside the model checkpoint.")
-            elif not create_similarity_search:
-                st.error("❌ Core similarity utilities not available: ensure dependencies are installed.")
-                st.info("💡 Install pgvector and PostgreSQL dependencies to enable this feature.")
-            else:
-                with st.spinner("Activating similarity search engine..."):
-                    try:
-                        st.info("⚙️ Loading model checkpoint and initializing feature encoder...")
-                        
-                        similarity_search = create_similarity_search(
-                            model_path=str(selected_info['model_file']),
-                            config_path=str(selected_info['config_file']),
-                            table_name="images_features"
-                        )
-                        st.session_state.similarity_search = similarity_search
-                        
-                        st.metric("Status", "Active", "Encoder ready for queries")
-                        st.metric("Model", selected, "Loaded checkpoint")
-                        
-                        st.success("✅ Similarity search activated successfully!")
-                        st.info("🔍 Navigate to the Similarity Search page to query wound images.")
-                    except Exception as e:
-                        st.error(f"❌ Activation failed: {e}")
-                        st.info("💡 Verify database connectivity and model compatibility.")
-        
-        if button_disabled and create_similarity_search:
-            st.caption("💡 Provide a training_args.json next to the model to enable activation.")
-        elif button_disabled:
-            st.caption("💡 Install pgvector dependencies to enable this action.")
+    else:
+        st.info("💡 No evaluation results available. Run evaluation to see test performance metrics.")
 
-     
-        st.info("How it works: We load the classifier, rebuild preprocessing from the config, extract embeddings for every training image, and persist them into the configured PostgreSQL table.")
+# Display evaluation details
+with st.expander("Evaluation Details", expanded=False):
+    if selected_info['evaluation_summary']:
+        st.json(selected_info['evaluation_summary'])
 
+
+
+
+# Import Vector Embeddings button
+if st.session_state.similarity_search:
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    if st.button("Import Vector Embeddings", key="import_vectors", type="secondary", use_container_width=True):
+        with st.spinner("Generating and inserting vector embeddings for the dataset..."):
+            try:
+                # Scan dataset directory
+                dataset_dir = Path("./files/train_dataset")
+                image_paths = []
+                class_labels = []
+                
+                if dataset_dir.exists():
+                    for class_dir in dataset_dir.iterdir():
+                        if class_dir.is_dir():
+                            class_name = class_dir.name
+                            for ext in ['*.jpg', '*.jpeg', '*.png']:
+                                for img_path in class_dir.glob(ext):
+                                    image_paths.append(str(img_path))
+                                    class_labels.append(class_name)
+                    
+                    if image_paths:
+                        st.info(f"Found {len(image_paths)} images across {len(set(class_labels))} classes. Processing...")
+                        # Generate and store features
+                        st.session_state.similarity_search.store_image_features(image_paths, class_labels)
+                        st.success(f"✅ Successfully imported vector embeddings for {len(image_paths)} images!")
+                        st.info("🔍 Vector embeddings are now stored in the database and ready for similarity search.")
+                    else:
+                        st.warning("No images found in ./files/train_dataset. Ensure the dataset is mounted.")
+                else:
+                    st.error("Dataset directory ./files/train_dataset not found.")
+            except Exception as e:
+                st.error(f"❌ Failed to import vector embeddings: {e}")
+                st.info("💡 Check database connectivity and ensure the model is compatible.")
+elif has_config and create_similarity_search:
+    st.caption("💡 Activate similarity search first to enable vector embedding import.")

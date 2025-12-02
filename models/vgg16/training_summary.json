@@ -1,5 +1,5 @@
 {
-  "training_date": "2025-12-01T23:38:52.475696",
+  "training_date": "2025-12-02T00:12:03.585450",
   "model_name": "wound_classifier",
   "architecture": "vgg16",
   "num_classes": 10,
@@ -16,8 +16,8 @@
     "Burns": 67
   },
   "training_config": {
-    "epochs": 20,
-    "batch_size": 32,
+    "epochs": 50,
+    "batch_size": 64,
     "learning_rate": 0.001,
     "test_split": 0.1,
     "feature_dim": 1536,
@@ -27,16 +27,16 @@
     "fine_tuning": false
   },
   "final_metrics": {
-    "train_accuracy": 0.7568359375,
-    "val_accuracy": 0.6458333134651184,
-    "train_loss": 0.7233870625495911,
-    "val_loss": 0.9613229632377625
+    "train_accuracy": 0.8603515625,
+    "val_accuracy": 0.65625,
+    "train_loss": 0.43750062584877014,
+    "val_loss": 1.0328278541564941
   },
   "evaluation_metrics": {
-    "accuracy": 0.6548672566371682,
-    "precision": 0.6458071687119059,
-    "recall": 0.6548672566371682,
-    "f1_score": 0.6364438069305326
+    "accuracy": 0.672566371681416,
+    "precision": 0.6681622212595664,
+    "recall": 0.672566371681416,
+    "f1_score": 0.6542616085978918
   },
   "model_paths": {
     "model_file": "models/vgg16/wound_classifier.pkl",

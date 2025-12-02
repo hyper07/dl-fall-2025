@@ -22,6 +22,12 @@ from datetime import datetime
 # Add core to path
 sys.path.append(str(Path(__file__).parent))
 
+# Keywords that typically appear in augmented filenames (rotations, mirrors, etc.)
+AUGMENTED_NAME_MARKERS = (
+    "_rot",
+    "_mirror"
+)
+
 from core.model_utils import CNNTrainer, train_cnn_model
 from core.config import config, initialize_app
 from core.data_processing import DataValidator
@@ -71,7 +77,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Train CNN model for wound classification')
 
     # Data arguments
-    parser.add_argument('--data_dir', type=str, default='./files/train_dataset',
+    parser.add_argument('--data_dir', type=str, default='./files/train_dataset_augmented',
                        help='Path to training dataset directory')
     parser.add_argument('--output_dir', type=str, default='./models',
                        help='Directory to save trained models')
@@ -139,7 +145,7 @@ def load_config_from_file(config_path):
     logger.info(f"Loaded configuration from {config_path}")
 
 
-def validate_dataset(data_dir):
+def validate_dataset(data_dir, include_augmented=True):
     """Validate the training dataset."""
     data_dir = Path(data_dir)
 
@@ -159,6 +165,21 @@ def validate_dataset(data_dir):
 
     for class_dir in class_dirs:
         image_files = list(class_dir.glob('*.jpg')) + list(class_dir.glob('*.jpeg')) + list(class_dir.glob('*.png'))
+
+        if not include_augmented:
+            filtered_images = [
+                img for img in image_files
+                if not any(marker in img.name.lower() for marker in AUGMENTED_NAME_MARKERS)
+            ]
+
+            if not filtered_images:
+                logger.warning(
+                    "All images for class %s were flagged as augmented; falling back to full set.",
+                    class_dir.name
+                )
+            else:
+                image_files = filtered_images
+
         class_counts[class_dir.name] = len(image_files)
         total_images += len(image_files)
 
@@ -265,7 +286,10 @@ def main():
 
     try:
         # Validate dataset
-        num_classes, class_counts = validate_dataset(args.data_dir)
+        num_classes, class_counts = validate_dataset(
+            args.data_dir,
+            include_augmented=args.augment
+        )
 
         # Create output directory
         model_dir = create_output_directory(args.output_dir, args.architecture)
@@ -302,7 +326,8 @@ def main():
             batch_size=args.batch_size,
             augment=args.augment,
             exact_rotations=args.exact_rotations,
-            augmentation_factor=args.augmentation_factor
+            augmentation_factor=args.augmentation_factor,
+            include_augmented_files=args.augment
         )
 
         logger.info(f"Training samples: {train_gen.samples}")

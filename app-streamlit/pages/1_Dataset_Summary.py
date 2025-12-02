@@ -1,13 +1,21 @@
 import streamlit as st
 import pandas as pd
 from pathlib import Path
+import sys
+
+# Add core to path
+sys.path.append(str(Path(__file__).parent.parent))
 
 # Conditional imports for PostgreSQL functionality
 try:
     from core.image_similarity import create_similarity_search, POSTGRESQL_AVAILABLE
+    from core.database import get_vector_store
+    DB_AVAILABLE = True
 except ImportError:
     create_similarity_search = None
+    get_vector_store = None
     POSTGRESQL_AVAILABLE = False
+    DB_AVAILABLE = False
 
 st.set_page_config(
     page_title="Dataset Summary",
@@ -78,79 +86,143 @@ with st.expander("Database Initialization", expanded=True):
         unsafe_allow_html=True
     )
 
-    st.info("Initialize once per trained model. Feature extraction runs on every image in the training corpus and stores 1536-D vectors along with class labels for rapid similarity lookup.")
+    st.info("**Initialize once per trained model.** Feature extraction runs on every image in the training corpus and stores 1536-D vectors along with class labels for rapid similarity lookup.")
+    
+    # Check database status directly
+    db_vector_count = 0
+    db_vector_dim = None
+    db_initialized = False
+    db_error = None
+    
+    if DB_AVAILABLE:
+        try:
+            vector_store = get_vector_store()
+            db_vector_count = vector_store.get_vector_count("images_features")
+            db_vector_dim = vector_store.get_table_vector_dim("images_features")
+            db_initialized = db_vector_count > 0
+        except Exception as e:
+            db_error = str(e)
 
-    # Main action area
-    st.markdown("### Database Setup")
-    col_init, col_space, col_status = st.columns([2, 0.5, 2])
+    # Display status in prominent metrics
+    st.markdown("### Database Status")
+    status_col1, status_col2 = st.columns(2)
 
-    with col_init:
-        if 'similarity_search' in st.session_state and st.session_state.similarity_search is not None:
-            db_stats = st.session_state.similarity_search.get_database_stats()
-            st.success("✅ Database Ready")
-        if st.button("Initialize Now", type="primary", use_container_width=True):
-            if not POSTGRESQL_AVAILABLE or not create_similarity_search:
-                st.error("PostgreSQL dependencies are not installed. Please install them to use this feature.")
-            elif st.session_state.training_status == 'completed':
-                with st.spinner("Initializing vector database... This may take a few minutes."):
-                    try:
-                        # Find the latest trained model
-                        models_dir = Path("./models")
-                        model_dirs = sorted(
-                            [d for d in models_dir.iterdir() if d.is_dir()],
-                            key=lambda d: d.stat().st_mtime,
-                            reverse=True
-                        )
-                        if not model_dirs:
-                            st.error("No trained models found to initialize the database.")
-                        else:
-                            latest_model_dir = model_dirs[0]
-                            model_file = next(latest_model_dir.glob("*.pkl"), None)
-                            config_file = latest_model_dir / "training_args.json"
+    
+    with status_col2:
+        if db_error and "does not exist" not in db_error:
+            st.error(f"⚠️ Database connection error")
+        elif not DB_AVAILABLE:
+            st.info("ℹ️ Database dependencies not available")
+    
+    # Metrics
+    metric_col1, metric_col2 = st.columns(2)
+    with metric_col1:
+        st.metric(
+            "Indexed Images", 
+            db_vector_count if db_initialized else 0,
+            help="Total number of image embeddings stored in the vector database"
+        )
+    with metric_col2:
+        st.metric(
+            "Vector Dimension", 
+            db_vector_dim if db_vector_dim else "N/A",
+            help="Dimensionality of feature vectors (1536 for standard embeddings)"
+        )
 
-                            if model_file and config_file.exists():
-                                st.session_state.similarity_search = create_similarity_search(
-                                    model_path=str(model_file),
-                                    config_path=str(config_file),
-                                    table_name="images_features"
-                                )
-                                st.success("Vector database initialized successfully!")
-                                st.rerun()  # Refresh to update status
-                            else:
-                                st.error("Latest model is missing a .pkl file or training_args.json.")
-                    except Exception as e:
-                        st.error(f"Error initializing vector database: {e}")
-            else:
-                st.warning("Training must be completed before initializing the vector database.")
-
-
-    with col_space:
-        st.empty()  # Spacer
-
-    with col_status:
-        st.markdown("**Database Status**")
-        if not create_similarity_search:
-            st.info("Vector utilities unavailable in this environment.")
+    st.markdown("---")
+    
+    # Training requirement check
+    models_dir = Path("./models")
+    available_models = []
+    
+    if models_dir.exists():
+        for model_dir in models_dir.iterdir():
+            if model_dir.is_dir():
+                model_file = next(model_dir.glob("*.pkl"), None) or next(model_dir.glob("*.keras"), None)
+                config_file = model_dir / "training_args.json"
+                if model_file and config_file.exists():
+                    available_models.append({
+                        'name': model_dir.name,
+                        'model_file': model_file,
+                        'config_file': config_file
+                    })
+    
+    if not available_models:
+        st.warning("⚠️ **Training must be completed before initializing the vector database.**")
+        st.info("💡 Train a model in the **Training** page first, then return here to initialize the database.")
+    else:
+        # Model selection
+        st.markdown("### Initialize Vectors")
+        
+        if len(available_models) == 1:
+            selected_model = available_models[0]
+            st.info(f"📦 Found trained model: **{selected_model['name']}**")
         else:
-            try:
-                if 'similarity_search' in st.session_state and st.session_state.similarity_search is not None:
-                    db_stats = st.session_state.similarity_search.get_database_stats()
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("Indexed Images", db_stats.get('total_images', 'N/A'))
-                    with col2:
-                        st.metric("Vector Dimension", db_stats.get('vector_dimension', 'N/A'))
+            model_names = [m['name'] for m in available_models]
+            selected_name = st.selectbox(
+                "Select model to initialize",
+                model_names,
+                help="Choose which trained model to use for feature extraction"
+            )
+            selected_model = next(m for m in available_models if m['name'] == selected_name)
+        
+        # Action buttons
+        col_action1, col_action2 = st.columns(2)
+        
+        with col_action1:
+            if st.button("Regenerate Vectors", type="primary", use_container_width=True, disabled=not DB_AVAILABLE):
+                if not DB_AVAILABLE:
+                    st.error("❌ Database dependencies not available. Install psycopg2 and pgvector.")
                 else:
-                    st.info("❌ Database not initialized.")
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("Indexed Images", 0)
-                    with col2:
-                        st.metric("Vector Dimension", "N/A")
-            except Exception as e:
-                st.error(f"Could not retrieve database status: {e}")
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.metric("Indexed Images", "Error")
-                with col2:
-                    st.metric("Vector Dimension", "Error")
+                    with st.spinner("🔄 Generating vectors from training dataset... This may take several minutes."):
+                        try:
+                            st.info(f"⚙️ Using model: **{selected_model['name']}**")
+                            st.info("📊 Extracting features from all training images...")
+                            
+                            # Initialize similarity search which will create the connection
+                            similarity_search = create_similarity_search(
+                                model_path=str(selected_model['model_file']),
+                                config_path=str(selected_model['config_file']),
+                                table_name="images_features"
+                            )
+                            
+                            # Get all image paths from training dataset
+                            from core.data_processing import get_image_paths_by_class
+                            class_images = get_image_paths_by_class(str(data_dir))
+                            
+                            # Flatten to lists
+                            all_image_paths = []
+                            all_labels = []
+                            for class_name, paths in class_images.items():
+                                all_image_paths.extend(paths)
+                                all_labels.extend([class_name] * len(paths))
+                            
+                            st.info(f"📸 Processing {len(all_image_paths)} images...")
+                            
+                            # Store features in database
+                            similarity_search.store_image_features(all_image_paths, all_labels, batch_size=32)
+                            
+                            st.success(f"✅ Successfully generated {len(all_image_paths)} vectors!")
+                            st.balloons()
+                            st.rerun()
+                            
+                        except Exception as e:
+                            st.error(f"❌ Vector generation failed: {e}")
+                            st.exception(e)
+        
+        with col_action2:
+            if st.button("🗑️ Clear Database", type="secondary", use_container_width=True, disabled=not db_initialized):
+                if st.warning("⚠️ This will delete all vectors from the database. Are you sure?"):
+                    try:
+                        vector_store = get_vector_store()
+                        vector_store.clear_table("images_features")
+                        st.success("✅ Database cleared successfully!")
+                        st.rerun()
+                    except Exception as e:
+                        st.error(f"❌ Failed to clear database: {e}")
+        
+        # Information box
+        if db_initialized:
+            st.success("✅ **Database is ready!** You can now use the Similarity Search page to find similar wound images.")
+        else:
+            st.info("💡 **Next step:** Click 'Regenerate Vectors' to populate the database with image embeddings.")

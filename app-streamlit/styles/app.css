@@ -479,7 +479,8 @@ div[data-testid="stAppViewContainer"] { padding-top: 0 !important; }
     padding: 0.35rem 0.75rem;
     border-radius: 999px;
     background: rgba(10, 53, 82, 0.1);
-    color: #0a3552;
+    color: white;
+    border: 1px solid white;
     font-size: 0.82rem;
     font-weight: 600;
 }

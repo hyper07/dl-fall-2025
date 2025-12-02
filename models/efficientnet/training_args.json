@@ -3,7 +3,7 @@
   "output_dir": "./models",
   "architecture": "efficientnet",
   "model_name": "wound_classifier",
-  "epochs": 100,
+  "epochs": 50,
   "batch_size": 64,
   "learning_rate": 0.001,
   "test_split": 0.1,
