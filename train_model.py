@@ -77,10 +77,12 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Train CNN model for wound classification')
 
     # Data arguments
-    parser.add_argument('--data_dir', type=str, default='./files/train_dataset_augmented',
+    parser.add_argument('--data_dir', type=str, default='./files/train_dataset',
                        help='Path to training dataset directory')
     parser.add_argument('--output_dir', type=str, default='./models',
                        help='Directory to save trained models')
+    parser.add_argument('--max_images_per_class', type=int, default=150,
+                       help='Maximum number of images to use per class (default: 1500)')
 
     # Model arguments
     parser.add_argument('--architecture', type=str, default='resnet50',
@@ -223,7 +225,8 @@ def save_training_summary(model_dir, trainer, class_counts, training_history, ar
             'augmentation': args.augment,
             'exact_rotations': args.exact_rotations,
             'augmentation_factor': args.augmentation_factor,
-            'fine_tuning': args.fine_tune
+            'fine_tuning': args.fine_tune,
+            'max_images_per_class': args.max_images_per_class
         },
         'final_metrics': {
             'train_accuracy': training_history.get('class_output_accuracy', [-1])[-1],
@@ -232,6 +235,12 @@ def save_training_summary(model_dir, trainer, class_counts, training_history, ar
             'val_loss': training_history.get('val_class_output_loss', [-1])[-1]
         } if training_history else None,
         'evaluation_metrics': eval_results.get('metrics') if eval_results else None,
+        'output_files': {
+            'confusion_matrix_png': str(model_dir / 'confusion_matrix.png'),
+            'confusion_matrix_csv': str(model_dir / 'confusion_matrix.csv'),
+            'classification_report_csv': str(model_dir / 'classification_report.csv'),
+            'evaluation_metrics_json': str(model_dir / 'evaluation_metrics.json')
+        } if eval_results else None,
         'model_paths': {
             'model_file': str(model_dir / f"{trainer.model_name}.pkl"),
             'config_file': str(model_dir / 'training_config.json')
@@ -327,7 +336,8 @@ def main():
             augment=args.augment,
             exact_rotations=args.exact_rotations,
             augmentation_factor=args.augmentation_factor,
-            include_augmented_files=args.augment
+            include_augmented_files=args.augment,
+            max_images_per_class=args.max_images_per_class
         )
 
         logger.info(f"Training samples: {train_gen.samples}")
@@ -368,6 +378,25 @@ def main():
         # Evaluate model on test set
         logger.info("Evaluating model on test set...")
         eval_results = trainer.evaluate(val_gen, save_path=model_dir)
+
+        # Save evaluation summary
+        evaluation_summary = {
+            'evaluation_date': datetime.now().isoformat(),
+            'model_path': str(model_path),
+            'dataset': args.data_dir,
+            'test_split': args.test_split,
+            'test_samples': val_gen.samples,
+            'metrics': eval_results['metrics'],
+            'output_files': {
+                'confusion_matrix_png': str(model_dir / 'confusion_matrix.png'),
+                'confusion_matrix_csv': str(model_dir / 'confusion_matrix.csv'),
+                'classification_report_csv': str(model_dir / 'classification_report.csv'),
+                'evaluation_metrics_json': str(model_dir / 'evaluation_metrics.json')
+            }
+        }
+
+        with open(model_dir / 'evaluation_summary.json', 'w') as f:
+            json.dump(evaluation_summary, f, indent=2, default=str)
 
         # Save the trained model
         model_path = model_dir / f"{trainer.model_name}.pkl"

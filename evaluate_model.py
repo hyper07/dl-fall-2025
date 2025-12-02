@@ -46,8 +46,8 @@ def parse_arguments():
                        help='Path to training dataset directory')
     parser.add_argument('--output_dir', type=str, default=None,
                        help='Directory to save evaluation results (default: same as model directory)')
-    parser.add_argument('--test_split', type=float, default=0.2,
-                       help='Fraction of data used for testing (must match training split)')
+    parser.add_argument('--test_split', type=float, default=0.1,
+                       help='Fraction of data used for testing (must match training split, default: 0.1)')
     parser.add_argument('--batch_size', type=int, default=32,
                        help='Batch size for evaluation')
 

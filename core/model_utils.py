@@ -578,7 +578,7 @@ class CNNTrainer(ModelTrainer):
         self.feature_dim = 1536
 
     def build_model(self, num_classes: int, feature_dim: int = 1536,
-                   freeze_base: bool = True, device: str = 'auto') -> 'CNNTrainer':
+                   freeze_base: bool = False, device: str = 'auto') -> 'CNNTrainer':
         """Build CNN model with specified architecture."""
         self.num_classes = num_classes
         self.feature_dim = feature_dim
@@ -719,7 +719,7 @@ class CNNTrainer(ModelTrainer):
     def create_data_generators(self, train_dir: str, test_split: float = 0.2,
                               batch_size: int = 32, augment: bool = True, exact_rotations: bool = True,
                               augmentation_factor: int = 8, augmentation_config: dict = None,
-                              include_augmented_files: bool = True):
+                              include_augmented_files: bool = True, max_images_per_class: int = 1000):
         """Create training and test data generators with stratified splitting (80% train, 20% test per class)."""
         try:
             from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -732,10 +732,11 @@ class CNNTrainer(ModelTrainer):
 
         train_dir = Path(train_dir)
 
-        # Collect all image files by class for stratified splitting, limited to 150 per class
+        # Collect all image files by class for stratified splitting
         class_files = {}
         supported_extensions = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}
-        max_images_per_class = 150
+        
+        logger.info(f"Maximum images per class limit: {max_images_per_class}")
 
         for class_dir in train_dir.iterdir():
             if class_dir.is_dir():
@@ -760,6 +761,7 @@ class CNNTrainer(ModelTrainer):
                 # Limit to max_images_per_class and sort
                 image_files = sorted([str(f) for f in image_files])[:max_images_per_class]
                 class_files[class_name] = image_files
+                logger.info(f"Class '{class_name}': {len(image_files)} images (after {max_images_per_class} limit)")
 
         if not class_files:
             raise ValueError(f"No image files found in {train_dir}")
@@ -975,11 +977,11 @@ class CNNTrainer(ModelTrainer):
 
         # Apply architecture-specific preprocessing
         if self.architecture == "efficientnet":
-            # For custom trained EfficientNet models, use standard normalization
-            # (not the ImageNet EfficientNet preprocessing, since model was trained with standard normalization)
-            img_array = img_array / 255.0
+            # EfficientNet uses its own preprocessing (same as training)
+            from tensorflow.keras.applications.efficientnet import preprocess_input
+            img_array = preprocess_input(img_array)
         else:
-            # ResNet50, VGG16, and other architectures use standard normalization
+            # ResNet50, VGG16, and other architectures use standard normalization [0, 1]
             img_array = img_array / 255.0
 
         # Extract features using the feature model
@@ -1002,8 +1004,9 @@ class CNNTrainer(ModelTrainer):
 
         # Apply architecture-specific preprocessing
         if self.architecture == "efficientnet":
-            # For custom trained EfficientNet models, use standard normalization
-            img_array = img_array / 255.0
+            # EfficientNet uses its own preprocessing (same as training)
+            from tensorflow.keras.applications.efficientnet import preprocess_input
+            img_array = preprocess_input(img_array)
         else:
             img_array = img_array / 255.0
 

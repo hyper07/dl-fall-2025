@@ -160,7 +160,7 @@ with st.expander("Upload & Analyse", expanded=True):
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded image", width=320)
+        st.image(image, caption="Uploaded image", width=640)
 
         temp_dir = Path("./temp")
         temp_dir.mkdir(exist_ok=True)

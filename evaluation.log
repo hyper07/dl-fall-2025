@@ -114,3 +114,343 @@
 2025-12-01 20:38:49,169 - INFO - Results saved in: models/efficientnet
 2025-12-01 20:38:49,169 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
 2025-12-01 20:38:49,169 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 08:58:11,422 - INFO - Logging setup with level INFO
+2025-12-02 08:58:11,422 - INFO - Application initialized
+2025-12-02 08:58:11,422 - INFO - Database: dl-postgres:5432
+2025-12-02 08:58:11,422 - INFO - Vector dimension: 1536
+2025-12-02 08:58:11,422 - INFO - Upload directory: /tmp/uploads
+2025-12-02 08:58:11,422 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 08:58:11,422 - INFO - Starting model evaluation
+2025-12-02 08:58:11,422 - INFO - Model: models/resnet50/wound_classifier_best.keras
+2025-12-02 08:58:11,422 - INFO - Dataset: ./files/train_dataset_augmented
+2025-12-02 08:58:11,422 - INFO - Test split: 0.1
+2025-12-02 08:58:11,422 - INFO - Loading trained model...
+2025-12-02 08:58:11,423 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 08:58:12,643 - INFO - Keras model loaded from models/resnet50/wound_classifier_best.keras
+2025-12-02 08:58:12,644 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 08:58:12,644 - INFO - Creating test data generator...
+2025-12-02 08:58:12,645 - INFO - Maximum images per class limit: 1000
+2025-12-02 08:58:12,652 - INFO - Class 'Abrasions': 738 images (after 1000 limit)
+2025-12-02 08:58:12,672 - INFO - Class 'Diabetic Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,691 - INFO - Class 'Surgical Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,702 - INFO - Class 'Bruises': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,706 - INFO - Class 'Cut': 450 images (after 1000 limit)
+2025-12-02 08:58:12,728 - INFO - Class 'Venous Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,737 - INFO - Class 'Normal': 900 images (after 1000 limit)
+2025-12-02 08:58:12,764 - INFO - Class 'Pressure Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,775 - INFO - Class 'Laseration': 1000 images (after 1000 limit)
+2025-12-02 08:58:12,781 - INFO - Class 'Burns': 603 images (after 1000 limit)
+2025-12-02 08:58:12,785 - INFO - Stratified split: 7823 training samples, 868 test samples
+2025-12-02 08:58:12,785 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 08:58:12,822 - INFO - Test samples: 868
+2025-12-02 08:58:12,822 - INFO - Evaluating model on test set...
+2025-12-02 08:58:12,971 - INFO - Evaluating model on test set...
+2025-12-02 08:58:19,923 - INFO - Evaluation results saved to models/resnet50
+2025-12-02 08:58:19,923 - INFO - Evaluation Results:
+2025-12-02 08:58:19,923 - INFO -   Accuracy: 0.3272
+2025-12-02 08:58:19,923 - INFO -   Precision: 0.3938
+2025-12-02 08:58:19,923 - INFO -   Recall: 0.3272
+2025-12-02 08:58:19,923 - INFO -   F1 Score: 0.2955
+2025-12-02 08:58:19,924 - INFO - Evaluation completed successfully!
+2025-12-02 08:58:19,924 - INFO - Results saved in: models/resnet50
+2025-12-02 08:58:19,924 - INFO - Confusion matrix: models/resnet50/confusion_matrix.png
+2025-12-02 08:58:19,924 - INFO - Detailed metrics: models/resnet50/evaluation_summary.json
+2025-12-02 08:58:49,252 - INFO - Logging setup with level INFO
+2025-12-02 08:58:49,253 - INFO - Application initialized
+2025-12-02 08:58:49,253 - INFO - Database: dl-postgres:5432
+2025-12-02 08:58:49,253 - INFO - Vector dimension: 1536
+2025-12-02 08:58:49,253 - INFO - Upload directory: /tmp/uploads
+2025-12-02 08:58:49,253 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 08:58:49,253 - INFO - Starting model evaluation
+2025-12-02 08:58:49,253 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 08:58:49,253 - INFO - Dataset: ./files/train_dataset_augmented
+2025-12-02 08:58:49,253 - INFO - Test split: 0.1
+2025-12-02 08:58:49,253 - INFO - Loading trained model...
+2025-12-02 08:58:49,253 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 08:58:51,221 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 08:58:51,222 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 08:58:51,222 - INFO - Creating test data generator...
+2025-12-02 08:58:51,222 - INFO - Maximum images per class limit: 1000
+2025-12-02 08:58:51,230 - INFO - Class 'Abrasions': 738 images (after 1000 limit)
+2025-12-02 08:58:51,250 - INFO - Class 'Diabetic Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,268 - INFO - Class 'Surgical Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,279 - INFO - Class 'Bruises': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,284 - INFO - Class 'Cut': 450 images (after 1000 limit)
+2025-12-02 08:58:51,304 - INFO - Class 'Venous Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,312 - INFO - Class 'Normal': 900 images (after 1000 limit)
+2025-12-02 08:58:51,339 - INFO - Class 'Pressure Wounds': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,349 - INFO - Class 'Laseration': 1000 images (after 1000 limit)
+2025-12-02 08:58:51,355 - INFO - Class 'Burns': 603 images (after 1000 limit)
+2025-12-02 08:58:51,359 - INFO - Stratified split: 7823 training samples, 868 test samples
+2025-12-02 08:58:51,359 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 08:58:51,397 - INFO - Test samples: 868
+2025-12-02 08:58:51,397 - INFO - Evaluating model on test set...
+2025-12-02 08:58:51,540 - INFO - Evaluating model on test set...
+2025-12-02 08:59:00,248 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 08:59:00,248 - INFO - Evaluation Results:
+2025-12-02 08:59:00,248 - INFO -   Accuracy: 0.1037
+2025-12-02 08:59:00,248 - INFO -   Precision: 0.0108
+2025-12-02 08:59:00,248 - INFO -   Recall: 0.1037
+2025-12-02 08:59:00,248 - INFO -   F1 Score: 0.0195
+2025-12-02 08:59:00,248 - INFO - Evaluation completed successfully!
+2025-12-02 08:59:00,248 - INFO - Results saved in: models/efficientnet
+2025-12-02 08:59:00,248 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 08:59:00,248 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:01:43,380 - INFO - Logging setup with level INFO
+2025-12-02 09:01:43,381 - INFO - Application initialized
+2025-12-02 09:01:43,381 - INFO - Database: dl-postgres:5432
+2025-12-02 09:01:43,381 - INFO - Vector dimension: 1536
+2025-12-02 09:01:43,381 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:01:43,381 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:01:43,381 - INFO - Starting model evaluation
+2025-12-02 09:01:43,381 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:01:43,381 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:01:43,381 - INFO - Test split: 0.1
+2025-12-02 09:01:43,381 - INFO - Loading trained model...
+2025-12-02 09:01:43,381 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:01:44,702 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:01:44,703 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:01:44,703 - INFO - Creating test data generator...
+2025-12-02 09:01:44,703 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:01:44,704 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:01:44,706 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:01:44,708 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:01:44,710 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:01:44,710 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:01:44,712 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:01:44,713 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:01:44,716 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:01:44,717 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:01:44,718 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:01:44,719 - INFO - Stratified split: 1380 training samples, 151 test samples
+2025-12-02 09:01:44,719 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:01:44,727 - INFO - Test samples: 151
+2025-12-02 09:01:44,727 - INFO - Evaluating model on test set...
+2025-12-02 09:01:44,851 - INFO - Evaluating model on test set...
+2025-12-02 09:01:49,312 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:01:49,312 - INFO - Evaluation Results:
+2025-12-02 09:01:49,312 - INFO -   Accuracy: 0.0662
+2025-12-02 09:01:49,312 - INFO -   Precision: 0.0044
+2025-12-02 09:01:49,312 - INFO -   Recall: 0.0662
+2025-12-02 09:01:49,312 - INFO -   F1 Score: 0.0082
+2025-12-02 09:01:49,312 - INFO - Evaluation completed successfully!
+2025-12-02 09:01:49,312 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:01:49,312 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:01:49,312 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:16:16,458 - INFO - Logging setup with level INFO
+2025-12-02 09:16:16,458 - INFO - Application initialized
+2025-12-02 09:16:16,458 - INFO - Database: dl-postgres:5432
+2025-12-02 09:16:16,458 - INFO - Vector dimension: 1536
+2025-12-02 09:16:16,458 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:16:16,458 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:16:16,458 - INFO - Starting model evaluation
+2025-12-02 09:16:16,458 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:16:16,458 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:16:16,458 - INFO - Test split: 0.2
+2025-12-02 09:16:16,458 - INFO - Loading trained model...
+2025-12-02 09:16:16,458 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:16:18,136 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:16:18,137 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:16:18,137 - INFO - Creating test data generator...
+2025-12-02 09:16:18,138 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:16:18,139 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:16:18,142 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:16:18,144 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:16:18,145 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:16:18,145 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:16:18,148 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:16:18,149 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:16:18,152 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:16:18,153 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:16:18,154 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:16:18,155 - INFO - Stratified split: 1227 training samples, 304 test samples
+2025-12-02 09:16:18,155 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:16:18,163 - INFO - Test samples: 304
+2025-12-02 09:16:18,163 - INFO - Evaluating model on test set...
+2025-12-02 09:16:18,305 - INFO - Evaluating model on test set...
+2025-12-02 09:16:23,971 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:16:23,971 - INFO - Evaluation Results:
+2025-12-02 09:16:23,971 - INFO -   Accuracy: 0.0658
+2025-12-02 09:16:23,971 - INFO -   Precision: 0.0043
+2025-12-02 09:16:23,971 - INFO -   Recall: 0.0658
+2025-12-02 09:16:23,971 - INFO -   F1 Score: 0.0081
+2025-12-02 09:16:23,971 - INFO - Evaluation completed successfully!
+2025-12-02 09:16:23,971 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:16:23,971 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:16:23,971 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:17:38,824 - INFO - Logging setup with level INFO
+2025-12-02 09:17:38,824 - INFO - Application initialized
+2025-12-02 09:17:38,824 - INFO - Database: dl-postgres:5432
+2025-12-02 09:17:38,824 - INFO - Vector dimension: 1536
+2025-12-02 09:17:38,824 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:17:38,824 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:17:38,824 - INFO - Starting model evaluation
+2025-12-02 09:17:38,824 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:17:38,824 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:17:38,824 - INFO - Test split: 0.2
+2025-12-02 09:17:38,824 - INFO - Loading trained model...
+2025-12-02 09:17:38,825 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:17:40,441 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:17:40,442 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:17:40,442 - INFO - Creating test data generator...
+2025-12-02 09:17:40,443 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:17:40,444 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:17:40,447 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:17:40,449 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:17:40,450 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:17:40,451 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:17:40,453 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:17:40,454 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:17:40,457 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:17:40,458 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:17:40,459 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:17:40,459 - INFO - Stratified split: 1227 training samples, 304 test samples
+2025-12-02 09:17:40,459 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:17:40,468 - INFO - Test samples: 304
+2025-12-02 09:17:40,468 - INFO - Evaluating model on test set...
+2025-12-02 09:17:40,631 - INFO - Evaluating model on test set...
+2025-12-02 09:17:46,220 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:17:46,220 - INFO - Evaluation Results:
+2025-12-02 09:17:46,220 - INFO -   Accuracy: 0.0658
+2025-12-02 09:17:46,220 - INFO -   Precision: 0.0043
+2025-12-02 09:17:46,220 - INFO -   Recall: 0.0658
+2025-12-02 09:17:46,220 - INFO -   F1 Score: 0.0081
+2025-12-02 09:17:46,220 - INFO - Evaluation completed successfully!
+2025-12-02 09:17:46,220 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:17:46,220 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:17:46,220 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:18:21,662 - INFO - Logging setup with level INFO
+2025-12-02 09:18:21,662 - INFO - Application initialized
+2025-12-02 09:18:21,663 - INFO - Database: dl-postgres:5432
+2025-12-02 09:18:21,663 - INFO - Vector dimension: 1536
+2025-12-02 09:18:21,663 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:18:21,663 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:18:21,663 - INFO - Starting model evaluation
+2025-12-02 09:18:21,663 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:18:21,663 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:18:21,663 - INFO - Test split: 0.2
+2025-12-02 09:18:21,663 - INFO - Loading trained model...
+2025-12-02 09:18:21,663 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:18:28,968 - INFO - Logging setup with level INFO
+2025-12-02 09:18:28,968 - INFO - Application initialized
+2025-12-02 09:18:28,968 - INFO - Database: dl-postgres:5432
+2025-12-02 09:18:28,968 - INFO - Vector dimension: 1536
+2025-12-02 09:18:28,968 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:18:28,968 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:18:28,968 - INFO - Starting model evaluation
+2025-12-02 09:18:28,968 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:18:28,968 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:18:28,968 - INFO - Test split: 0.1
+2025-12-02 09:18:28,968 - INFO - Loading trained model...
+2025-12-02 09:18:28,968 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:18:30,563 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:18:30,564 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:18:30,564 - INFO - Creating test data generator...
+2025-12-02 09:18:30,564 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:18:30,566 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:18:30,568 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:18:30,570 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:18:30,572 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:18:30,572 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:18:30,575 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:18:30,576 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:18:30,578 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:18:30,580 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:18:30,580 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:18:30,581 - INFO - Stratified split: 1380 training samples, 151 test samples
+2025-12-02 09:18:30,581 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:18:30,590 - INFO - Test samples: 151
+2025-12-02 09:18:30,590 - INFO - Evaluating model on test set...
+2025-12-02 09:18:30,730 - INFO - Evaluating model on test set...
+2025-12-02 09:18:35,789 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:18:35,789 - INFO - Evaluation Results:
+2025-12-02 09:18:35,789 - INFO -   Accuracy: 0.0662
+2025-12-02 09:18:35,789 - INFO -   Precision: 0.0044
+2025-12-02 09:18:35,789 - INFO -   Recall: 0.0662
+2025-12-02 09:18:35,789 - INFO -   F1 Score: 0.0082
+2025-12-02 09:18:35,789 - INFO - Evaluation completed successfully!
+2025-12-02 09:18:35,789 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:18:35,789 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:18:35,789 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:20:45,621 - INFO - Logging setup with level INFO
+2025-12-02 09:20:45,621 - INFO - Application initialized
+2025-12-02 09:20:45,621 - INFO - Database: dl-postgres:5432
+2025-12-02 09:20:45,621 - INFO - Vector dimension: 1536
+2025-12-02 09:20:45,621 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:20:45,621 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:20:45,621 - INFO - Starting model evaluation
+2025-12-02 09:20:45,621 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:20:45,621 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:20:45,621 - INFO - Test split: 0.1
+2025-12-02 09:20:45,621 - INFO - Loading trained model...
+2025-12-02 09:20:45,621 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:20:47,235 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:20:47,237 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:20:47,237 - INFO - Creating test data generator...
+2025-12-02 09:20:47,237 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:20:47,238 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:20:47,241 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:20:47,243 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:20:47,244 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:20:47,244 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:20:47,247 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:20:47,248 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:20:47,251 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:20:47,252 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:20:47,253 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:20:47,254 - INFO - Stratified split: 1380 training samples, 151 test samples
+2025-12-02 09:20:47,254 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:20:47,263 - INFO - Test samples: 151
+2025-12-02 09:20:47,263 - INFO - Evaluating model on test set...
+2025-12-02 09:20:47,401 - INFO - Evaluating model on test set...
+2025-12-02 09:20:52,299 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:20:52,299 - INFO - Evaluation Results:
+2025-12-02 09:20:52,299 - INFO -   Accuracy: 0.0662
+2025-12-02 09:20:52,299 - INFO -   Precision: 0.0044
+2025-12-02 09:20:52,299 - INFO -   Recall: 0.0662
+2025-12-02 09:20:52,299 - INFO -   F1 Score: 0.0082
+2025-12-02 09:20:52,299 - INFO - Evaluation completed successfully!
+2025-12-02 09:20:52,299 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:20:52,299 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:20:52,299 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-02 09:24:43,499 - INFO - Logging setup with level INFO
+2025-12-02 09:24:43,499 - INFO - Application initialized
+2025-12-02 09:24:43,499 - INFO - Database: dl-postgres:5432
+2025-12-02 09:24:43,499 - INFO - Vector dimension: 1536
+2025-12-02 09:24:43,499 - INFO - Upload directory: /tmp/uploads
+2025-12-02 09:24:43,499 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-02 09:24:43,499 - INFO - Starting model evaluation
+2025-12-02 09:24:43,499 - INFO - Model: models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:24:43,499 - INFO - Dataset: ./files/train_dataset
+2025-12-02 09:24:43,499 - INFO - Test split: 0.1
+2025-12-02 09:24:43,499 - INFO - Loading trained model...
+2025-12-02 09:24:43,500 - INFO - Joblib loading failed (persistent IDs in protocol 0 must be ASCII strings), trying Keras format...
+2025-12-02 09:24:45,116 - INFO - Keras model loaded from models/efficientnet/wound_classifier_best.keras
+2025-12-02 09:24:45,118 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-02 09:24:45,118 - INFO - Creating test data generator...
+2025-12-02 09:24:45,118 - INFO - Maximum images per class limit: 1000
+2025-12-02 09:24:45,120 - INFO - Class 'Abrasions': 82 images (after 1000 limit)
+2025-12-02 09:24:45,122 - INFO - Class 'Diabetic Wounds': 231 images (after 1000 limit)
+2025-12-02 09:24:45,124 - INFO - Class 'Surgical Wounds': 210 images (after 1000 limit)
+2025-12-02 09:24:45,125 - INFO - Class 'Bruises': 121 images (after 1000 limit)
+2025-12-02 09:24:45,126 - INFO - Class 'Cut': 50 images (after 1000 limit)
+2025-12-02 09:24:45,128 - INFO - Class 'Venous Wounds': 247 images (after 1000 limit)
+2025-12-02 09:24:45,129 - INFO - Class 'Normal': 100 images (after 1000 limit)
+2025-12-02 09:24:45,132 - INFO - Class 'Pressure Wounds': 301 images (after 1000 limit)
+2025-12-02 09:24:45,134 - INFO - Class 'Laseration': 122 images (after 1000 limit)
+2025-12-02 09:24:45,135 - INFO - Class 'Burns': 67 images (after 1000 limit)
+2025-12-02 09:24:45,136 - INFO - Stratified split: 1380 training samples, 151 test samples
+2025-12-02 09:24:45,136 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-02 09:24:45,145 - INFO - Test samples: 151
+2025-12-02 09:24:45,145 - INFO - Evaluating model on test set...
+2025-12-02 09:24:45,287 - INFO - Evaluating model on test set...
+2025-12-02 09:24:50,408 - INFO - Evaluation results saved to models/efficientnet
+2025-12-02 09:24:50,408 - INFO - Evaluation Results:
+2025-12-02 09:24:50,408 - INFO -   Accuracy: 0.0662
+2025-12-02 09:24:50,409 - INFO -   Precision: 0.0044
+2025-12-02 09:24:50,409 - INFO -   Recall: 0.0662
+2025-12-02 09:24:50,409 - INFO -   F1 Score: 0.0082
+2025-12-02 09:24:50,409 - INFO - Evaluation completed successfully!
+2025-12-02 09:24:50,409 - INFO - Results saved in: models/efficientnet
+2025-12-02 09:24:50,409 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-02 09:24:50,409 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json

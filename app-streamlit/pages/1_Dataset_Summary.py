@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from pathlib import Path
 import sys
 
@@ -16,6 +17,16 @@ except ImportError:
     get_vector_store = None
     POSTGRESQL_AVAILABLE = False
     DB_AVAILABLE = False
+
+# Add functions path for database queries
+sys.path.append(str(Path(__file__).parent.parent.parent / "app-streamlit"))
+try:
+    from functions.database import execute_query, test_connection
+    QUERY_AVAILABLE = True
+except ImportError:
+    execute_query = None
+    test_connection = None
+    QUERY_AVAILABLE = False
 
 st.set_page_config(
     page_title="Dataset Summary",
@@ -128,6 +139,42 @@ with st.expander("Database Initialization", expanded=True):
             db_vector_dim if db_vector_dim else "N/A",
             help="Dimensionality of feature vectors (1536 for standard embeddings)"
         )
+
+    # Display sample embeddings if database is initialized
+    if db_initialized and QUERY_AVAILABLE:
+        st.markdown("### Sample Embeddings")
+        st.markdown("View actual embedding vectors stored in the database:")
+        
+        try:
+            query = "SELECT id, label, model_name, embedding FROM images_features WHERE embedding IS NOT NULL ORDER BY ID DESC LIMIT 10"
+            result = execute_query(query, return_df=True)
+            if result is not None and len(result) > 0:
+                data = []
+                for idx, row in result.iterrows():
+                    embedding = np.array(row['embedding'])
+                    try:
+                        if embedding.ndim > 0 and len(embedding) > 0:
+                            embedding_preview = f"[{', '.join(f'{x:.4f}' for x in embedding[:5])}, ..., {', '.join(f'{x:.4f}' for x in embedding[-5:])}]"
+                        else:
+                            embedding_preview = str(row['embedding'])
+                    except Exception as e:
+                        embedding_preview = f"Error: {e}"
+                    
+                    data.append({
+                        'ID': row['id'],
+                        'Label': row['label'],
+                        'Model Name': row['model_name'],
+                        'Embedding Preview': embedding_preview
+                    })
+                
+                df = pd.DataFrame(data)
+                st.markdown('<div style="overflow-x: auto; width: 100%;">', unsafe_allow_html=True)
+                st.dataframe(df, use_container_width=True, hide_index=True)
+                st.markdown('</div>', unsafe_allow_html=True)
+            else:
+                st.info("No embeddings found in database")
+        except Exception as e:
+            st.error(f"Error loading embeddings: {str(e)}")
 
     st.markdown("---")
     

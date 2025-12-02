@@ -28,7 +28,7 @@ if models_dir.exists():
             model_files = list(model_dir.glob("*.keras")) or list(model_dir.glob("*.h5")) or list(model_dir.glob("*.pkl"))
             config_file = model_dir / "training_args.json"
             training_summary_file = model_dir / "training_summary.json"
-            evaluation_summary_file = model_dir / "evaluation_summary.json"
+            evaluation_summary_file = model_dir / "evaluation_metrics.json"
             if model_files:
                 model_info = {
                     'name': model_dir.name,
@@ -87,7 +87,7 @@ with st.expander("Model Catalogue", expanded=True):
         has_summary = bool(selected_info['training_summary'])
         has_config = bool(selected_info['config_file'])
         has_evaluation = bool(selected_info['evaluation_summary'])
-        summary_metrics = (selected_info['training_summary'] or {}).get('final_metrics', {})
+        summary_metrics = (selected_info['evaluation_summary'] or {}).get('metrics', {})
         evaluation_metrics = (selected_info['evaluation_summary'] or {}).get('metrics', {})
         class_counts = (selected_info['training_summary'] or {}).get('class_counts', {})
 
@@ -95,30 +95,27 @@ with st.expander("Model Catalogue", expanded=True):
         with col1:
             st.metric("Model", selected, help=f"Primary artefact: {selected_info['model_file'].name}")
         with col2:
-            st.metric("Summary", "Available" if has_summary else "Missing", help="Final metrics captured" if has_summary else "unavailable")
+            st.metric("Summary", "Available" if has_evaluation else "Missing", help="Test set evaluation completed" if has_evaluation else "Run evaluation to see test performance")
         with col3:
             st.metric("Evaluation", "Available" if has_evaluation else "Missing", help="Test set evaluation completed" if has_evaluation else "Run evaluation to see test performance")
 
-        if has_summary:
+        if has_evaluation:
             col1, col2, col3 = st.columns(3)
             with col1:
-                train_acc = summary_metrics.get('train_accuracy', 'N/A')
-                if isinstance(train_acc, (int, float)):
-                    train_acc = f"{train_acc:.4f}"
-                st.metric("Train accuracy", train_acc, "Final epoch")
+                acc = summary_metrics.get('accuracy', 'N/A')
+                if isinstance(acc, (int, float)):
+                    acc = f"{acc:.4f}"
+                st.metric("Accuracy", acc, "Evaluation")
             with col2:
-                val_acc = summary_metrics.get('val_accuracy', 'N/A')
-                if isinstance(val_acc, (int, float)):
-                    val_acc = f"{val_acc:.4f}"
-                st.metric("Validation accuracy", val_acc, "Generalisation snapshot")
+                prec = summary_metrics.get('precision', 'N/A')
+                if isinstance(prec, (int, float)):
+                    prec = f"{prec:.4f}"
+                st.metric("Precision", prec, "Evaluation")
             with col3:
-                train_loss = summary_metrics.get('train_loss', 'N/A')
-                val_loss = summary_metrics.get('val_loss', 'N/A')
-                if isinstance(train_loss, (int, float)):
-                    train_loss = f"{train_loss:.4f}"
-                if isinstance(val_loss, (int, float)):
-                    val_loss = f"{val_loss:.4f}"
-                st.metric("Loss profile", f"{train_loss} / {val_loss}", "Train / validation")
+                f1 = summary_metrics.get('f1_score', 'N/A')
+                if isinstance(f1, (int, float)):
+                    f1 = f"{f1:.4f}"
+                st.metric("F1-Score", f1, "Evaluation")
 
             # Display evaluation metrics if available
 with st.expander("Evaluation Metrics", expanded=False):

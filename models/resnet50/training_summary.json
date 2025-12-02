@@ -1,5 +1,5 @@
 {
-  "training_date": "2025-11-17T10:34:51.676539",
+  "training_date": "2025-12-02T08:53:32.393611",
   "model_name": "wound_classifier",
   "architecture": "resnet50",
   "num_classes": 10,
@@ -16,21 +16,28 @@
     "Burns": 67
   },
   "training_config": {
-    "epochs": 200,
+    "epochs": 500,
     "batch_size": 32,
-    "learning_rate": 0.0001,
-    "test_split": 0.05,
+    "learning_rate": 1e-05,
+    "test_split": 0.1,
     "feature_dim": 1536,
     "augmentation": false,
-    "exact_rotations": false,
-    "augmentation_factor": 1,
-    "fine_tuning": false
+    "exact_rotations": true,
+    "augmentation_factor": 8,
+    "fine_tuning": false,
+    "max_images_per_class": 1000
   },
   "final_metrics": {
-    "train_accuracy": 0.551578938961029,
-    "val_accuracy": 0.5,
-    "train_loss": 1.2524579763412476,
-    "val_loss": 1.3337091207504272
+    "train_accuracy": 0.4102374017238617,
+    "val_accuracy": 0.390625,
+    "train_loss": 1.6351382732391357,
+    "val_loss": 1.6124911308288574
+  },
+  "evaluation_metrics": {
+    "accuracy": 0.3841059602649007,
+    "precision": 0.3690429068026693,
+    "recall": 0.3841059602649007,
+    "f1_score": 0.3478334959068797
   },
   "model_paths": {
     "model_file": "models/resnet50/wound_classifier.pkl",
