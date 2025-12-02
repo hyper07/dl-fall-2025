@@ -96,7 +96,7 @@ def parse_arguments():
                        help='Dimension of feature vectors for vector search')
 
     # Training options
-    add_boolean_arg(parser, 'augment', default=True,
+    add_boolean_arg(parser, 'augment', default=False,
                     help_text='Use data augmentation (true/false)')
     add_boolean_arg(parser, 'exact_rotations', default=True,
                     help_text='Use exact 90/180/270 degree rotations and flips (true/false)')
@@ -185,7 +185,7 @@ def create_output_directory(output_dir, architecture):
     return model_dir
 
 
-def save_training_summary(model_dir, trainer, class_counts, training_history, args):
+def save_training_summary(model_dir, trainer, class_counts, training_history, args, eval_results=None):
     """Save training summary and configuration."""
     summary = {
         'training_date': datetime.now().isoformat(),
@@ -210,6 +210,7 @@ def save_training_summary(model_dir, trainer, class_counts, training_history, ar
             'train_loss': training_history.get('class_output_loss', [-1])[-1],
             'val_loss': training_history.get('val_class_output_loss', [-1])[-1]
         } if training_history else None,
+        'evaluation_metrics': eval_results.get('metrics') if eval_results else None,
         'model_paths': {
             'model_file': str(model_dir / f"{trainer.model_name}.pkl"),
             'config_file': str(model_dir / 'training_config.json')
@@ -339,13 +340,17 @@ def main():
                 best_model_path=best_model_path
             )
 
+        # Evaluate model on test set
+        logger.info("Evaluating model on test set...")
+        eval_results = trainer.evaluate(val_gen, save_path=model_dir)
+
         # Save the trained model
         model_path = model_dir / f"{trainer.model_name}.pkl"
         trainer.save_model(str(model_path))
         logger.info(f"Model saved to {model_path}")
 
         # Save training summary
-        save_training_summary(model_dir, trainer, class_counts, training_history.history, args)
+        save_training_summary(model_dir, trainer, class_counts, training_history.history, args, eval_results)
 
         # Test feature extraction
         logger.info("Testing feature extraction...")

@@ -1,0 +1,19 @@
+{
+  "evaluation_date": "2025-12-01T20:17:56.034365",
+  "model_path": "models/vgg16/wound_classifier.pkl",
+  "dataset": "files/train_dataset",
+  "test_split": 0.2,
+  "test_samples": 227,
+  "metrics": {
+    "accuracy": 0.8414096916299559,
+    "precision": 0.853792824629829,
+    "recall": 0.8414096916299559,
+    "f1_score": 0.8379525194779877
+  },
+  "output_files": {
+    "confusion_matrix_png": "models/vgg16/confusion_matrix.png",
+    "confusion_matrix_csv": "models/vgg16/confusion_matrix.csv",
+    "classification_report_csv": "models/vgg16/classification_report.csv",
+    "evaluation_metrics_json": "models/vgg16/evaluation_metrics.json"
+  }
+}

@@ -683,18 +683,10 @@ class CNNTrainer(ModelTrainer):
         x = base_model(inputs, training=False)
         x = GlobalAveragePooling2D()(x)
 
-        # CHAINED ARCHITECTURE (Deep Classification Head)
-        # 1. Full feature layer (1536) - Intermediate rich representation
+        # Simplified architecture with dropout
         feature_output = Dense(1536, activation='relu', name="feature_output")(x)
-        
-        # 2. Intermediate Dense Layer (384) - Gradual compression
-        x_class = Dense(384, activation='relu', name="dense_384")(feature_output)
-
-        # 3. Compact feature layer (86) - Final embedding before classification
-        x2_class = Dense(86, activation='relu', name="dense_86")(x_class)
-
-        # 4. Classification output
-        class_output = Dense(num_classes, activation="softmax", name="class_output")(x2_class)
+        x = Dropout(0.3)(feature_output)  # Dropout to prevent overfitting
+        class_output = Dense(num_classes, activation="softmax", name="class_output")(x)
 
         # Model with TWO outputs: [class_output, feature_output]
         self.model = Model(inputs=inputs, outputs=[class_output, feature_output])
@@ -716,7 +708,7 @@ class CNNTrainer(ModelTrainer):
             metrics={"class_output": "accuracy"}
         )
 
-        logger.info(f"Built {self.architecture} model with chained features: Base -> 1536 -> 384 -> 86 -> {num_classes} classes")
+        logger.info(f"Built {self.architecture} model with features: Base -> 1536 -> {num_classes} classes")
         return self
 
     def create_data_generators(self, train_dir: str, test_split: float = 0.2,
@@ -1022,8 +1014,9 @@ class CNNTrainer(ModelTrainer):
 
         # Apply architecture-specific preprocessing
         if self.architecture == "efficientnet":
-            # For custom trained EfficientNet models, use standard normalization
-            img_array = img_array / 255.0
+            # Use EfficientNet's preprocessing (same as training)
+            from tensorflow.keras.applications.efficientnet import preprocess_input
+            img_array = preprocess_input(img_array)
         else:
             img_array = img_array / 255.0
 
@@ -1093,6 +1086,96 @@ class CNNTrainer(ModelTrainer):
             best_model_path=best_model_path,
             callbacks=callbacks
         )
+
+    def evaluate(self, test_generator, save_path: Optional[Union[str, Path]] = None) -> Dict[str, Any]:
+        """Evaluate model on test data and generate confusion matrix."""
+        if not self.is_trained:
+            raise ValueError("Model must be trained before evaluation")
+
+        try:
+            import matplotlib.pyplot as plt
+            import seaborn as sns
+            from sklearn.metrics import confusion_matrix, classification_report
+            import pandas as pd
+        except ImportError as e:
+            raise ImportError(f"Required packages not available: {e}")
+
+        logger.info("Evaluating model on test set...")
+
+        # Get true labels and predictions
+        y_true = []
+        y_pred = []
+        class_names = list(test_generator.class_indices.keys())
+
+        # Reset generator
+        test_generator.reset()
+
+        # Predict on all test batches
+        steps = len(test_generator)
+        for i in range(steps):
+            batch_x, batch_y = test_generator[i]
+            batch_pred = self.model.predict(batch_x, verbose=0)
+
+            # Handle dual output model
+            if isinstance(batch_pred, list):
+                batch_pred = batch_pred[0]  # Class predictions
+
+            # Get predicted classes
+            batch_pred_classes = np.argmax(batch_pred, axis=1)
+            batch_true_classes = np.argmax(batch_y, axis=1)
+
+            y_true.extend(batch_true_classes)
+            y_pred.extend(batch_pred_classes)
+
+        # Calculate metrics
+        evaluator = ModelEvaluator()
+        metrics = evaluator.calculate_metrics(y_true, y_pred, task_type='classification')
+
+        # Generate confusion matrix
+        cm = confusion_matrix(y_true, y_pred)
+
+        # Create evaluation results
+        results = {
+            'metrics': metrics,
+            'confusion_matrix': cm.tolist(),
+            'class_names': class_names,
+            'y_true': y_true,
+            'y_pred': y_pred,
+            'classification_report': classification_report(y_true, y_pred, target_names=class_names, output_dict=True)
+        }
+
+        if save_path:
+            save_path = Path(save_path)
+            save_path.mkdir(parents=True, exist_ok=True)
+
+            # Save confusion matrix as image
+            plt.figure(figsize=(10, 8))
+            sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
+                       xticklabels=class_names, yticklabels=class_names)
+            plt.title('Confusion Matrix - Test Set Evaluation')
+            plt.ylabel('True Label')
+            plt.xlabel('Predicted Label')
+            plt.xticks(rotation=45, ha='right')
+            plt.yticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig(save_path / 'confusion_matrix.png', dpi=300, bbox_inches='tight')
+            plt.close()
+
+            # Save confusion matrix as CSV
+            cm_df = pd.DataFrame(cm, index=class_names, columns=class_names)
+            cm_df.to_csv(save_path / 'confusion_matrix.csv')
+
+            # Save detailed metrics
+            with open(save_path / 'evaluation_metrics.json', 'w') as f:
+                json.dump(results, f, indent=2, default=str)
+
+            # Save classification report as CSV
+            report_df = pd.DataFrame(results['classification_report']).transpose()
+            report_df.to_csv(save_path / 'classification_report.csv')
+
+            logger.info(f"Evaluation results saved to {save_path}")
+
+        return results
 
     def load_model(self, filepath: Union[str, Path]):
         """Load model from disk and setup feature model."""

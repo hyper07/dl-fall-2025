@@ -1,0 +1,116 @@
+2025-12-01 20:00:28,871 - INFO - Logging setup with level INFO
+2025-12-01 20:00:28,871 - INFO - Application initialized
+2025-12-01 20:00:28,871 - INFO - Database: dl-postgres:5432
+2025-12-01 20:00:28,871 - INFO - Vector dimension: 1536
+2025-12-01 20:00:28,871 - INFO - Upload directory: /tmp/uploads
+2025-12-01 20:00:28,871 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 20:00:28,871 - INFO - Starting model evaluation
+2025-12-01 20:00:28,871 - INFO - Model: models/resnet50/wound_classifier.pkl
+2025-12-01 20:00:28,871 - INFO - Dataset: files/train_dataset
+2025-12-01 20:00:28,871 - INFO - Test split: 0.2
+2025-12-01 20:00:28,871 - INFO - Loading trained model...
+2025-12-01 20:00:29,675 - INFO - Model loaded from joblib format: models/resnet50/wound_classifier.pkl
+2025-12-01 20:00:29,677 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-01 20:00:29,677 - INFO - Creating test data generator...
+2025-12-01 20:00:29,696 - INFO - Stratified split: 915 training samples, 227 test samples
+2025-12-01 20:00:29,696 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 20:00:29,707 - INFO - Test samples: 227
+2025-12-01 20:00:29,707 - INFO - Evaluating model on test set...
+2025-12-01 20:00:38,743 - INFO - Evaluating model on test set...
+2025-12-01 20:00:44,890 - INFO - Evaluation results saved to models/resnet50
+2025-12-01 20:00:44,890 - INFO - Evaluation Results:
+2025-12-01 20:00:44,890 - INFO -   Accuracy: 0.3877
+2025-12-01 20:00:44,890 - INFO -   Precision: 0.3440
+2025-12-01 20:00:44,890 - INFO -   Recall: 0.3877
+2025-12-01 20:00:44,890 - INFO -   F1 Score: 0.3308
+2025-12-01 20:00:44,890 - INFO - Evaluation completed successfully!
+2025-12-01 20:00:44,891 - INFO - Results saved in: models/resnet50
+2025-12-01 20:00:44,891 - INFO - Confusion matrix: models/resnet50/confusion_matrix.png
+2025-12-01 20:00:44,891 - INFO - Detailed metrics: models/resnet50/evaluation_summary.json
+2025-12-01 20:17:43,197 - INFO - Logging setup with level INFO
+2025-12-01 20:17:43,197 - INFO - Application initialized
+2025-12-01 20:17:43,197 - INFO - Database: dl-postgres:5432
+2025-12-01 20:17:43,197 - INFO - Vector dimension: 1536
+2025-12-01 20:17:43,197 - INFO - Upload directory: /tmp/uploads
+2025-12-01 20:17:43,197 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 20:17:43,197 - INFO - Starting model evaluation
+2025-12-01 20:17:43,197 - INFO - Model: models/vgg16/wound_classifier.pkl
+2025-12-01 20:17:43,197 - INFO - Dataset: files/train_dataset
+2025-12-01 20:17:43,197 - INFO - Test split: 0.2
+2025-12-01 20:17:43,197 - INFO - Loading trained model...
+2025-12-01 20:17:43,420 - INFO - Model loaded from joblib format: models/vgg16/wound_classifier.pkl
+2025-12-01 20:17:43,422 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-01 20:17:43,422 - INFO - Creating test data generator...
+2025-12-01 20:17:43,446 - INFO - Stratified split: 915 training samples, 227 test samples
+2025-12-01 20:17:43,446 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 20:17:43,458 - INFO - Test samples: 227
+2025-12-01 20:17:43,458 - INFO - Evaluating model on test set...
+2025-12-01 20:17:43,621 - INFO - Evaluating model on test set...
+2025-12-01 20:17:56,034 - INFO - Evaluation results saved to models/vgg16
+2025-12-01 20:17:56,034 - INFO - Evaluation Results:
+2025-12-01 20:17:56,034 - INFO -   Accuracy: 0.8414
+2025-12-01 20:17:56,034 - INFO -   Precision: 0.8538
+2025-12-01 20:17:56,034 - INFO -   Recall: 0.8414
+2025-12-01 20:17:56,034 - INFO -   F1 Score: 0.8380
+2025-12-01 20:17:56,034 - INFO - Evaluation completed successfully!
+2025-12-01 20:17:56,034 - INFO - Results saved in: models/vgg16
+2025-12-01 20:17:56,034 - INFO - Confusion matrix: models/vgg16/confusion_matrix.png
+2025-12-01 20:17:56,034 - INFO - Detailed metrics: models/vgg16/evaluation_summary.json
+2025-12-01 20:18:12,968 - INFO - Logging setup with level INFO
+2025-12-01 20:18:12,968 - INFO - Application initialized
+2025-12-01 20:18:12,969 - INFO - Database: dl-postgres:5432
+2025-12-01 20:18:12,969 - INFO - Vector dimension: 1536
+2025-12-01 20:18:12,969 - INFO - Upload directory: /tmp/uploads
+2025-12-01 20:18:12,969 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 20:18:12,969 - INFO - Starting model evaluation
+2025-12-01 20:18:12,969 - INFO - Model: models/efficientnet/wound_classifier.pkl
+2025-12-01 20:18:12,969 - INFO - Dataset: files/train_dataset
+2025-12-01 20:18:12,969 - INFO - Test split: 0.2
+2025-12-01 20:18:12,969 - INFO - Loading trained model...
+2025-12-01 20:18:13,654 - INFO - Model loaded from joblib format: models/efficientnet/wound_classifier.pkl
+2025-12-01 20:18:13,656 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-01 20:18:13,656 - INFO - Creating test data generator...
+2025-12-01 20:18:13,679 - INFO - Stratified split: 915 training samples, 227 test samples
+2025-12-01 20:18:13,680 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 20:18:13,686 - INFO - Test samples: 227
+2025-12-01 20:18:13,687 - INFO - Evaluating model on test set...
+2025-12-01 20:18:13,837 - INFO - Evaluating model on test set...
+2025-12-01 20:18:17,394 - INFO - Evaluation results saved to models/efficientnet
+2025-12-01 20:18:17,394 - INFO - Evaluation Results:
+2025-12-01 20:18:17,394 - INFO -   Accuracy: 0.0881
+2025-12-01 20:18:17,394 - INFO -   Precision: 0.0078
+2025-12-01 20:18:17,394 - INFO -   Recall: 0.0881
+2025-12-01 20:18:17,394 - INFO -   F1 Score: 0.0143
+2025-12-01 20:18:17,394 - INFO - Evaluation completed successfully!
+2025-12-01 20:18:17,394 - INFO - Results saved in: models/efficientnet
+2025-12-01 20:18:17,394 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-01 20:18:17,394 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json
+2025-12-01 20:38:45,815 - INFO - Logging setup with level INFO
+2025-12-01 20:38:45,815 - INFO - Application initialized
+2025-12-01 20:38:45,815 - INFO - Database: dl-postgres:5432
+2025-12-01 20:38:45,815 - INFO - Vector dimension: 1536
+2025-12-01 20:38:45,815 - INFO - Upload directory: /tmp/uploads
+2025-12-01 20:38:45,815 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 20:38:45,815 - INFO - Starting model evaluation
+2025-12-01 20:38:45,815 - INFO - Model: models/efficientnet/wound_classifier.pkl
+2025-12-01 20:38:45,815 - INFO - Dataset: files/train_dataset
+2025-12-01 20:38:45,815 - INFO - Test split: 0.1
+2025-12-01 20:38:45,815 - INFO - Loading trained model...
+2025-12-01 20:38:46,330 - INFO - Model loaded from joblib format: models/efficientnet/wound_classifier.pkl
+2025-12-01 20:38:46,332 - INFO - Feature model recreated from model with 1536-dim features
+2025-12-01 20:38:46,332 - INFO - Creating test data generator...
+2025-12-01 20:38:46,348 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 20:38:46,348 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 20:38:46,357 - INFO - Test samples: 113
+2025-12-01 20:38:46,357 - INFO - Evaluating model on test set...
+2025-12-01 20:38:46,508 - INFO - Evaluating model on test set...
+2025-12-01 20:38:49,168 - INFO - Evaluation results saved to models/efficientnet
+2025-12-01 20:38:49,168 - INFO - Evaluation Results:
+2025-12-01 20:38:49,168 - INFO -   Accuracy: 0.0885
+2025-12-01 20:38:49,168 - INFO -   Precision: 0.0078
+2025-12-01 20:38:49,168 - INFO -   Recall: 0.0885
+2025-12-01 20:38:49,168 - INFO -   F1 Score: 0.0144
+2025-12-01 20:38:49,169 - INFO - Evaluation completed successfully!
+2025-12-01 20:38:49,169 - INFO - Results saved in: models/efficientnet
+2025-12-01 20:38:49,169 - INFO - Confusion matrix: models/efficientnet/confusion_matrix.png
+2025-12-01 20:38:49,169 - INFO - Detailed metrics: models/efficientnet/evaluation_summary.json

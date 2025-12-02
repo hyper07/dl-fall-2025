@@ -28,12 +28,14 @@ if models_dir.exists():
             model_files = list(model_dir.glob("*.keras")) or list(model_dir.glob("*.h5")) or list(model_dir.glob("*.pkl"))
             config_file = model_dir / "training_args.json"
             training_summary_file = model_dir / "training_summary.json"
+            evaluation_summary_file = model_dir / "evaluation_summary.json"
             if model_files:
                 model_info = {
                     'name': model_dir.name,
                     'model_file': model_files[0],
                     'config_file': config_file if config_file.exists() else None,
                     'training_summary': None,
+                    'evaluation_summary': None,
                     'updated_at': model_dir.stat().st_mtime
                 }
                 if training_summary_file.exists():
@@ -42,6 +44,13 @@ if models_dir.exists():
                             model_info['training_summary'] = json.load(f)
                     except Exception:
                         model_info['training_summary'] = None
+
+                if evaluation_summary_file.exists():
+                    try:
+                        with open(evaluation_summary_file, 'r') as f:
+                            model_info['evaluation_summary'] = json.load(f)
+                    except Exception:
+                        model_info['evaluation_summary'] = None
 
                 available_models.append(model_info)
 
@@ -53,17 +62,20 @@ if not available_models:
 
 models_with_summary = sum(1 for m in available_models if m['training_summary'])
 models_with_config = sum(1 for m in available_models if m['config_file'])
+models_with_evaluation = sum(1 for m in available_models if m['evaluation_summary'])
 latest_info = max(available_models, key=lambda m: m['updated_at'])
 latest_timestamp = datetime.fromtimestamp(latest_info['updated_at']).strftime("%Y-%m-%d %H:%M")
 
 with st.container(border=True):
-    col1, col2, col3= st.columns([1,1,1])
+    col1, col2, col3, col4 = st.columns([1,1,1,1])
     with col1:
         st.metric("Models tracked", total_models)
     with col2:
         st.metric("Configs ready", models_with_config)
     with col3:
         st.metric("Summaries curated", models_with_summary)
+    with col4:
+        st.metric("Evaluations completed", models_with_evaluation)
 
 model_names = [m['name'] for m in available_models]
 
@@ -74,7 +86,9 @@ with st.expander("Model Catalogue", expanded=True):
     if selected_info:
         has_summary = bool(selected_info['training_summary'])
         has_config = bool(selected_info['config_file'])
+        has_evaluation = bool(selected_info['evaluation_summary'])
         summary_metrics = (selected_info['training_summary'] or {}).get('final_metrics', {})
+        evaluation_metrics = (selected_info['evaluation_summary'] or {}).get('metrics', {})
         class_counts = (selected_info['training_summary'] or {}).get('class_counts', {})
 
         col1, col2, col3 = st.columns(3)
@@ -83,7 +97,7 @@ with st.expander("Model Catalogue", expanded=True):
         with col2:
             st.metric("Summary", "Available" if has_summary else "Missing", help="Final metrics captured" if has_summary else "unavailable")
         with col3:
-            st.metric("Config", "Ready" if has_config else "Missing", help="Required for vector extraction.")
+            st.metric("Evaluation", "Available" if has_evaluation else "Missing", help="Test set evaluation completed" if has_evaluation else "Run evaluation to see test performance")
 
         if has_summary:
             col1, col2, col3 = st.columns(3)
@@ -106,18 +120,59 @@ with st.expander("Model Catalogue", expanded=True):
                     val_loss = f"{val_loss:.4f}"
                 st.metric("Loss profile", f"{train_loss} / {val_loss}", "Train / validation")
 
-            # if class_counts:
-            #     top_classes = sorted(class_counts.items(), key=lambda item: item[1], reverse=True)[:6]
-            #     class_markup = ''.join([
-            #         f'<span class="chip">{label}: {count}</span>' for label, count in top_classes
-            #     ])
-            #     st.markdown(
-            #         f"<div class=\"chip-row\" style=\"margin-bottom:1rem;\">{class_markup}</div>",
-            #         unsafe_allow_html=True
-            #     )
+            # Display evaluation metrics if available
+            if has_evaluation:
+                st.markdown("### Test Set Evaluation Metrics")
 
-            with st.expander("Training summary"):
-                st.json(selected_info['training_summary'])
+                # Create metrics table with metrics as columns
+                import pandas as pd
+                metrics_data = {
+                    'Accuracy': [f"{evaluation_metrics.get('accuracy', 0):.4f}"],
+                    'Precision': [f"{evaluation_metrics.get('precision', 0):.4f}"],
+                    'Recall': [f"{evaluation_metrics.get('recall', 0):.4f}"],
+                    'F1-Score': [f"{evaluation_metrics.get('f1_score', 0):.4f}"]
+                }
+
+                metrics_df = pd.DataFrame(metrics_data)
+
+                # Center the table and make it look better
+                col1, col2, col3 = st.columns([1, 3, 1])
+                with col2:
+                    # Use HTML table for better control over styling
+                    table_html = f"""
+                    <table style="width: 100%; border-collapse: collapse; margin: 0 auto; font-size: 16px;">
+                        <thead>
+                            <tr style="background-color: #f0f2f6;">
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Accuracy</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Precision</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">Recall</th>
+                                <th style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">F1-Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('accuracy', 0):.4f}</td>
+                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('precision', 0):.4f}</td>
+                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('recall', 0):.4f}</td>
+                                <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-weight: bold;">{evaluation_metrics.get('f1_score', 0):.4f}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    """
+                    st.markdown(table_html, unsafe_allow_html=True)
+
+                # Display confusion matrix if available
+                confusion_matrix_path = Path("./models") / selected / "confusion_matrix.png"
+                if confusion_matrix_path.exists():
+                    st.markdown("### Confusion Matrix")
+                    st.image(str(confusion_matrix_path), caption=f"Confusion Matrix - {selected} Model", use_column_width=True)
+
+                # Display evaluation details
+                with st.expander("Evaluation Details"):
+                    if selected_info['evaluation_summary']:
+                        st.json(selected_info['evaluation_summary'])
+            else:
+                st.info("💡 No evaluation results available. Run evaluation to see test performance metrics.")
         else:
             st.info("No training summary available for this model.")
 

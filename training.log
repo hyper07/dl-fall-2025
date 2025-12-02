@@ -5500,3 +5500,1705 @@
 2025-11-17 10:34:53,518 - INFO - Training completed successfully!
 2025-11-17 10:34:53,518 - INFO - Model saved in: models/resnet50
 2025-11-17 10:34:53,518 - INFO - Training logs saved in: training.log
+2025-12-01 15:52:09,655 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 15:52:09,655 - INFO - Logging setup with level INFO
+2025-12-01 15:52:09,655 - INFO - Application initialized
+2025-12-01 15:52:09,655 - INFO - Database: dl-postgres:5432
+2025-12-01 15:52:09,656 - INFO - Vector dimension: 1536
+2025-12-01 15:52:09,656 - INFO - Upload directory: /tmp/uploads
+2025-12-01 15:52:09,656 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 15:52:09,656 - INFO - Starting manual CNN training
+2025-12-01 15:52:09,656 - INFO - Architecture: resnet50
+2025-12-01 15:52:09,656 - INFO - Dataset: ./files/train_dataset
+2025-12-01 15:52:09,656 - INFO - Epochs: 100
+2025-12-01 15:52:09,656 - INFO - Batch size: 32
+2025-12-01 15:52:09,656 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 15:52:09,661 - INFO - Total images: 1531
+2025-12-01 15:52:09,661 - INFO -   Abrasions: 82 images
+2025-12-01 15:52:09,661 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 15:52:09,661 - INFO -   Surgical Wounds: 210 images
+2025-12-01 15:52:09,661 - INFO -   Bruises: 121 images
+2025-12-01 15:52:09,661 - INFO -   Cut: 50 images
+2025-12-01 15:52:09,661 - INFO -   Venous Wounds: 247 images
+2025-12-01 15:52:09,661 - INFO -   Normal: 100 images
+2025-12-01 15:52:09,661 - INFO -   Pressure Wounds: 301 images
+2025-12-01 15:52:09,661 - INFO -   Laseration: 122 images
+2025-12-01 15:52:09,661 - INFO -   Burns: 67 images
+2025-12-01 15:52:09,661 - INFO - Created output directory: models/resnet50
+2025-12-01 15:52:09,661 - INFO - Building CNN model...
+2025-12-01 15:52:09,662 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 15:52:10,198 - INFO - Built resnet50 model with chained features: Base -> 1536 -> 384 -> 86 -> 10 classes
+2025-12-01 15:52:10,198 - INFO - Creating data generators...
+2025-12-01 15:52:10,198 - INFO - No data augmentation enabled
+2025-12-01 15:52:10,216 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 15:52:10,216 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 15:52:10,225 - INFO - Training samples: 1029
+2025-12-01 15:52:10,225 - INFO - Validation samples: 113
+2025-12-01 15:52:10,225 - INFO - Starting training...
+2025-12-01 15:52:10,225 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 15:52:10,225 - INFO - TQDM progress bar callback added
+2025-12-01 15:52:10,225 - INFO - Total callbacks configured: 2
+2025-12-01 15:52:10,225 - INFO - Training epoch 1/100
+2025-12-01 15:52:10,306 - INFO - TQDM progress bars initialized
+2025-12-01 15:52:29,222 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.2752 | val_feature_output_loss: 0.2232 | val_loss: 2.2752
+2025-12-01 15:52:29,431 - INFO - Training epoch 2/100
+2025-12-01 15:52:29,492 - INFO - TQDM progress bars initialized
+2025-12-01 15:52:45,178 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.2380 | val_feature_output_loss: 0.1302 | val_loss: 2.2380
+2025-12-01 15:52:45,473 - INFO - Training epoch 3/100
+2025-12-01 15:52:45,533 - INFO - TQDM progress bars initialized
+2025-12-01 15:53:00,788 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.2338 | val_feature_output_loss: 0.0853 | val_loss: 2.2338
+2025-12-01 15:53:00,987 - INFO - Training epoch 4/100
+2025-12-01 15:53:01,043 - INFO - TQDM progress bars initialized
+2025-12-01 15:53:16,385 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.2431 | val_feature_output_loss: 0.0708 | val_loss: 2.2431
+2025-12-01 15:53:16,387 - INFO - Training epoch 5/100
+2025-12-01 15:53:16,442 - INFO - TQDM progress bars initialized
+2025-12-01 15:53:31,733 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.2097 | val_feature_output_loss: 0.0549 | val_loss: 2.2097
+2025-12-01 15:53:31,934 - INFO - Training epoch 6/100
+2025-12-01 15:53:31,983 - INFO - TQDM progress bars initialized
+2025-12-01 15:53:48,071 - INFO - Validation | val_accuracy: 0.156 | val_loss: 2.1925 | val_feature_output_loss: 0.0434 | val_loss: 2.1925
+2025-12-01 15:53:48,271 - INFO - Training epoch 7/100
+2025-12-01 15:53:48,342 - INFO - TQDM progress bars initialized
+2025-12-01 15:54:03,683 - INFO - Validation | val_accuracy: 0.125 | val_loss: 2.2310 | val_feature_output_loss: 0.0324 | val_loss: 2.2310
+2025-12-01 15:54:03,685 - INFO - Training epoch 8/100
+2025-12-01 15:54:03,734 - INFO - TQDM progress bars initialized
+2025-12-01 15:54:19,162 - INFO - Validation | val_accuracy: 0.188 | val_loss: 2.1707 | val_feature_output_loss: 0.0373 | val_loss: 2.1707
+2025-12-01 15:54:19,358 - INFO - Training epoch 9/100
+2025-12-01 15:54:19,456 - INFO - TQDM progress bars initialized
+2025-12-01 15:54:34,697 - INFO - Validation | val_accuracy: 0.146 | val_loss: 2.1521 | val_feature_output_loss: 0.0410 | val_loss: 2.1521
+2025-12-01 15:54:34,898 - INFO - Training epoch 10/100
+2025-12-01 15:54:34,958 - INFO - TQDM progress bars initialized
+2025-12-01 15:54:50,345 - INFO - Validation | val_accuracy: 0.198 | val_loss: 2.1533 | val_feature_output_loss: 0.0277 | val_loss: 2.1533
+2025-12-01 15:54:50,347 - INFO - Training epoch 11/100
+2025-12-01 15:54:50,393 - INFO - TQDM progress bars initialized
+2025-12-01 15:55:05,660 - INFO - Validation | val_accuracy: 0.240 | val_loss: 2.0666 | val_feature_output_loss: 0.0293 | val_loss: 2.0666
+2025-12-01 15:55:05,846 - INFO - Training epoch 12/100
+2025-12-01 15:55:05,938 - INFO - TQDM progress bars initialized
+2025-12-01 15:55:21,249 - INFO - Validation | val_accuracy: 0.219 | val_loss: 2.0612 | val_feature_output_loss: 0.0301 | val_loss: 2.0612
+2025-12-01 15:55:21,445 - INFO - Training epoch 13/100
+2025-12-01 15:55:21,509 - INFO - TQDM progress bars initialized
+2025-12-01 15:55:36,666 - INFO - Validation | val_accuracy: 0.281 | val_loss: 2.0476 | val_feature_output_loss: 0.0207 | val_loss: 2.0476
+2025-12-01 15:55:36,856 - INFO - Training epoch 14/100
+2025-12-01 15:55:36,905 - INFO - TQDM progress bars initialized
+2025-12-01 15:55:52,277 - INFO - Validation | val_accuracy: 0.198 | val_loss: 2.1017 | val_feature_output_loss: 0.0273 | val_loss: 2.1017
+2025-12-01 15:55:52,279 - INFO - Training epoch 15/100
+2025-12-01 15:55:52,337 - INFO - TQDM progress bars initialized
+2025-12-01 15:56:07,485 - INFO - Validation | val_accuracy: 0.229 | val_loss: 1.9671 | val_feature_output_loss: 0.0205 | val_loss: 1.9671
+2025-12-01 15:56:07,684 - INFO - Training epoch 16/100
+2025-12-01 15:56:07,737 - INFO - TQDM progress bars initialized
+2025-12-01 15:56:23,116 - INFO - Validation | val_accuracy: 0.240 | val_loss: 1.9708 | val_feature_output_loss: 0.0196 | val_loss: 1.9708
+2025-12-01 15:56:23,118 - INFO - Training epoch 17/100
+2025-12-01 15:56:23,163 - INFO - TQDM progress bars initialized
+2025-12-01 15:56:39,078 - INFO - Validation | val_accuracy: 0.188 | val_loss: 2.1254 | val_feature_output_loss: 0.0209 | val_loss: 2.1254
+2025-12-01 15:56:39,080 - INFO - Training epoch 18/100
+2025-12-01 15:56:39,148 - INFO - TQDM progress bars initialized
+2025-12-01 15:56:55,517 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.9463 | val_feature_output_loss: 0.0181 | val_loss: 1.9463
+2025-12-01 15:56:55,707 - INFO - Training epoch 19/100
+2025-12-01 15:56:55,770 - INFO - TQDM progress bars initialized
+2025-12-01 15:57:11,039 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.9286 | val_feature_output_loss: 0.0234 | val_loss: 1.9286
+2025-12-01 15:57:11,239 - INFO - Training epoch 20/100
+2025-12-01 15:57:11,294 - INFO - TQDM progress bars initialized
+2025-12-01 15:57:27,024 - INFO - Validation | val_accuracy: 0.271 | val_loss: 1.8979 | val_feature_output_loss: 0.0205 | val_loss: 1.8979
+2025-12-01 15:57:27,244 - INFO - Training epoch 21/100
+2025-12-01 15:57:27,327 - INFO - TQDM progress bars initialized
+2025-12-01 15:57:44,201 - INFO - Validation | val_accuracy: 0.177 | val_loss: 2.0115 | val_feature_output_loss: 0.0212 | val_loss: 2.0115
+2025-12-01 15:57:44,203 - INFO - Training epoch 22/100
+2025-12-01 15:57:44,254 - INFO - TQDM progress bars initialized
+2025-12-01 15:58:00,739 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.9017 | val_feature_output_loss: 0.0180 | val_loss: 1.9017
+2025-12-01 15:58:00,741 - INFO - Training epoch 23/100
+2025-12-01 15:58:00,788 - INFO - TQDM progress bars initialized
+2025-12-01 15:58:16,642 - INFO - Validation | val_accuracy: 0.229 | val_loss: 1.9661 | val_feature_output_loss: 0.0210 | val_loss: 1.9661
+2025-12-01 15:58:16,644 - INFO - Training epoch 24/100
+2025-12-01 15:58:16,719 - INFO - TQDM progress bars initialized
+2025-12-01 15:58:32,715 - INFO - Validation | val_accuracy: 0.240 | val_loss: 1.8888 | val_feature_output_loss: 0.0199 | val_loss: 1.8888
+2025-12-01 15:58:32,932 - INFO - Training epoch 25/100
+2025-12-01 15:58:32,993 - INFO - TQDM progress bars initialized
+2025-12-01 15:58:48,856 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8618 | val_feature_output_loss: 0.0212 | val_loss: 1.8618
+2025-12-01 15:58:49,048 - INFO - Training epoch 26/100
+2025-12-01 15:58:49,117 - INFO - TQDM progress bars initialized
+2025-12-01 15:59:04,453 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.8580 | val_feature_output_loss: 0.0212 | val_loss: 1.8580
+2025-12-01 15:59:04,661 - INFO - Training epoch 27/100
+2025-12-01 15:59:04,709 - INFO - TQDM progress bars initialized
+2025-12-01 15:59:20,399 - INFO - Validation | val_accuracy: 0.229 | val_loss: 1.9463 | val_feature_output_loss: 0.0180 | val_loss: 1.9463
+2025-12-01 15:59:20,401 - INFO - Training epoch 28/100
+2025-12-01 15:59:20,452 - INFO - TQDM progress bars initialized
+2025-12-01 15:59:35,978 - INFO - Validation | val_accuracy: 0.333 | val_loss: 1.8444 | val_feature_output_loss: 0.0180 | val_loss: 1.8444
+2025-12-01 15:59:36,168 - INFO - Training epoch 29/100
+2025-12-01 15:59:36,218 - INFO - TQDM progress bars initialized
+2025-12-01 15:59:51,869 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8555 | val_feature_output_loss: 0.0183 | val_loss: 1.8555
+2025-12-01 15:59:51,872 - INFO - Training epoch 30/100
+2025-12-01 15:59:51,961 - INFO - TQDM progress bars initialized
+2025-12-01 16:00:07,593 - INFO - Validation | val_accuracy: 0.229 | val_loss: 1.9349 | val_feature_output_loss: 0.0207 | val_loss: 1.9349
+2025-12-01 16:00:07,595 - INFO - Training epoch 31/100
+2025-12-01 16:00:07,638 - INFO - TQDM progress bars initialized
+2025-12-01 16:00:23,328 - INFO - Validation | val_accuracy: 0.240 | val_loss: 2.0441 | val_feature_output_loss: 0.0139 | val_loss: 2.0441
+2025-12-01 16:00:23,330 - INFO - Training epoch 32/100
+2025-12-01 16:00:23,404 - INFO - TQDM progress bars initialized
+2025-12-01 16:00:38,732 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.9245 | val_feature_output_loss: 0.0162 | val_loss: 1.9245
+2025-12-01 16:00:38,735 - INFO - Training epoch 33/100
+2025-12-01 16:00:38,802 - INFO - TQDM progress bars initialized
+2025-12-01 16:00:54,167 - INFO - Validation | val_accuracy: 0.219 | val_loss: 1.9003 | val_feature_output_loss: 0.0212 | val_loss: 1.9003
+2025-12-01 16:00:54,168 - INFO - Training epoch 34/100
+2025-12-01 16:00:54,216 - INFO - TQDM progress bars initialized
+2025-12-01 16:01:09,605 - INFO - Validation | val_accuracy: 0.229 | val_loss: 1.8886 | val_feature_output_loss: 0.0188 | val_loss: 1.8886
+2025-12-01 16:01:09,607 - INFO - Training epoch 35/100
+2025-12-01 16:01:09,682 - INFO - TQDM progress bars initialized
+2025-12-01 16:01:25,363 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.7999 | val_feature_output_loss: 0.0180 | val_loss: 1.7999
+2025-12-01 16:01:25,608 - INFO - Training epoch 36/100
+2025-12-01 16:01:25,711 - INFO - TQDM progress bars initialized
+2025-12-01 16:01:41,520 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.7524 | val_feature_output_loss: 0.0202 | val_loss: 1.7524
+2025-12-01 16:01:41,753 - INFO - Training epoch 37/100
+2025-12-01 16:01:41,827 - INFO - TQDM progress bars initialized
+2025-12-01 16:01:57,246 - INFO - Validation | val_accuracy: 0.229 | val_loss: 2.0289 | val_feature_output_loss: 0.0198 | val_loss: 2.0289
+2025-12-01 16:01:57,248 - INFO - Training epoch 38/100
+2025-12-01 16:01:57,299 - INFO - TQDM progress bars initialized
+2025-12-01 16:02:12,569 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.8601 | val_feature_output_loss: 0.0190 | val_loss: 1.8601
+2025-12-01 16:02:12,571 - INFO - Training epoch 39/100
+2025-12-01 16:02:12,614 - INFO - TQDM progress bars initialized
+2025-12-01 16:02:27,849 - INFO - Validation | val_accuracy: 0.333 | val_loss: 1.7467 | val_feature_output_loss: 0.0214 | val_loss: 1.7467
+2025-12-01 16:02:28,042 - INFO - Training epoch 40/100
+2025-12-01 16:02:28,108 - INFO - TQDM progress bars initialized
+2025-12-01 16:02:43,832 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.7288 | val_feature_output_loss: 0.0201 | val_loss: 1.7288
+2025-12-01 16:02:44,073 - INFO - Training epoch 41/100
+2025-12-01 16:02:44,147 - INFO - TQDM progress bars initialized
+2025-12-01 16:02:59,466 - INFO - Validation | val_accuracy: 0.260 | val_loss: 1.7477 | val_feature_output_loss: 0.0178 | val_loss: 1.7477
+2025-12-01 16:02:59,468 - INFO - Training epoch 42/100
+2025-12-01 16:02:59,537 - INFO - TQDM progress bars initialized
+2025-12-01 16:03:14,755 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.7015 | val_feature_output_loss: 0.0191 | val_loss: 1.7015
+2025-12-01 16:03:14,962 - INFO - Training epoch 43/100
+2025-12-01 16:03:15,036 - INFO - TQDM progress bars initialized
+2025-12-01 16:03:30,292 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.8266 | val_feature_output_loss: 0.0163 | val_loss: 1.8266
+2025-12-01 16:03:30,295 - INFO - Training epoch 44/100
+2025-12-01 16:03:30,353 - INFO - TQDM progress bars initialized
+2025-12-01 16:03:47,935 - INFO - Validation | val_accuracy: 0.385 | val_loss: 1.6880 | val_feature_output_loss: 0.0198 | val_loss: 1.6880
+2025-12-01 16:03:48,149 - INFO - Training epoch 45/100
+2025-12-01 16:03:48,233 - INFO - TQDM progress bars initialized
+2025-12-01 16:04:04,109 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.7307 | val_feature_output_loss: 0.0220 | val_loss: 1.7307
+2025-12-01 16:04:04,111 - INFO - Training epoch 46/100
+2025-12-01 16:04:04,171 - INFO - TQDM progress bars initialized
+2025-12-01 16:04:20,329 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.7151 | val_feature_output_loss: 0.0195 | val_loss: 1.7151
+2025-12-01 16:04:20,333 - INFO - Training epoch 47/100
+2025-12-01 16:04:20,386 - INFO - TQDM progress bars initialized
+2025-12-01 16:04:36,608 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.8205 | val_feature_output_loss: 0.0181 | val_loss: 1.8205
+2025-12-01 16:04:36,610 - INFO - Training epoch 48/100
+2025-12-01 16:04:36,689 - INFO - TQDM progress bars initialized
+2025-12-01 16:04:52,327 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8382 | val_feature_output_loss: 0.0201 | val_loss: 1.8382
+2025-12-01 16:04:52,329 - INFO - Training epoch 49/100
+2025-12-01 16:04:52,380 - INFO - TQDM progress bars initialized
+2025-12-01 16:05:07,756 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.7860 | val_feature_output_loss: 0.0159 | val_loss: 1.7860
+2025-12-01 16:05:07,758 - INFO - Training epoch 50/100
+2025-12-01 16:05:07,801 - INFO - TQDM progress bars initialized
+2025-12-01 16:05:23,038 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.7349 | val_feature_output_loss: 0.0198 | val_loss: 1.7349
+2025-12-01 16:05:23,040 - INFO - Training epoch 51/100
+2025-12-01 16:05:23,110 - INFO - TQDM progress bars initialized
+2025-12-01 16:05:38,437 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.8363 | val_feature_output_loss: 0.0167 | val_loss: 1.8363
+2025-12-01 16:05:38,439 - INFO - Training epoch 52/100
+2025-12-01 16:05:38,514 - INFO - TQDM progress bars initialized
+2025-12-01 16:05:54,352 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.6644 | val_feature_output_loss: 0.0193 | val_loss: 1.6644
+2025-12-01 16:05:54,588 - INFO - Training epoch 53/100
+2025-12-01 16:05:54,655 - INFO - TQDM progress bars initialized
+2025-12-01 16:06:11,981 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.6532 | val_feature_output_loss: 0.0207 | val_loss: 1.6532
+2025-12-01 16:06:12,197 - INFO - Training epoch 54/100
+2025-12-01 16:06:12,253 - INFO - TQDM progress bars initialized
+2025-12-01 16:06:29,039 - INFO - Validation | val_accuracy: 0.271 | val_loss: 1.8557 | val_feature_output_loss: 0.0165 | val_loss: 1.8557
+2025-12-01 16:06:29,042 - INFO - Training epoch 55/100
+2025-12-01 16:06:29,097 - INFO - TQDM progress bars initialized
+2025-12-01 16:06:45,327 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.7845 | val_feature_output_loss: 0.0205 | val_loss: 1.7845
+2025-12-01 16:06:45,330 - INFO - Training epoch 56/100
+2025-12-01 16:06:45,382 - INFO - TQDM progress bars initialized
+2025-12-01 16:07:00,991 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.7259 | val_feature_output_loss: 0.0194 | val_loss: 1.7259
+2025-12-01 16:07:00,993 - INFO - Training epoch 57/100
+2025-12-01 16:07:01,069 - INFO - TQDM progress bars initialized
+2025-12-01 16:07:16,809 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.7359 | val_feature_output_loss: 0.0207 | val_loss: 1.7359
+2025-12-01 16:07:16,812 - INFO - Training epoch 58/100
+2025-12-01 16:07:16,883 - INFO - TQDM progress bars initialized
+2025-12-01 16:07:32,593 - INFO - Validation | val_accuracy: 0.365 | val_loss: 1.7091 | val_feature_output_loss: 0.0193 | val_loss: 1.7091
+2025-12-01 16:07:32,595 - INFO - Training epoch 59/100
+2025-12-01 16:07:32,647 - INFO - TQDM progress bars initialized
+2025-12-01 16:07:48,595 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.8193 | val_feature_output_loss: 0.0193 | val_loss: 1.8193
+2025-12-01 16:07:48,598 - INFO - Training epoch 60/100
+2025-12-01 16:07:48,656 - INFO - TQDM progress bars initialized
+2025-12-01 16:08:04,102 - INFO - Validation | val_accuracy: 0.396 | val_loss: 1.7567 | val_feature_output_loss: 0.0194 | val_loss: 1.7567
+2025-12-01 16:08:04,104 - INFO - Training epoch 61/100
+2025-12-01 16:08:04,157 - INFO - TQDM progress bars initialized
+2025-12-01 16:08:19,852 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.8245 | val_feature_output_loss: 0.0169 | val_loss: 1.8245
+2025-12-01 16:08:19,855 - INFO - Training epoch 62/100
+2025-12-01 16:08:19,913 - INFO - TQDM progress bars initialized
+2025-12-01 16:08:35,461 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.8953 | val_feature_output_loss: 0.0152 | val_loss: 1.8953
+2025-12-01 16:08:35,463 - INFO - Training epoch 63/100
+2025-12-01 16:08:35,519 - INFO - TQDM progress bars initialized
+2025-12-01 16:08:51,949 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8642 | val_feature_output_loss: 0.0154 | val_loss: 1.8642
+2025-12-01 16:08:51,952 - INFO - Training epoch 64/100
+2025-12-01 16:08:52,037 - INFO - TQDM progress bars initialized
+2025-12-01 16:09:07,411 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.6704 | val_feature_output_loss: 0.0171 | val_loss: 1.6704
+2025-12-01 16:09:07,413 - INFO - Training epoch 65/100
+2025-12-01 16:09:07,472 - INFO - TQDM progress bars initialized
+2025-12-01 16:09:22,944 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.8552 | val_feature_output_loss: 0.0172 | val_loss: 1.8552
+2025-12-01 16:09:22,946 - INFO - Training epoch 66/100
+2025-12-01 16:09:23,021 - INFO - TQDM progress bars initialized
+2025-12-01 16:09:38,484 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.7454 | val_feature_output_loss: 0.0167 | val_loss: 1.7454
+2025-12-01 16:09:38,486 - INFO - Training epoch 67/100
+2025-12-01 16:09:38,564 - INFO - TQDM progress bars initialized
+2025-12-01 16:09:54,220 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.7336 | val_feature_output_loss: 0.0172 | val_loss: 1.7336
+2025-12-01 16:09:54,223 - INFO - Training epoch 68/100
+2025-12-01 16:09:54,288 - INFO - TQDM progress bars initialized
+2025-12-01 16:10:09,899 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.7004 | val_feature_output_loss: 0.0184 | val_loss: 1.7004
+2025-12-01 16:10:09,901 - INFO - Training epoch 69/100
+2025-12-01 16:10:09,969 - INFO - TQDM progress bars initialized
+2025-12-01 16:10:25,662 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.7923 | val_feature_output_loss: 0.0165 | val_loss: 1.7923
+2025-12-01 16:10:25,665 - INFO - Training epoch 70/100
+2025-12-01 16:10:25,728 - INFO - TQDM progress bars initialized
+2025-12-01 16:10:41,371 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.6998 | val_feature_output_loss: 0.0159 | val_loss: 1.6998
+2025-12-01 16:10:41,373 - INFO - Training epoch 71/100
+2025-12-01 16:10:41,436 - INFO - TQDM progress bars initialized
+2025-12-01 16:10:56,813 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.6746 | val_feature_output_loss: 0.0171 | val_loss: 1.6746
+2025-12-01 16:10:56,815 - INFO - Training epoch 72/100
+2025-12-01 16:10:56,868 - INFO - TQDM progress bars initialized
+2025-12-01 16:11:12,847 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.8529 | val_feature_output_loss: 0.0160 | val_loss: 1.8529
+2025-12-01 16:11:12,850 - INFO - Training epoch 73/100
+2025-12-01 16:11:12,901 - INFO - TQDM progress bars initialized
+2025-12-01 16:11:28,623 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.7247 | val_feature_output_loss: 0.0171 | val_loss: 1.7247
+2025-12-01 16:11:28,625 - INFO - Training epoch 74/100
+2025-12-01 16:11:28,686 - INFO - TQDM progress bars initialized
+2025-12-01 16:11:45,184 - INFO - Validation | val_accuracy: 0.365 | val_loss: 1.7646 | val_feature_output_loss: 0.0150 | val_loss: 1.7646
+2025-12-01 16:11:45,186 - INFO - Training epoch 75/100
+2025-12-01 16:11:45,254 - INFO - TQDM progress bars initialized
+2025-12-01 16:12:01,556 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8273 | val_feature_output_loss: 0.0153 | val_loss: 1.8273
+2025-12-01 16:12:01,558 - INFO - Training epoch 76/100
+2025-12-01 16:12:01,629 - INFO - TQDM progress bars initialized
+2025-12-01 16:12:17,712 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.7610 | val_feature_output_loss: 0.0162 | val_loss: 1.7610
+2025-12-01 16:12:17,714 - INFO - Training epoch 77/100
+2025-12-01 16:12:17,768 - INFO - TQDM progress bars initialized
+2025-12-01 16:12:33,760 - INFO - Validation | val_accuracy: 0.281 | val_loss: 1.7801 | val_feature_output_loss: 0.0171 | val_loss: 1.7801
+2025-12-01 16:12:33,763 - INFO - Training epoch 78/100
+2025-12-01 16:12:33,825 - INFO - TQDM progress bars initialized
+2025-12-01 16:12:50,129 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.7649 | val_feature_output_loss: 0.0153 | val_loss: 1.7649
+2025-12-01 16:12:50,131 - INFO - Training epoch 79/100
+2025-12-01 16:12:50,183 - INFO - TQDM progress bars initialized
+2025-12-01 16:13:06,003 - INFO - Validation | val_accuracy: 0.333 | val_loss: 1.6943 | val_feature_output_loss: 0.0160 | val_loss: 1.6943
+2025-12-01 16:13:06,005 - INFO - Training epoch 80/100
+2025-12-01 16:13:06,066 - INFO - TQDM progress bars initialized
+2025-12-01 16:13:21,830 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.7109 | val_feature_output_loss: 0.0168 | val_loss: 1.7109
+2025-12-01 16:13:21,833 - INFO - Training epoch 81/100
+2025-12-01 16:13:21,900 - INFO - TQDM progress bars initialized
+2025-12-01 16:13:37,716 - INFO - Validation | val_accuracy: 0.365 | val_loss: 1.7659 | val_feature_output_loss: 0.0186 | val_loss: 1.7659
+2025-12-01 16:13:37,719 - INFO - Training epoch 82/100
+2025-12-01 16:13:37,777 - INFO - TQDM progress bars initialized
+2025-12-01 16:13:54,161 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.7701 | val_feature_output_loss: 0.0173 | val_loss: 1.7701
+2025-12-01 16:13:54,163 - INFO - Training epoch 83/100
+2025-12-01 16:13:54,224 - INFO - TQDM progress bars initialized
+2025-12-01 16:14:09,987 - INFO - Validation | val_accuracy: 0.271 | val_loss: 1.7387 | val_feature_output_loss: 0.0162 | val_loss: 1.7387
+2025-12-01 16:14:09,990 - INFO - Training epoch 84/100
+2025-12-01 16:14:10,043 - INFO - TQDM progress bars initialized
+2025-12-01 16:14:26,044 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.6508 | val_feature_output_loss: 0.0187 | val_loss: 1.6508
+2025-12-01 16:14:26,290 - INFO - Training epoch 85/100
+2025-12-01 16:14:26,359 - INFO - TQDM progress bars initialized
+2025-12-01 16:14:42,664 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.7790 | val_feature_output_loss: 0.0159 | val_loss: 1.7790
+2025-12-01 16:14:42,666 - INFO - Training epoch 86/100
+2025-12-01 16:14:42,726 - INFO - TQDM progress bars initialized
+2025-12-01 16:14:58,718 - INFO - Validation | val_accuracy: 0.312 | val_loss: 1.7456 | val_feature_output_loss: 0.0164 | val_loss: 1.7456
+2025-12-01 16:14:58,720 - INFO - Training epoch 87/100
+2025-12-01 16:14:58,797 - INFO - TQDM progress bars initialized
+2025-12-01 16:15:14,705 - INFO - Validation | val_accuracy: 0.333 | val_loss: 1.6855 | val_feature_output_loss: 0.0168 | val_loss: 1.6855
+2025-12-01 16:15:14,707 - INFO - Training epoch 88/100
+2025-12-01 16:15:14,763 - INFO - TQDM progress bars initialized
+2025-12-01 16:15:30,610 - INFO - Validation | val_accuracy: 0.260 | val_loss: 1.9892 | val_feature_output_loss: 0.0160 | val_loss: 1.9892
+2025-12-01 16:15:30,612 - INFO - Training epoch 89/100
+2025-12-01 16:15:30,666 - INFO - TQDM progress bars initialized
+2025-12-01 16:15:47,112 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.8124 | val_feature_output_loss: 0.0156 | val_loss: 1.8124
+2025-12-01 16:15:47,115 - INFO - Training epoch 90/100
+2025-12-01 16:15:47,179 - INFO - TQDM progress bars initialized
+2025-12-01 16:16:02,933 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.7183 | val_feature_output_loss: 0.0168 | val_loss: 1.7183
+2025-12-01 16:16:02,935 - INFO - Training epoch 91/100
+2025-12-01 16:16:03,001 - INFO - TQDM progress bars initialized
+2025-12-01 16:16:19,883 - INFO - Validation | val_accuracy: 0.333 | val_loss: 1.7633 | val_feature_output_loss: 0.0180 | val_loss: 1.7633
+2025-12-01 16:16:19,888 - INFO - Training epoch 92/100
+2025-12-01 16:16:19,969 - INFO - TQDM progress bars initialized
+2025-12-01 16:16:36,737 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.6928 | val_feature_output_loss: 0.0164 | val_loss: 1.6928
+2025-12-01 16:16:36,739 - INFO - Training epoch 93/100
+2025-12-01 16:16:36,794 - INFO - TQDM progress bars initialized
+2025-12-01 16:16:53,351 - INFO - Validation | val_accuracy: 0.396 | val_loss: 1.7599 | val_feature_output_loss: 0.0167 | val_loss: 1.7599
+2025-12-01 16:16:53,353 - INFO - Training epoch 94/100
+2025-12-01 16:16:53,412 - INFO - TQDM progress bars initialized
+2025-12-01 16:17:09,535 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.6244 | val_feature_output_loss: 0.0168 | val_loss: 1.6244
+2025-12-01 16:17:09,810 - INFO - Training epoch 95/100
+2025-12-01 16:17:09,946 - INFO - TQDM progress bars initialized
+2025-12-01 16:17:26,033 - INFO - Validation | val_accuracy: 0.302 | val_loss: 1.6045 | val_feature_output_loss: 0.0166 | val_loss: 1.6045
+2025-12-01 16:17:26,254 - INFO - Training epoch 96/100
+2025-12-01 16:17:26,331 - INFO - TQDM progress bars initialized
+2025-12-01 16:17:42,489 - INFO - Validation | val_accuracy: 0.271 | val_loss: 1.9561 | val_feature_output_loss: 0.0191 | val_loss: 1.9561
+2025-12-01 16:17:42,491 - INFO - Training epoch 97/100
+2025-12-01 16:17:42,553 - INFO - TQDM progress bars initialized
+2025-12-01 16:17:58,373 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.7197 | val_feature_output_loss: 0.0141 | val_loss: 1.7197
+2025-12-01 16:17:58,375 - INFO - Training epoch 98/100
+2025-12-01 16:17:58,431 - INFO - TQDM progress bars initialized
+2025-12-01 16:18:14,329 - INFO - Validation | val_accuracy: 0.344 | val_loss: 1.7062 | val_feature_output_loss: 0.0163 | val_loss: 1.7062
+2025-12-01 16:18:14,331 - INFO - Training epoch 99/100
+2025-12-01 16:18:14,397 - INFO - TQDM progress bars initialized
+2025-12-01 16:18:30,225 - INFO - Validation | val_accuracy: 0.354 | val_loss: 1.6571 | val_feature_output_loss: 0.0166 | val_loss: 1.6571
+2025-12-01 16:18:30,228 - INFO - Training epoch 100/100
+2025-12-01 16:18:30,296 - INFO - TQDM progress bars initialized
+2025-12-01 16:18:46,396 - INFO - Validation | val_accuracy: 0.375 | val_loss: 1.6984 | val_feature_output_loss: 0.0164 | val_loss: 1.6984
+2025-12-01 16:18:46,398 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 16:18:46,634 - INFO - Model saved to models/resnet50/wound_classifier.pkl
+2025-12-01 16:18:46,634 - INFO - Model saved to models/resnet50/wound_classifier.pkl
+2025-12-01 16:18:46,636 - INFO - Training summary saved to models/resnet50/training_summary.json
+2025-12-01 16:18:46,636 - INFO - Testing feature extraction...
+2025-12-01 16:18:46,639 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 16:18:47,305 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 16:18:47,305 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 16:18:47,306 - INFO - Sample features (first 5): [0. 0. 0. 0. 0.]
+2025-12-01 16:18:47,306 - INFO - Training completed successfully!
+2025-12-01 16:18:47,306 - INFO - Model saved in: models/resnet50
+2025-12-01 16:18:47,306 - INFO - Training logs saved in: training.log
+2025-12-01 16:19:10,288 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 16:19:10,289 - INFO - Logging setup with level INFO
+2025-12-01 16:19:10,289 - INFO - Application initialized
+2025-12-01 16:19:10,289 - INFO - Database: dl-postgres:5432
+2025-12-01 16:19:10,289 - INFO - Vector dimension: 1536
+2025-12-01 16:19:10,289 - INFO - Upload directory: /tmp/uploads
+2025-12-01 16:19:10,289 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 16:19:10,289 - INFO - Starting manual CNN training
+2025-12-01 16:19:10,289 - INFO - Architecture: vgg16
+2025-12-01 16:19:10,289 - INFO - Dataset: ./files/train_dataset
+2025-12-01 16:19:10,289 - INFO - Epochs: 100
+2025-12-01 16:19:10,289 - INFO - Batch size: 32
+2025-12-01 16:19:10,289 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 16:19:10,294 - INFO - Total images: 1531
+2025-12-01 16:19:10,294 - INFO -   Abrasions: 82 images
+2025-12-01 16:19:10,294 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 16:19:10,294 - INFO -   Surgical Wounds: 210 images
+2025-12-01 16:19:10,294 - INFO -   Bruises: 121 images
+2025-12-01 16:19:10,294 - INFO -   Cut: 50 images
+2025-12-01 16:19:10,294 - INFO -   Venous Wounds: 247 images
+2025-12-01 16:19:10,294 - INFO -   Normal: 100 images
+2025-12-01 16:19:10,294 - INFO -   Pressure Wounds: 301 images
+2025-12-01 16:19:10,294 - INFO -   Laseration: 122 images
+2025-12-01 16:19:10,294 - INFO -   Burns: 67 images
+2025-12-01 16:19:10,294 - INFO - Created output directory: models/vgg16
+2025-12-01 16:19:10,294 - INFO - Building CNN model...
+2025-12-01 16:19:10,295 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 16:19:10,476 - INFO - Built vgg16 model with chained features: Base -> 1536 -> 384 -> 86 -> 10 classes
+2025-12-01 16:19:10,476 - INFO - Creating data generators...
+2025-12-01 16:19:10,476 - INFO - No data augmentation enabled
+2025-12-01 16:19:10,493 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 16:19:10,493 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 16:19:10,500 - INFO - Training samples: 1029
+2025-12-01 16:19:10,500 - INFO - Validation samples: 113
+2025-12-01 16:19:10,500 - INFO - Starting training...
+2025-12-01 16:19:10,500 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 16:19:10,500 - INFO - TQDM progress bar callback added
+2025-12-01 16:19:10,500 - INFO - Total callbacks configured: 2
+2025-12-01 16:19:10,500 - INFO - Training epoch 1/100
+2025-12-01 16:19:10,579 - INFO - TQDM progress bars initialized
+2025-12-01 16:20:10,205 - INFO - Validation | val_accuracy: 0.323 | val_loss: 1.9668 | val_feature_output_loss: 0.0569 | val_loss: 1.9668
+2025-12-01 16:20:10,273 - INFO - Training epoch 2/100
+2025-12-01 16:20:10,338 - INFO - TQDM progress bars initialized
+2025-12-01 16:21:08,134 - INFO - Validation | val_accuracy: 0.417 | val_loss: 1.6953 | val_feature_output_loss: 0.0500 | val_loss: 1.6953
+2025-12-01 16:21:08,190 - INFO - Training epoch 3/100
+2025-12-01 16:21:08,237 - INFO - TQDM progress bars initialized
+2025-12-01 16:22:04,940 - INFO - Validation | val_accuracy: 0.448 | val_loss: 1.5234 | val_feature_output_loss: 0.0395 | val_loss: 1.5234
+2025-12-01 16:22:04,996 - INFO - Training epoch 4/100
+2025-12-01 16:22:05,044 - INFO - TQDM progress bars initialized
+2025-12-01 16:23:00,861 - INFO - Validation | val_accuracy: 0.490 | val_loss: 1.4943 | val_feature_output_loss: 0.0348 | val_loss: 1.4943
+2025-12-01 16:23:00,918 - INFO - Training epoch 5/100
+2025-12-01 16:23:00,981 - INFO - TQDM progress bars initialized
+2025-12-01 16:23:56,597 - INFO - Validation | val_accuracy: 0.521 | val_loss: 1.2693 | val_feature_output_loss: 0.0329 | val_loss: 1.2693
+2025-12-01 16:23:56,659 - INFO - Training epoch 6/100
+2025-12-01 16:23:56,707 - INFO - TQDM progress bars initialized
+2025-12-01 16:24:55,416 - INFO - Validation | val_accuracy: 0.573 | val_loss: 1.2347 | val_feature_output_loss: 0.0343 | val_loss: 1.2347
+2025-12-01 16:24:55,479 - INFO - Training epoch 7/100
+2025-12-01 16:24:55,539 - INFO - TQDM progress bars initialized
+2025-12-01 16:25:52,427 - INFO - Validation | val_accuracy: 0.646 | val_loss: 1.0617 | val_feature_output_loss: 0.0268 | val_loss: 1.0617
+2025-12-01 16:25:52,490 - INFO - Training epoch 8/100
+2025-12-01 16:25:52,558 - INFO - TQDM progress bars initialized
+2025-12-01 16:26:50,015 - INFO - Validation | val_accuracy: 0.583 | val_loss: 1.2461 | val_feature_output_loss: 0.0262 | val_loss: 1.2461
+2025-12-01 16:26:50,017 - INFO - Training epoch 9/100
+2025-12-01 16:26:50,116 - INFO - TQDM progress bars initialized
+2025-12-01 16:27:45,265 - INFO - Validation | val_accuracy: 0.583 | val_loss: 1.1002 | val_feature_output_loss: 0.0250 | val_loss: 1.1002
+2025-12-01 16:27:45,267 - INFO - Training epoch 10/100
+2025-12-01 16:27:45,324 - INFO - TQDM progress bars initialized
+2025-12-01 16:28:39,279 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.1035 | val_feature_output_loss: 0.0229 | val_loss: 1.1035
+2025-12-01 16:28:39,280 - INFO - Training epoch 11/100
+2025-12-01 16:28:39,339 - INFO - TQDM progress bars initialized
+2025-12-01 16:29:33,328 - INFO - Validation | val_accuracy: 0.615 | val_loss: 1.0908 | val_feature_output_loss: 0.0214 | val_loss: 1.0908
+2025-12-01 16:29:33,329 - INFO - Training epoch 12/100
+2025-12-01 16:29:33,412 - INFO - TQDM progress bars initialized
+2025-12-01 16:30:27,412 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.0016 | val_feature_output_loss: 0.0238 | val_loss: 1.0016
+2025-12-01 16:30:27,472 - INFO - Training epoch 13/100
+2025-12-01 16:30:27,548 - INFO - TQDM progress bars initialized
+2025-12-01 16:31:21,664 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.0510 | val_feature_output_loss: 0.0240 | val_loss: 1.0510
+2025-12-01 16:31:21,666 - INFO - Training epoch 14/100
+2025-12-01 16:31:21,706 - INFO - TQDM progress bars initialized
+2025-12-01 16:32:15,999 - INFO - Validation | val_accuracy: 0.615 | val_loss: 1.1816 | val_feature_output_loss: 0.0179 | val_loss: 1.1816
+2025-12-01 16:32:16,000 - INFO - Training epoch 15/100
+2025-12-01 16:32:16,067 - INFO - TQDM progress bars initialized
+2025-12-01 16:33:09,752 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.0910 | val_feature_output_loss: 0.0226 | val_loss: 1.0910
+2025-12-01 16:33:09,753 - INFO - Training epoch 16/100
+2025-12-01 16:33:09,807 - INFO - TQDM progress bars initialized
+2025-12-01 16:34:03,649 - INFO - Validation | val_accuracy: 0.646 | val_loss: 1.0342 | val_feature_output_loss: 0.0210 | val_loss: 1.0342
+2025-12-01 16:34:03,651 - INFO - Training epoch 17/100
+2025-12-01 16:34:03,703 - INFO - TQDM progress bars initialized
+2025-12-01 16:34:57,423 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.0680 | val_feature_output_loss: 0.0204 | val_loss: 1.0680
+2025-12-01 16:34:57,425 - INFO - Training epoch 18/100
+2025-12-01 16:34:57,488 - INFO - TQDM progress bars initialized
+2025-12-01 16:35:50,999 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.2379 | val_feature_output_loss: 0.0203 | val_loss: 1.2379
+2025-12-01 16:35:51,000 - INFO - Training epoch 19/100
+2025-12-01 16:35:51,060 - INFO - TQDM progress bars initialized
+2025-12-01 16:36:44,780 - INFO - Validation | val_accuracy: 0.615 | val_loss: 1.2119 | val_feature_output_loss: 0.0202 | val_loss: 1.2119
+2025-12-01 16:36:44,781 - INFO - Training epoch 20/100
+2025-12-01 16:36:44,840 - INFO - TQDM progress bars initialized
+2025-12-01 16:37:38,846 - INFO - Validation | val_accuracy: 0.615 | val_loss: 1.1663 | val_feature_output_loss: 0.0199 | val_loss: 1.1663
+2025-12-01 16:37:38,847 - INFO - Training epoch 21/100
+2025-12-01 16:37:38,925 - INFO - TQDM progress bars initialized
+2025-12-01 16:38:32,947 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.0748 | val_feature_output_loss: 0.0177 | val_loss: 1.0748
+2025-12-01 16:38:32,949 - INFO - Training epoch 22/100
+2025-12-01 16:38:33,013 - INFO - TQDM progress bars initialized
+2025-12-01 16:39:26,877 - INFO - Validation | val_accuracy: 0.573 | val_loss: 1.3565 | val_feature_output_loss: 0.0196 | val_loss: 1.3565
+2025-12-01 16:39:26,879 - INFO - Training epoch 23/100
+2025-12-01 16:39:26,938 - INFO - TQDM progress bars initialized
+2025-12-01 16:40:20,823 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.1739 | val_feature_output_loss: 0.0145 | val_loss: 1.1739
+2025-12-01 16:40:20,825 - INFO - Training epoch 24/100
+2025-12-01 16:40:20,900 - INFO - TQDM progress bars initialized
+2025-12-01 16:41:18,594 - INFO - Validation | val_accuracy: 0.646 | val_loss: 0.9421 | val_feature_output_loss: 0.0165 | val_loss: 0.9421
+2025-12-01 16:41:18,689 - INFO - Training epoch 25/100
+2025-12-01 16:41:18,754 - INFO - TQDM progress bars initialized
+2025-12-01 16:42:16,938 - INFO - Validation | val_accuracy: 0.646 | val_loss: 1.2567 | val_feature_output_loss: 0.0177 | val_loss: 1.2567
+2025-12-01 16:42:16,940 - INFO - Training epoch 26/100
+2025-12-01 16:42:17,014 - INFO - TQDM progress bars initialized
+2025-12-01 16:43:12,781 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.2484 | val_feature_output_loss: 0.0188 | val_loss: 1.2484
+2025-12-01 16:43:12,782 - INFO - Training epoch 27/100
+2025-12-01 16:43:12,835 - INFO - TQDM progress bars initialized
+2025-12-01 16:44:08,227 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.2132 | val_feature_output_loss: 0.0181 | val_loss: 1.2132
+2025-12-01 16:44:08,229 - INFO - Training epoch 28/100
+2025-12-01 16:44:08,287 - INFO - TQDM progress bars initialized
+2025-12-01 16:45:03,390 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.1425 | val_feature_output_loss: 0.0180 | val_loss: 1.1425
+2025-12-01 16:45:03,392 - INFO - Training epoch 29/100
+2025-12-01 16:45:03,445 - INFO - TQDM progress bars initialized
+2025-12-01 16:45:59,161 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.2736 | val_feature_output_loss: 0.0180 | val_loss: 1.2736
+2025-12-01 16:45:59,162 - INFO - Training epoch 30/100
+2025-12-01 16:45:59,270 - INFO - TQDM progress bars initialized
+2025-12-01 16:46:55,194 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.1991 | val_feature_output_loss: 0.0192 | val_loss: 1.1991
+2025-12-01 16:46:55,196 - INFO - Training epoch 31/100
+2025-12-01 16:46:55,249 - INFO - TQDM progress bars initialized
+2025-12-01 16:47:51,048 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.3721 | val_feature_output_loss: 0.0163 | val_loss: 1.3721
+2025-12-01 16:47:51,050 - INFO - Training epoch 32/100
+2025-12-01 16:47:51,139 - INFO - TQDM progress bars initialized
+2025-12-01 16:48:46,317 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.2399 | val_feature_output_loss: 0.0177 | val_loss: 1.2399
+2025-12-01 16:48:46,318 - INFO - Training epoch 33/100
+2025-12-01 16:48:46,373 - INFO - TQDM progress bars initialized
+2025-12-01 16:49:44,198 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.3524 | val_feature_output_loss: 0.0171 | val_loss: 1.3524
+2025-12-01 16:49:44,200 - INFO - Training epoch 34/100
+2025-12-01 16:49:44,273 - INFO - TQDM progress bars initialized
+2025-12-01 16:50:42,439 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.3680 | val_feature_output_loss: 0.0176 | val_loss: 1.3680
+2025-12-01 16:50:42,441 - INFO - Training epoch 35/100
+2025-12-01 16:50:42,502 - INFO - TQDM progress bars initialized
+2025-12-01 16:51:41,064 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.3080 | val_feature_output_loss: 0.0171 | val_loss: 1.3080
+2025-12-01 16:51:41,066 - INFO - Training epoch 36/100
+2025-12-01 16:51:41,171 - INFO - TQDM progress bars initialized
+2025-12-01 16:52:40,897 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.6407 | val_feature_output_loss: 0.0192 | val_loss: 1.6407
+2025-12-01 16:52:40,900 - INFO - Training epoch 37/100
+2025-12-01 16:52:40,968 - INFO - TQDM progress bars initialized
+2025-12-01 16:53:40,566 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.3744 | val_feature_output_loss: 0.0172 | val_loss: 1.3744
+2025-12-01 16:53:40,568 - INFO - Training epoch 38/100
+2025-12-01 16:53:40,646 - INFO - TQDM progress bars initialized
+2025-12-01 16:54:41,282 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.3147 | val_feature_output_loss: 0.0174 | val_loss: 1.3147
+2025-12-01 16:54:41,284 - INFO - Training epoch 39/100
+2025-12-01 16:54:41,347 - INFO - TQDM progress bars initialized
+2025-12-01 16:55:46,918 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.4703 | val_feature_output_loss: 0.0186 | val_loss: 1.4703
+2025-12-01 16:55:46,920 - INFO - Training epoch 40/100
+2025-12-01 16:55:46,988 - INFO - TQDM progress bars initialized
+2025-12-01 16:56:46,524 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.4383 | val_feature_output_loss: 0.0166 | val_loss: 1.4383
+2025-12-01 16:56:46,526 - INFO - Training epoch 41/100
+2025-12-01 16:56:46,599 - INFO - TQDM progress bars initialized
+2025-12-01 16:57:51,108 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.5012 | val_feature_output_loss: 0.0174 | val_loss: 1.5012
+2025-12-01 16:57:51,111 - INFO - Training epoch 42/100
+2025-12-01 16:57:51,212 - INFO - TQDM progress bars initialized
+2025-12-01 16:59:01,664 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.4048 | val_feature_output_loss: 0.0183 | val_loss: 1.4048
+2025-12-01 16:59:01,666 - INFO - Training epoch 43/100
+2025-12-01 16:59:01,768 - INFO - TQDM progress bars initialized
+2025-12-01 17:00:04,532 - INFO - Validation | val_accuracy: 0.604 | val_loss: 1.7644 | val_feature_output_loss: 0.0189 | val_loss: 1.7644
+2025-12-01 17:00:04,534 - INFO - Training epoch 44/100
+2025-12-01 17:00:04,600 - INFO - TQDM progress bars initialized
+2025-12-01 17:01:03,598 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.6706 | val_feature_output_loss: 0.0165 | val_loss: 1.6706
+2025-12-01 17:01:03,600 - INFO - Training epoch 45/100
+2025-12-01 17:01:03,696 - INFO - TQDM progress bars initialized
+2025-12-01 17:02:01,324 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.5515 | val_feature_output_loss: 0.0148 | val_loss: 1.5515
+2025-12-01 17:02:01,325 - INFO - Training epoch 46/100
+2025-12-01 17:02:01,401 - INFO - TQDM progress bars initialized
+2025-12-01 17:02:59,592 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.5143 | val_feature_output_loss: 0.0158 | val_loss: 1.5143
+2025-12-01 17:02:59,593 - INFO - Training epoch 47/100
+2025-12-01 17:02:59,659 - INFO - TQDM progress bars initialized
+2025-12-01 17:03:56,237 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.6596 | val_feature_output_loss: 0.0160 | val_loss: 1.6596
+2025-12-01 17:03:56,240 - INFO - Training epoch 48/100
+2025-12-01 17:03:56,322 - INFO - TQDM progress bars initialized
+2025-12-01 17:04:53,323 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.7794 | val_feature_output_loss: 0.0171 | val_loss: 1.7794
+2025-12-01 17:04:53,325 - INFO - Training epoch 49/100
+2025-12-01 17:04:53,387 - INFO - TQDM progress bars initialized
+2025-12-01 17:05:50,325 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.5947 | val_feature_output_loss: 0.0182 | val_loss: 1.5947
+2025-12-01 17:05:50,327 - INFO - Training epoch 50/100
+2025-12-01 17:05:50,383 - INFO - TQDM progress bars initialized
+2025-12-01 17:06:45,937 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.6831 | val_feature_output_loss: 0.0178 | val_loss: 1.6831
+2025-12-01 17:06:45,939 - INFO - Training epoch 51/100
+2025-12-01 17:06:46,021 - INFO - TQDM progress bars initialized
+2025-12-01 17:07:43,006 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.6856 | val_feature_output_loss: 0.0173 | val_loss: 1.6856
+2025-12-01 17:07:43,008 - INFO - Training epoch 52/100
+2025-12-01 17:07:43,086 - INFO - TQDM progress bars initialized
+2025-12-01 17:08:40,234 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.9781 | val_feature_output_loss: 0.0171 | val_loss: 1.9781
+2025-12-01 17:08:40,236 - INFO - Training epoch 53/100
+2025-12-01 17:08:40,300 - INFO - TQDM progress bars initialized
+2025-12-01 17:09:35,987 - INFO - Validation | val_accuracy: 0.646 | val_loss: 2.1098 | val_feature_output_loss: 0.0163 | val_loss: 2.1098
+2025-12-01 17:09:35,989 - INFO - Training epoch 54/100
+2025-12-01 17:09:36,052 - INFO - TQDM progress bars initialized
+2025-12-01 17:10:32,221 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.5621 | val_feature_output_loss: 0.0126 | val_loss: 1.5621
+2025-12-01 17:10:32,224 - INFO - Training epoch 55/100
+2025-12-01 17:10:32,282 - INFO - TQDM progress bars initialized
+2025-12-01 17:11:28,496 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.7418 | val_feature_output_loss: 0.0141 | val_loss: 1.7418
+2025-12-01 17:11:28,498 - INFO - Training epoch 56/100
+2025-12-01 17:11:28,571 - INFO - TQDM progress bars initialized
+2025-12-01 17:12:25,101 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.5379 | val_feature_output_loss: 0.0159 | val_loss: 1.5379
+2025-12-01 17:12:25,104 - INFO - Training epoch 57/100
+2025-12-01 17:12:25,196 - INFO - TQDM progress bars initialized
+2025-12-01 17:13:26,963 - INFO - Validation | val_accuracy: 0.604 | val_loss: 1.9616 | val_feature_output_loss: 0.0167 | val_loss: 1.9616
+2025-12-01 17:13:26,965 - INFO - Training epoch 58/100
+2025-12-01 17:13:27,046 - INFO - TQDM progress bars initialized
+2025-12-01 17:14:24,943 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.6439 | val_feature_output_loss: 0.0152 | val_loss: 1.6439
+2025-12-01 17:14:24,946 - INFO - Training epoch 59/100
+2025-12-01 17:14:25,003 - INFO - TQDM progress bars initialized
+2025-12-01 17:15:23,742 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.8464 | val_feature_output_loss: 0.0142 | val_loss: 1.8464
+2025-12-01 17:15:23,744 - INFO - Training epoch 60/100
+2025-12-01 17:15:23,811 - INFO - TQDM progress bars initialized
+2025-12-01 17:16:24,701 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.7543 | val_feature_output_loss: 0.0159 | val_loss: 1.7543
+2025-12-01 17:16:24,703 - INFO - Training epoch 61/100
+2025-12-01 17:16:24,765 - INFO - TQDM progress bars initialized
+2025-12-01 17:17:25,336 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.7135 | val_feature_output_loss: 0.0148 | val_loss: 1.7135
+2025-12-01 17:17:25,339 - INFO - Training epoch 62/100
+2025-12-01 17:17:25,408 - INFO - TQDM progress bars initialized
+2025-12-01 17:18:30,091 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.8212 | val_feature_output_loss: 0.0126 | val_loss: 1.8212
+2025-12-01 17:18:30,095 - INFO - Training epoch 63/100
+2025-12-01 17:18:30,163 - INFO - TQDM progress bars initialized
+2025-12-01 17:19:34,352 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.8199 | val_feature_output_loss: 0.0139 | val_loss: 1.8199
+2025-12-01 17:19:34,354 - INFO - Training epoch 64/100
+2025-12-01 17:19:34,512 - INFO - TQDM progress bars initialized
+2025-12-01 17:20:36,435 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.8411 | val_feature_output_loss: 0.0150 | val_loss: 1.8411
+2025-12-01 17:20:36,438 - INFO - Training epoch 65/100
+2025-12-01 17:20:36,513 - INFO - TQDM progress bars initialized
+2025-12-01 17:21:33,969 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.8454 | val_feature_output_loss: 0.0150 | val_loss: 1.8454
+2025-12-01 17:21:33,971 - INFO - Training epoch 66/100
+2025-12-01 17:21:34,047 - INFO - TQDM progress bars initialized
+2025-12-01 17:22:30,440 - INFO - Validation | val_accuracy: 0.667 | val_loss: 2.0803 | val_feature_output_loss: 0.0149 | val_loss: 2.0803
+2025-12-01 17:22:30,443 - INFO - Training epoch 67/100
+2025-12-01 17:22:30,539 - INFO - TQDM progress bars initialized
+2025-12-01 17:23:26,503 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.8715 | val_feature_output_loss: 0.0155 | val_loss: 1.8715
+2025-12-01 17:23:26,505 - INFO - Training epoch 68/100
+2025-12-01 17:23:26,571 - INFO - TQDM progress bars initialized
+2025-12-01 17:24:22,140 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.9236 | val_feature_output_loss: 0.0156 | val_loss: 1.9236
+2025-12-01 17:24:22,142 - INFO - Training epoch 69/100
+2025-12-01 17:24:22,214 - INFO - TQDM progress bars initialized
+2025-12-01 17:25:17,375 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.9089 | val_feature_output_loss: 0.0157 | val_loss: 1.9089
+2025-12-01 17:25:17,377 - INFO - Training epoch 70/100
+2025-12-01 17:25:17,450 - INFO - TQDM progress bars initialized
+2025-12-01 17:26:15,068 - INFO - Validation | val_accuracy: 0.688 | val_loss: 2.0002 | val_feature_output_loss: 0.0162 | val_loss: 2.0002
+2025-12-01 17:26:15,071 - INFO - Training epoch 71/100
+2025-12-01 17:26:15,139 - INFO - TQDM progress bars initialized
+2025-12-01 17:27:11,793 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.9858 | val_feature_output_loss: 0.0170 | val_loss: 1.9858
+2025-12-01 17:27:11,795 - INFO - Training epoch 72/100
+2025-12-01 17:27:11,857 - INFO - TQDM progress bars initialized
+2025-12-01 17:28:08,264 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.9768 | val_feature_output_loss: 0.0170 | val_loss: 1.9768
+2025-12-01 17:28:08,267 - INFO - Training epoch 73/100
+2025-12-01 17:28:08,324 - INFO - TQDM progress bars initialized
+2025-12-01 17:29:04,150 - INFO - Validation | val_accuracy: 0.708 | val_loss: 2.0173 | val_feature_output_loss: 0.0164 | val_loss: 2.0173
+2025-12-01 17:29:04,152 - INFO - Training epoch 74/100
+2025-12-01 17:29:04,215 - INFO - TQDM progress bars initialized
+2025-12-01 17:30:02,575 - INFO - Validation | val_accuracy: 0.635 | val_loss: 2.2277 | val_feature_output_loss: 0.0161 | val_loss: 2.2277
+2025-12-01 17:30:02,577 - INFO - Training epoch 75/100
+2025-12-01 17:30:02,639 - INFO - TQDM progress bars initialized
+2025-12-01 17:30:58,319 - INFO - Validation | val_accuracy: 0.667 | val_loss: 2.2234 | val_feature_output_loss: 0.0147 | val_loss: 2.2234
+2025-12-01 17:30:58,321 - INFO - Training epoch 76/100
+2025-12-01 17:30:58,401 - INFO - TQDM progress bars initialized
+2025-12-01 17:31:54,936 - INFO - Validation | val_accuracy: 0.667 | val_loss: 2.0746 | val_feature_output_loss: 0.0156 | val_loss: 2.0746
+2025-12-01 17:31:54,939 - INFO - Training epoch 77/100
+2025-12-01 17:31:54,996 - INFO - TQDM progress bars initialized
+2025-12-01 17:32:51,097 - INFO - Validation | val_accuracy: 0.719 | val_loss: 2.1270 | val_feature_output_loss: 0.0165 | val_loss: 2.1270
+2025-12-01 17:32:51,099 - INFO - Training epoch 78/100
+2025-12-01 17:32:51,164 - INFO - TQDM progress bars initialized
+2025-12-01 17:33:48,080 - INFO - Validation | val_accuracy: 0.677 | val_loss: 2.0991 | val_feature_output_loss: 0.0151 | val_loss: 2.0991
+2025-12-01 17:33:48,082 - INFO - Training epoch 79/100
+2025-12-01 17:33:48,141 - INFO - TQDM progress bars initialized
+2025-12-01 17:34:46,101 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.9443 | val_feature_output_loss: 0.0167 | val_loss: 1.9443
+2025-12-01 17:34:46,103 - INFO - Training epoch 80/100
+2025-12-01 17:34:46,184 - INFO - TQDM progress bars initialized
+2025-12-01 17:35:43,035 - INFO - Validation | val_accuracy: 0.708 | val_loss: 2.0638 | val_feature_output_loss: 0.0170 | val_loss: 2.0638
+2025-12-01 17:35:43,037 - INFO - Training epoch 81/100
+2025-12-01 17:35:43,106 - INFO - TQDM progress bars initialized
+2025-12-01 17:36:40,519 - INFO - Validation | val_accuracy: 0.677 | val_loss: 2.0543 | val_feature_output_loss: 0.0174 | val_loss: 2.0543
+2025-12-01 17:36:40,522 - INFO - Training epoch 82/100
+2025-12-01 17:36:40,588 - INFO - TQDM progress bars initialized
+2025-12-01 17:37:36,616 - INFO - Validation | val_accuracy: 0.677 | val_loss: 2.2933 | val_feature_output_loss: 0.0161 | val_loss: 2.2933
+2025-12-01 17:37:36,618 - INFO - Training epoch 83/100
+2025-12-01 17:37:36,680 - INFO - TQDM progress bars initialized
+2025-12-01 17:38:34,768 - INFO - Validation | val_accuracy: 0.656 | val_loss: 2.0454 | val_feature_output_loss: 0.0142 | val_loss: 2.0454
+2025-12-01 17:38:34,770 - INFO - Training epoch 84/100
+2025-12-01 17:38:34,825 - INFO - TQDM progress bars initialized
+2025-12-01 17:39:30,473 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.7282 | val_feature_output_loss: 0.0138 | val_loss: 1.7282
+2025-12-01 17:39:30,475 - INFO - Training epoch 85/100
+2025-12-01 17:39:30,544 - INFO - TQDM progress bars initialized
+2025-12-01 17:40:26,010 - INFO - Validation | val_accuracy: 0.625 | val_loss: 2.0994 | val_feature_output_loss: 0.0119 | val_loss: 2.0994
+2025-12-01 17:40:26,012 - INFO - Training epoch 86/100
+2025-12-01 17:40:26,075 - INFO - TQDM progress bars initialized
+2025-12-01 17:41:22,833 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.4324 | val_feature_output_loss: 0.0124 | val_loss: 1.4324
+2025-12-01 17:41:22,835 - INFO - Training epoch 87/100
+2025-12-01 17:41:22,926 - INFO - TQDM progress bars initialized
+2025-12-01 17:42:19,509 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.4947 | val_feature_output_loss: 0.0149 | val_loss: 1.4947
+2025-12-01 17:42:19,511 - INFO - Training epoch 88/100
+2025-12-01 17:42:19,572 - INFO - TQDM progress bars initialized
+2025-12-01 17:43:15,589 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.6033 | val_feature_output_loss: 0.0153 | val_loss: 1.6033
+2025-12-01 17:43:15,591 - INFO - Training epoch 89/100
+2025-12-01 17:43:15,649 - INFO - TQDM progress bars initialized
+2025-12-01 17:44:10,483 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.6364 | val_feature_output_loss: 0.0164 | val_loss: 1.6364
+2025-12-01 17:44:10,485 - INFO - Training epoch 90/100
+2025-12-01 17:44:10,562 - INFO - TQDM progress bars initialized
+2025-12-01 17:45:05,698 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.6912 | val_feature_output_loss: 0.0160 | val_loss: 1.6912
+2025-12-01 17:45:05,700 - INFO - Training epoch 91/100
+2025-12-01 17:45:05,770 - INFO - TQDM progress bars initialized
+2025-12-01 17:46:01,776 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.9226 | val_feature_output_loss: 0.0157 | val_loss: 1.9226
+2025-12-01 17:46:01,777 - INFO - Training epoch 92/100
+2025-12-01 17:46:01,854 - INFO - TQDM progress bars initialized
+2025-12-01 17:46:58,017 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.6148 | val_feature_output_loss: 0.0162 | val_loss: 1.6148
+2025-12-01 17:46:58,019 - INFO - Training epoch 93/100
+2025-12-01 17:46:58,083 - INFO - TQDM progress bars initialized
+2025-12-01 17:47:54,014 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.6760 | val_feature_output_loss: 0.0163 | val_loss: 1.6760
+2025-12-01 17:47:54,016 - INFO - Training epoch 94/100
+2025-12-01 17:47:54,080 - INFO - TQDM progress bars initialized
+2025-12-01 17:48:49,461 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.8018 | val_feature_output_loss: 0.0169 | val_loss: 1.8018
+2025-12-01 17:48:49,463 - INFO - Training epoch 95/100
+2025-12-01 17:48:49,526 - INFO - TQDM progress bars initialized
+2025-12-01 17:49:46,069 - INFO - Validation | val_accuracy: 0.698 | val_loss: 2.0206 | val_feature_output_loss: 0.0156 | val_loss: 2.0206
+2025-12-01 17:49:46,070 - INFO - Training epoch 96/100
+2025-12-01 17:49:46,124 - INFO - TQDM progress bars initialized
+2025-12-01 17:50:42,218 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.8546 | val_feature_output_loss: 0.0148 | val_loss: 1.8546
+2025-12-01 17:50:42,220 - INFO - Training epoch 97/100
+2025-12-01 17:50:42,286 - INFO - TQDM progress bars initialized
+2025-12-01 17:51:38,987 - INFO - Validation | val_accuracy: 0.656 | val_loss: 2.0293 | val_feature_output_loss: 0.0155 | val_loss: 2.0293
+2025-12-01 17:51:38,989 - INFO - Training epoch 98/100
+2025-12-01 17:51:39,052 - INFO - TQDM progress bars initialized
+2025-12-01 17:52:34,830 - INFO - Validation | val_accuracy: 0.635 | val_loss: 2.1491 | val_feature_output_loss: 0.0136 | val_loss: 2.1491
+2025-12-01 17:52:34,833 - INFO - Training epoch 99/100
+2025-12-01 17:52:34,908 - INFO - TQDM progress bars initialized
+2025-12-01 17:53:29,950 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.7714 | val_feature_output_loss: 0.0135 | val_loss: 1.7714
+2025-12-01 17:53:29,952 - INFO - Training epoch 100/100
+2025-12-01 17:53:30,024 - INFO - TQDM progress bars initialized
+2025-12-01 17:54:25,678 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.8491 | val_feature_output_loss: 0.0128 | val_loss: 1.8491
+2025-12-01 17:54:25,681 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 17:54:25,747 - INFO - Model saved to models/vgg16/wound_classifier.pkl
+2025-12-01 17:54:25,747 - INFO - Model saved to models/vgg16/wound_classifier.pkl
+2025-12-01 17:54:25,752 - INFO - Training summary saved to models/vgg16/training_summary.json
+2025-12-01 17:54:25,752 - INFO - Testing feature extraction...
+2025-12-01 17:54:25,754 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 17:54:25,910 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 17:54:25,910 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 17:54:25,910 - INFO - Sample features (first 5): [0.         0.         0.         0.         0.03531317]
+2025-12-01 17:54:25,910 - INFO - Training completed successfully!
+2025-12-01 17:54:25,910 - INFO - Model saved in: models/vgg16
+2025-12-01 17:54:25,910 - INFO - Training logs saved in: training.log
+2025-12-01 19:15:21,206 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 19:15:21,207 - INFO - Logging setup with level INFO
+2025-12-01 19:15:21,207 - INFO - Application initialized
+2025-12-01 19:15:21,207 - INFO - Database: dl-postgres:5432
+2025-12-01 19:15:21,207 - INFO - Vector dimension: 1536
+2025-12-01 19:15:21,207 - INFO - Upload directory: /tmp/uploads
+2025-12-01 19:15:21,207 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 19:15:21,207 - INFO - Starting manual CNN training
+2025-12-01 19:15:21,207 - INFO - Architecture: efficientnet
+2025-12-01 19:15:21,207 - INFO - Dataset: ./files/train_dataset
+2025-12-01 19:15:21,207 - INFO - Epochs: 100
+2025-12-01 19:15:21,207 - INFO - Batch size: 32
+2025-12-01 19:15:21,207 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 19:15:21,212 - INFO - Total images: 1531
+2025-12-01 19:15:21,212 - INFO -   Abrasions: 82 images
+2025-12-01 19:15:21,212 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 19:15:21,212 - INFO -   Surgical Wounds: 210 images
+2025-12-01 19:15:21,212 - INFO -   Bruises: 121 images
+2025-12-01 19:15:21,213 - INFO -   Cut: 50 images
+2025-12-01 19:15:21,213 - INFO -   Venous Wounds: 247 images
+2025-12-01 19:15:21,213 - INFO -   Normal: 100 images
+2025-12-01 19:15:21,213 - INFO -   Pressure Wounds: 301 images
+2025-12-01 19:15:21,213 - INFO -   Laseration: 122 images
+2025-12-01 19:15:21,213 - INFO -   Burns: 67 images
+2025-12-01 19:15:21,213 - INFO - Created output directory: models/efficientnet
+2025-12-01 19:15:21,213 - INFO - Building CNN model...
+2025-12-01 19:15:21,214 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 19:15:21,676 - INFO - Built efficientnet model with chained features: Base -> 1536 -> 384 -> 86 -> 10 classes
+2025-12-01 19:15:21,676 - INFO - Creating data generators...
+2025-12-01 19:15:21,676 - INFO - No data augmentation enabled
+2025-12-01 19:15:21,693 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 19:15:21,693 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 19:15:21,704 - INFO - Training samples: 1029
+2025-12-01 19:15:21,704 - INFO - Validation samples: 113
+2025-12-01 19:15:21,704 - INFO - Starting training...
+2025-12-01 19:15:21,704 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 19:15:21,705 - INFO - TQDM progress bar callback added
+2025-12-01 19:15:21,705 - INFO - Total callbacks configured: 2
+2025-12-01 19:15:21,705 - INFO - Training epoch 1/100
+2025-12-01 19:15:21,795 - INFO - TQDM progress bars initialized
+2025-12-01 19:15:34,431 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.1324 | val_feature_output_loss: 0.1506 | val_loss: 1.1324
+2025-12-01 19:15:34,658 - INFO - Training epoch 2/100
+2025-12-01 19:15:34,717 - INFO - TQDM progress bars initialized
+2025-12-01 19:15:40,430 - INFO - Validation | val_accuracy: 0.677 | val_loss: 0.7616 | val_feature_output_loss: 0.1328 | val_loss: 0.7616
+2025-12-01 19:15:40,637 - INFO - Training epoch 3/100
+2025-12-01 19:15:40,685 - INFO - TQDM progress bars initialized
+2025-12-01 19:15:59,524 - INFO - Validation | val_accuracy: 0.677 | val_loss: 0.8096 | val_feature_output_loss: 0.1196 | val_loss: 0.8096
+2025-12-01 19:15:59,533 - INFO - Training epoch 4/100
+2025-12-01 19:15:59,642 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:18,078 - INFO - Validation | val_accuracy: 0.698 | val_loss: 0.8676 | val_feature_output_loss: 0.1176 | val_loss: 0.8676
+2025-12-01 19:16:18,084 - INFO - Training epoch 5/100
+2025-12-01 19:16:18,169 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:26,922 - INFO - Validation | val_accuracy: 0.708 | val_loss: 0.9658 | val_feature_output_loss: 0.1198 | val_loss: 0.9658
+2025-12-01 19:16:26,925 - INFO - Training epoch 6/100
+2025-12-01 19:16:26,974 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:33,014 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.0011 | val_feature_output_loss: 0.1088 | val_loss: 1.0011
+2025-12-01 19:16:33,016 - INFO - Training epoch 7/100
+2025-12-01 19:16:33,072 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:39,315 - INFO - Validation | val_accuracy: 0.760 | val_loss: 0.8959 | val_feature_output_loss: 0.1103 | val_loss: 0.8959
+2025-12-01 19:16:39,317 - INFO - Training epoch 8/100
+2025-12-01 19:16:39,362 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:44,974 - INFO - Validation | val_accuracy: 0.688 | val_loss: 0.9592 | val_feature_output_loss: 0.1184 | val_loss: 0.9592
+2025-12-01 19:16:44,977 - INFO - Training epoch 9/100
+2025-12-01 19:16:45,060 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:51,119 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2128 | val_feature_output_loss: 0.1180 | val_loss: 1.2128
+2025-12-01 19:16:51,121 - INFO - Training epoch 10/100
+2025-12-01 19:16:51,175 - INFO - TQDM progress bars initialized
+2025-12-01 19:16:57,226 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.0031 | val_feature_output_loss: 0.1210 | val_loss: 1.0031
+2025-12-01 19:16:57,228 - INFO - Training epoch 11/100
+2025-12-01 19:16:57,276 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:05,772 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.0110 | val_feature_output_loss: 0.1148 | val_loss: 1.0110
+2025-12-01 19:17:05,775 - INFO - Training epoch 12/100
+2025-12-01 19:17:05,860 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:12,784 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.1243 | val_feature_output_loss: 0.1035 | val_loss: 1.1243
+2025-12-01 19:17:12,786 - INFO - Training epoch 13/100
+2025-12-01 19:17:12,845 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:21,714 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.0137 | val_feature_output_loss: 0.1128 | val_loss: 1.0137
+2025-12-01 19:17:21,718 - INFO - Training epoch 14/100
+2025-12-01 19:17:21,765 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:27,460 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2277 | val_feature_output_loss: 0.1187 | val_loss: 1.2277
+2025-12-01 19:17:27,463 - INFO - Training epoch 15/100
+2025-12-01 19:17:27,524 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:34,786 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.1847 | val_feature_output_loss: 0.1239 | val_loss: 1.1847
+2025-12-01 19:17:34,788 - INFO - Training epoch 16/100
+2025-12-01 19:17:34,833 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:41,252 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2963 | val_feature_output_loss: 0.1285 | val_loss: 1.2963
+2025-12-01 19:17:41,254 - INFO - Training epoch 17/100
+2025-12-01 19:17:41,298 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:47,305 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2499 | val_feature_output_loss: 0.1248 | val_loss: 1.2499
+2025-12-01 19:17:47,307 - INFO - Training epoch 18/100
+2025-12-01 19:17:47,361 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:53,828 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.1553 | val_feature_output_loss: 0.1196 | val_loss: 1.1553
+2025-12-01 19:17:53,831 - INFO - Training epoch 19/100
+2025-12-01 19:17:53,880 - INFO - TQDM progress bars initialized
+2025-12-01 19:17:59,847 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.2647 | val_feature_output_loss: 0.1226 | val_loss: 1.2647
+2025-12-01 19:17:59,849 - INFO - Training epoch 20/100
+2025-12-01 19:17:59,895 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:05,658 - INFO - Validation | val_accuracy: 0.646 | val_loss: 1.9255 | val_feature_output_loss: 0.1164 | val_loss: 1.9255
+2025-12-01 19:18:05,660 - INFO - Training epoch 21/100
+2025-12-01 19:18:05,728 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:11,879 - INFO - Validation | val_accuracy: 0.740 | val_loss: 0.9394 | val_feature_output_loss: 0.1056 | val_loss: 0.9394
+2025-12-01 19:18:11,881 - INFO - Training epoch 22/100
+2025-12-01 19:18:11,926 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:17,914 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.0014 | val_feature_output_loss: 0.1050 | val_loss: 1.0014
+2025-12-01 19:18:17,916 - INFO - Training epoch 23/100
+2025-12-01 19:18:17,959 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:23,892 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.0345 | val_feature_output_loss: 0.1143 | val_loss: 1.0345
+2025-12-01 19:18:23,894 - INFO - Training epoch 24/100
+2025-12-01 19:18:23,958 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:29,790 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9504 | val_feature_output_loss: 0.1116 | val_loss: 0.9504
+2025-12-01 19:18:29,794 - INFO - Training epoch 25/100
+2025-12-01 19:18:29,840 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:35,181 - INFO - Validation | val_accuracy: 0.771 | val_loss: 1.0052 | val_feature_output_loss: 0.1186 | val_loss: 1.0052
+2025-12-01 19:18:35,183 - INFO - Training epoch 26/100
+2025-12-01 19:18:35,249 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:40,747 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.4790 | val_feature_output_loss: 0.1222 | val_loss: 1.4790
+2025-12-01 19:18:40,749 - INFO - Training epoch 27/100
+2025-12-01 19:18:40,790 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:46,166 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.0676 | val_feature_output_loss: 0.1156 | val_loss: 1.0676
+2025-12-01 19:18:46,167 - INFO - Training epoch 28/100
+2025-12-01 19:18:46,216 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:51,655 - INFO - Validation | val_accuracy: 0.823 | val_loss: 1.1293 | val_feature_output_loss: 0.1256 | val_loss: 1.1293
+2025-12-01 19:18:51,658 - INFO - Training epoch 29/100
+2025-12-01 19:18:51,702 - INFO - TQDM progress bars initialized
+2025-12-01 19:18:57,068 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.0995 | val_feature_output_loss: 0.1131 | val_loss: 1.0995
+2025-12-01 19:18:57,070 - INFO - Training epoch 30/100
+2025-12-01 19:18:57,157 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:03,021 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.4311 | val_feature_output_loss: 0.1224 | val_loss: 1.4311
+2025-12-01 19:19:03,022 - INFO - Training epoch 31/100
+2025-12-01 19:19:03,063 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:08,599 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.5133 | val_feature_output_loss: 0.1212 | val_loss: 1.5133
+2025-12-01 19:19:08,601 - INFO - Training epoch 32/100
+2025-12-01 19:19:08,678 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:14,420 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.0179 | val_feature_output_loss: 0.1211 | val_loss: 1.0179
+2025-12-01 19:19:14,423 - INFO - Training epoch 33/100
+2025-12-01 19:19:14,465 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:20,733 - INFO - Validation | val_accuracy: 0.771 | val_loss: 0.9928 | val_feature_output_loss: 0.1202 | val_loss: 0.9928
+2025-12-01 19:19:20,735 - INFO - Training epoch 34/100
+2025-12-01 19:19:20,778 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:26,783 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.2446 | val_feature_output_loss: 0.1286 | val_loss: 1.2446
+2025-12-01 19:19:26,786 - INFO - Training epoch 35/100
+2025-12-01 19:19:26,833 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:32,525 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.1804 | val_feature_output_loss: 0.1144 | val_loss: 1.1804
+2025-12-01 19:19:32,527 - INFO - Training epoch 36/100
+2025-12-01 19:19:32,604 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:39,270 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.1285 | val_feature_output_loss: 0.1093 | val_loss: 1.1285
+2025-12-01 19:19:39,273 - INFO - Training epoch 37/100
+2025-12-01 19:19:39,319 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:45,824 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.1517 | val_feature_output_loss: 0.1173 | val_loss: 1.1517
+2025-12-01 19:19:45,826 - INFO - Training epoch 38/100
+2025-12-01 19:19:45,878 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:51,686 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.4469 | val_feature_output_loss: 0.1204 | val_loss: 1.4469
+2025-12-01 19:19:51,688 - INFO - Training epoch 39/100
+2025-12-01 19:19:51,732 - INFO - TQDM progress bars initialized
+2025-12-01 19:19:57,361 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.6187 | val_feature_output_loss: 0.1338 | val_loss: 1.6187
+2025-12-01 19:19:57,365 - INFO - Training epoch 40/100
+2025-12-01 19:19:57,409 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:03,012 - INFO - Validation | val_accuracy: 0.771 | val_loss: 1.1130 | val_feature_output_loss: 0.1314 | val_loss: 1.1130
+2025-12-01 19:20:03,014 - INFO - Training epoch 41/100
+2025-12-01 19:20:03,071 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:08,561 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.2722 | val_feature_output_loss: 0.1319 | val_loss: 1.2722
+2025-12-01 19:20:08,563 - INFO - Training epoch 42/100
+2025-12-01 19:20:08,631 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:14,467 - INFO - Validation | val_accuracy: 0.771 | val_loss: 1.2134 | val_feature_output_loss: 0.1345 | val_loss: 1.2134
+2025-12-01 19:20:14,468 - INFO - Training epoch 43/100
+2025-12-01 19:20:14,534 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:20,173 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.2809 | val_feature_output_loss: 0.1313 | val_loss: 1.2809
+2025-12-01 19:20:20,177 - INFO - Training epoch 44/100
+2025-12-01 19:20:20,227 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:26,500 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.2973 | val_feature_output_loss: 0.1328 | val_loss: 1.2973
+2025-12-01 19:20:26,503 - INFO - Training epoch 45/100
+2025-12-01 19:20:26,572 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:31,991 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.4852 | val_feature_output_loss: 0.1288 | val_loss: 1.4852
+2025-12-01 19:20:31,993 - INFO - Training epoch 46/100
+2025-12-01 19:20:32,054 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:37,623 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.3872 | val_feature_output_loss: 0.1200 | val_loss: 1.3872
+2025-12-01 19:20:37,625 - INFO - Training epoch 47/100
+2025-12-01 19:20:37,677 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:43,148 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.2467 | val_feature_output_loss: 0.1193 | val_loss: 1.2467
+2025-12-01 19:20:43,150 - INFO - Training epoch 48/100
+2025-12-01 19:20:43,220 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:48,922 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.4518 | val_feature_output_loss: 0.1206 | val_loss: 1.4518
+2025-12-01 19:20:48,924 - INFO - Training epoch 49/100
+2025-12-01 19:20:48,970 - INFO - TQDM progress bars initialized
+2025-12-01 19:20:54,720 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.3183 | val_feature_output_loss: 0.1286 | val_loss: 1.3183
+2025-12-01 19:20:54,722 - INFO - Training epoch 50/100
+2025-12-01 19:20:54,767 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:00,320 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2513 | val_feature_output_loss: 0.1355 | val_loss: 1.2513
+2025-12-01 19:21:00,323 - INFO - Training epoch 51/100
+2025-12-01 19:21:00,390 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:08,646 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.2381 | val_feature_output_loss: 0.1340 | val_loss: 1.2381
+2025-12-01 19:21:08,650 - INFO - Training epoch 52/100
+2025-12-01 19:21:08,712 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:15,946 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.3122 | val_feature_output_loss: 0.1347 | val_loss: 1.3122
+2025-12-01 19:21:15,949 - INFO - Training epoch 53/100
+2025-12-01 19:21:16,050 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:22,994 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.2102 | val_feature_output_loss: 0.1493 | val_loss: 1.2102
+2025-12-01 19:21:22,996 - INFO - Training epoch 54/100
+2025-12-01 19:21:23,049 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:29,708 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.3365 | val_feature_output_loss: 0.1456 | val_loss: 1.3365
+2025-12-01 19:21:29,710 - INFO - Training epoch 55/100
+2025-12-01 19:21:29,757 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:36,525 - INFO - Validation | val_accuracy: 0.771 | val_loss: 1.1853 | val_feature_output_loss: 0.1384 | val_loss: 1.1853
+2025-12-01 19:21:36,527 - INFO - Training epoch 56/100
+2025-12-01 19:21:36,574 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:42,337 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.3868 | val_feature_output_loss: 0.1371 | val_loss: 1.3868
+2025-12-01 19:21:42,340 - INFO - Training epoch 57/100
+2025-12-01 19:21:42,423 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:49,231 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.4008 | val_feature_output_loss: 0.1388 | val_loss: 1.4008
+2025-12-01 19:21:49,234 - INFO - Training epoch 58/100
+2025-12-01 19:21:49,306 - INFO - TQDM progress bars initialized
+2025-12-01 19:21:54,839 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.3535 | val_feature_output_loss: 0.1386 | val_loss: 1.3535
+2025-12-01 19:21:54,841 - INFO - Training epoch 59/100
+2025-12-01 19:21:54,881 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:01,836 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.1583 | val_feature_output_loss: 0.1330 | val_loss: 1.1583
+2025-12-01 19:22:01,840 - INFO - Training epoch 60/100
+2025-12-01 19:22:01,893 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:08,762 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.2454 | val_feature_output_loss: 0.1347 | val_loss: 1.2454
+2025-12-01 19:22:08,764 - INFO - Training epoch 61/100
+2025-12-01 19:22:08,813 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:16,210 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.3334 | val_feature_output_loss: 0.1478 | val_loss: 1.3334
+2025-12-01 19:22:16,215 - INFO - Training epoch 62/100
+2025-12-01 19:22:16,272 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:23,785 - INFO - Validation | val_accuracy: 0.802 | val_loss: 1.2600 | val_feature_output_loss: 0.1465 | val_loss: 1.2600
+2025-12-01 19:22:23,787 - INFO - Training epoch 63/100
+2025-12-01 19:22:23,839 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:30,660 - INFO - Validation | val_accuracy: 0.667 | val_loss: 1.5579 | val_feature_output_loss: 0.1564 | val_loss: 1.5579
+2025-12-01 19:22:30,662 - INFO - Training epoch 64/100
+2025-12-01 19:22:30,750 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:37,585 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.3922 | val_feature_output_loss: 0.1482 | val_loss: 1.3922
+2025-12-01 19:22:37,588 - INFO - Training epoch 65/100
+2025-12-01 19:22:37,641 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:44,598 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.4111 | val_feature_output_loss: 0.1459 | val_loss: 1.4111
+2025-12-01 19:22:44,601 - INFO - Training epoch 66/100
+2025-12-01 19:22:44,682 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:51,891 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2069 | val_feature_output_loss: 0.1354 | val_loss: 1.2069
+2025-12-01 19:22:51,893 - INFO - Training epoch 67/100
+2025-12-01 19:22:51,952 - INFO - TQDM progress bars initialized
+2025-12-01 19:22:59,135 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.2450 | val_feature_output_loss: 0.1308 | val_loss: 1.2450
+2025-12-01 19:22:59,138 - INFO - Training epoch 68/100
+2025-12-01 19:22:59,197 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:06,260 - INFO - Validation | val_accuracy: 0.708 | val_loss: 1.3485 | val_feature_output_loss: 0.1278 | val_loss: 1.3485
+2025-12-01 19:23:06,263 - INFO - Training epoch 69/100
+2025-12-01 19:23:06,328 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:13,482 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.4335 | val_feature_output_loss: 0.1371 | val_loss: 1.4335
+2025-12-01 19:23:13,485 - INFO - Training epoch 70/100
+2025-12-01 19:23:13,542 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:19,630 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.1621 | val_feature_output_loss: 0.1435 | val_loss: 1.1621
+2025-12-01 19:23:19,632 - INFO - Training epoch 71/100
+2025-12-01 19:23:19,689 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:25,102 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.3561 | val_feature_output_loss: 0.1396 | val_loss: 1.3561
+2025-12-01 19:23:25,103 - INFO - Training epoch 72/100
+2025-12-01 19:23:25,151 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:31,373 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.1058 | val_feature_output_loss: 0.1302 | val_loss: 1.1058
+2025-12-01 19:23:31,376 - INFO - Training epoch 73/100
+2025-12-01 19:23:31,422 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:36,919 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.2062 | val_feature_output_loss: 0.1288 | val_loss: 1.2062
+2025-12-01 19:23:36,920 - INFO - Training epoch 74/100
+2025-12-01 19:23:36,969 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:42,801 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.2217 | val_feature_output_loss: 0.1324 | val_loss: 1.2217
+2025-12-01 19:23:42,804 - INFO - Training epoch 75/100
+2025-12-01 19:23:42,851 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:48,443 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.2338 | val_feature_output_loss: 0.1329 | val_loss: 1.2338
+2025-12-01 19:23:48,445 - INFO - Training epoch 76/100
+2025-12-01 19:23:48,507 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:54,144 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.0969 | val_feature_output_loss: 0.1319 | val_loss: 1.0969
+2025-12-01 19:23:54,147 - INFO - Training epoch 77/100
+2025-12-01 19:23:54,197 - INFO - TQDM progress bars initialized
+2025-12-01 19:23:59,584 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.2763 | val_feature_output_loss: 0.1366 | val_loss: 1.2763
+2025-12-01 19:23:59,586 - INFO - Training epoch 78/100
+2025-12-01 19:23:59,640 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:05,328 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.4917 | val_feature_output_loss: 0.1338 | val_loss: 1.4917
+2025-12-01 19:24:05,331 - INFO - Training epoch 79/100
+2025-12-01 19:24:05,383 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:11,706 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.3260 | val_feature_output_loss: 0.1340 | val_loss: 1.3260
+2025-12-01 19:24:11,710 - INFO - Training epoch 80/100
+2025-12-01 19:24:11,763 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:17,183 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.3892 | val_feature_output_loss: 0.1369 | val_loss: 1.3892
+2025-12-01 19:24:17,185 - INFO - Training epoch 81/100
+2025-12-01 19:24:17,240 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:23,127 - INFO - Validation | val_accuracy: 0.698 | val_loss: 1.4972 | val_feature_output_loss: 0.1339 | val_loss: 1.4972
+2025-12-01 19:24:23,129 - INFO - Training epoch 82/100
+2025-12-01 19:24:23,183 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:28,452 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.3089 | val_feature_output_loss: 0.1304 | val_loss: 1.3089
+2025-12-01 19:24:28,454 - INFO - Training epoch 83/100
+2025-12-01 19:24:28,510 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:34,415 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.3145 | val_feature_output_loss: 0.1359 | val_loss: 1.3145
+2025-12-01 19:24:34,418 - INFO - Training epoch 84/100
+2025-12-01 19:24:34,461 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:41,334 - INFO - Validation | val_accuracy: 0.792 | val_loss: 1.1731 | val_feature_output_loss: 0.1349 | val_loss: 1.1731
+2025-12-01 19:24:41,336 - INFO - Training epoch 85/100
+2025-12-01 19:24:41,392 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:46,794 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.3621 | val_feature_output_loss: 0.1379 | val_loss: 1.3621
+2025-12-01 19:24:46,796 - INFO - Training epoch 86/100
+2025-12-01 19:24:46,852 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:52,862 - INFO - Validation | val_accuracy: 0.771 | val_loss: 1.2652 | val_feature_output_loss: 0.1374 | val_loss: 1.2652
+2025-12-01 19:24:52,864 - INFO - Training epoch 87/100
+2025-12-01 19:24:52,938 - INFO - TQDM progress bars initialized
+2025-12-01 19:24:59,452 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.5283 | val_feature_output_loss: 0.1419 | val_loss: 1.5283
+2025-12-01 19:24:59,454 - INFO - Training epoch 88/100
+2025-12-01 19:24:59,503 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:05,131 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.7153 | val_feature_output_loss: 0.1483 | val_loss: 1.7153
+2025-12-01 19:25:05,133 - INFO - Training epoch 89/100
+2025-12-01 19:25:05,178 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:11,683 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.4012 | val_feature_output_loss: 0.1470 | val_loss: 1.4012
+2025-12-01 19:25:11,686 - INFO - Training epoch 90/100
+2025-12-01 19:25:11,742 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:17,527 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.0670 | val_feature_output_loss: 0.1559 | val_loss: 1.0670
+2025-12-01 19:25:17,529 - INFO - Training epoch 91/100
+2025-12-01 19:25:17,585 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:23,582 - INFO - Validation | val_accuracy: 0.729 | val_loss: 1.5776 | val_feature_output_loss: 0.1570 | val_loss: 1.5776
+2025-12-01 19:25:23,584 - INFO - Training epoch 92/100
+2025-12-01 19:25:23,647 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:29,849 - INFO - Validation | val_accuracy: 0.677 | val_loss: 2.3493 | val_feature_output_loss: 0.1651 | val_loss: 2.3493
+2025-12-01 19:25:29,851 - INFO - Training epoch 93/100
+2025-12-01 19:25:29,899 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:36,372 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.3129 | val_feature_output_loss: 0.1725 | val_loss: 1.3129
+2025-12-01 19:25:36,375 - INFO - Training epoch 94/100
+2025-12-01 19:25:36,426 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:42,256 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.4146 | val_feature_output_loss: 0.1716 | val_loss: 1.4146
+2025-12-01 19:25:42,258 - INFO - Training epoch 95/100
+2025-12-01 19:25:42,308 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:47,849 - INFO - Validation | val_accuracy: 0.677 | val_loss: 1.7645 | val_feature_output_loss: 0.1647 | val_loss: 1.7645
+2025-12-01 19:25:47,851 - INFO - Training epoch 96/100
+2025-12-01 19:25:47,894 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:53,859 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.5661 | val_feature_output_loss: 0.1622 | val_loss: 1.5661
+2025-12-01 19:25:53,862 - INFO - Training epoch 97/100
+2025-12-01 19:25:53,918 - INFO - TQDM progress bars initialized
+2025-12-01 19:25:59,675 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.5659 | val_feature_output_loss: 0.1673 | val_loss: 1.5659
+2025-12-01 19:25:59,677 - INFO - Training epoch 98/100
+2025-12-01 19:25:59,724 - INFO - TQDM progress bars initialized
+2025-12-01 19:26:05,311 - INFO - Validation | val_accuracy: 0.740 | val_loss: 1.3630 | val_feature_output_loss: 0.1637 | val_loss: 1.3630
+2025-12-01 19:26:05,312 - INFO - Training epoch 99/100
+2025-12-01 19:26:05,368 - INFO - TQDM progress bars initialized
+2025-12-01 19:26:11,787 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.4947 | val_feature_output_loss: 0.1605 | val_loss: 1.4947
+2025-12-01 19:26:11,790 - INFO - Training epoch 100/100
+2025-12-01 19:26:11,850 - INFO - TQDM progress bars initialized
+2025-12-01 19:26:18,789 - INFO - Validation | val_accuracy: 0.760 | val_loss: 1.2852 | val_feature_output_loss: 0.1640 | val_loss: 1.2852
+2025-12-01 19:26:18,792 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 19:26:19,021 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 19:26:19,021 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 19:26:19,025 - INFO - Training summary saved to models/efficientnet/training_summary.json
+2025-12-01 19:26:19,025 - INFO - Testing feature extraction...
+2025-12-01 19:26:19,034 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 19:26:19,808 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 19:26:19,808 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 19:26:19,808 - INFO - Sample features (first 5): [0.       0.       0.       0.       1.391467]
+2025-12-01 19:26:19,808 - INFO - Training completed successfully!
+2025-12-01 19:26:19,808 - INFO - Model saved in: models/efficientnet
+2025-12-01 19:26:19,809 - INFO - Training logs saved in: training.log
+2025-12-01 23:20:33,592 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 23:20:33,593 - INFO - Logging setup with level INFO
+2025-12-01 23:20:33,593 - INFO - Application initialized
+2025-12-01 23:20:33,593 - INFO - Database: dl-postgres:5432
+2025-12-01 23:20:33,593 - INFO - Vector dimension: 1536
+2025-12-01 23:20:33,593 - INFO - Upload directory: /tmp/uploads
+2025-12-01 23:20:33,593 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 23:20:33,593 - INFO - Starting manual CNN training
+2025-12-01 23:20:33,593 - INFO - Architecture: vgg16
+2025-12-01 23:20:33,593 - INFO - Dataset: ./files/train_dataset
+2025-12-01 23:20:33,593 - INFO - Epochs: 20
+2025-12-01 23:20:33,593 - INFO - Batch size: 32
+2025-12-01 23:20:33,593 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:20:33,598 - INFO - Total images: 1531
+2025-12-01 23:20:33,598 - INFO -   Abrasions: 82 images
+2025-12-01 23:20:33,598 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 23:20:33,598 - INFO -   Surgical Wounds: 210 images
+2025-12-01 23:20:33,598 - INFO -   Bruises: 121 images
+2025-12-01 23:20:33,598 - INFO -   Cut: 50 images
+2025-12-01 23:20:33,598 - INFO -   Venous Wounds: 247 images
+2025-12-01 23:20:33,598 - INFO -   Normal: 100 images
+2025-12-01 23:20:33,598 - INFO -   Pressure Wounds: 301 images
+2025-12-01 23:20:33,598 - INFO -   Laseration: 122 images
+2025-12-01 23:20:33,598 - INFO -   Burns: 67 images
+2025-12-01 23:20:33,598 - INFO - Created output directory: models/vgg16
+2025-12-01 23:20:33,598 - INFO - Building CNN model...
+2025-12-01 23:20:33,599 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 23:20:33,802 - INFO - Built vgg16 model with features: Base -> 1536 -> 10 classes
+2025-12-01 23:20:33,802 - INFO - Creating data generators...
+2025-12-01 23:20:33,802 - INFO - No data augmentation enabled
+2025-12-01 23:20:33,821 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 23:20:33,821 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:20:33,831 - INFO - Training samples: 1029
+2025-12-01 23:20:33,831 - INFO - Validation samples: 113
+2025-12-01 23:20:33,831 - INFO - Starting training...
+2025-12-01 23:20:33,831 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 23:20:33,831 - INFO - TQDM progress bar callback added
+2025-12-01 23:20:33,831 - INFO - Total callbacks configured: 2
+2025-12-01 23:20:33,831 - INFO - Training epoch 1/20
+2025-12-01 23:20:33,918 - INFO - TQDM progress bars initialized
+2025-12-01 23:21:30,157 - INFO - Validation | val_accuracy: 0.292 | val_loss: 1.8486 | val_feature_output_loss: 0.0615 | val_loss: 1.8486
+2025-12-01 23:21:30,232 - INFO - Training epoch 2/20
+2025-12-01 23:21:30,310 - INFO - TQDM progress bars initialized
+2025-12-01 23:22:27,046 - INFO - Validation | val_accuracy: 0.458 | val_loss: 1.6310 | val_feature_output_loss: 0.0657 | val_loss: 1.6310
+2025-12-01 23:22:27,105 - INFO - Training epoch 3/20
+2025-12-01 23:22:27,173 - INFO - TQDM progress bars initialized
+2025-12-01 23:23:21,256 - INFO - Validation | val_accuracy: 0.510 | val_loss: 1.5377 | val_feature_output_loss: 0.0633 | val_loss: 1.5377
+2025-12-01 23:23:21,309 - INFO - Training epoch 4/20
+2025-12-01 23:23:21,381 - INFO - TQDM progress bars initialized
+2025-12-01 23:24:15,893 - INFO - Validation | val_accuracy: 0.490 | val_loss: 1.4289 | val_feature_output_loss: 0.0678 | val_loss: 1.4289
+2025-12-01 23:24:15,957 - INFO - Training epoch 5/20
+2025-12-01 23:24:16,045 - INFO - TQDM progress bars initialized
+2025-12-01 23:25:10,029 - INFO - Validation | val_accuracy: 0.531 | val_loss: 1.3194 | val_feature_output_loss: 0.0720 | val_loss: 1.3194
+2025-12-01 23:25:10,082 - INFO - Training epoch 6/20
+2025-12-01 23:25:10,129 - INFO - TQDM progress bars initialized
+2025-12-01 23:26:05,037 - INFO - Validation | val_accuracy: 0.490 | val_loss: 1.3457 | val_feature_output_loss: 0.0733 | val_loss: 1.3457
+2025-12-01 23:26:05,039 - INFO - Training epoch 7/20
+2025-12-01 23:26:05,103 - INFO - TQDM progress bars initialized
+2025-12-01 23:26:59,085 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.1668 | val_feature_output_loss: 0.0687 | val_loss: 1.1668
+2025-12-01 23:26:59,141 - INFO - Training epoch 8/20
+2025-12-01 23:26:59,219 - INFO - TQDM progress bars initialized
+2025-12-01 23:27:53,407 - INFO - Validation | val_accuracy: 0.500 | val_loss: 1.2163 | val_feature_output_loss: 0.0697 | val_loss: 1.2163
+2025-12-01 23:27:53,408 - INFO - Training epoch 9/20
+2025-12-01 23:27:53,499 - INFO - TQDM progress bars initialized
+2025-12-01 23:28:47,804 - INFO - Validation | val_accuracy: 0.604 | val_loss: 1.0966 | val_feature_output_loss: 0.0663 | val_loss: 1.0966
+2025-12-01 23:28:47,864 - INFO - Training epoch 10/20
+2025-12-01 23:28:47,946 - INFO - TQDM progress bars initialized
+2025-12-01 23:29:42,259 - INFO - Validation | val_accuracy: 0.531 | val_loss: 1.1601 | val_feature_output_loss: 0.0685 | val_loss: 1.1601
+2025-12-01 23:29:42,261 - INFO - Training epoch 11/20
+2025-12-01 23:29:42,320 - INFO - TQDM progress bars initialized
+2025-12-01 23:30:36,763 - INFO - Validation | val_accuracy: 0.635 | val_loss: 1.0333 | val_feature_output_loss: 0.0727 | val_loss: 1.0333
+2025-12-01 23:30:36,822 - INFO - Training epoch 12/20
+2025-12-01 23:30:36,929 - INFO - TQDM progress bars initialized
+2025-12-01 23:31:31,458 - INFO - Validation | val_accuracy: 0.594 | val_loss: 1.0962 | val_feature_output_loss: 0.0720 | val_loss: 1.0962
+2025-12-01 23:31:31,461 - INFO - Training epoch 13/20
+2025-12-01 23:31:31,532 - INFO - TQDM progress bars initialized
+2025-12-01 23:32:25,528 - INFO - Validation | val_accuracy: 0.562 | val_loss: 1.1306 | val_feature_output_loss: 0.0678 | val_loss: 1.1306
+2025-12-01 23:32:25,531 - INFO - Training epoch 14/20
+2025-12-01 23:32:25,585 - INFO - TQDM progress bars initialized
+2025-12-01 23:33:19,861 - INFO - Validation | val_accuracy: 0.583 | val_loss: 1.1626 | val_feature_output_loss: 0.0664 | val_loss: 1.1626
+2025-12-01 23:33:19,863 - INFO - Training epoch 15/20
+2025-12-01 23:33:19,939 - INFO - TQDM progress bars initialized
+2025-12-01 23:34:14,417 - INFO - Validation | val_accuracy: 0.646 | val_loss: 1.0259 | val_feature_output_loss: 0.0651 | val_loss: 1.0259
+2025-12-01 23:34:14,472 - INFO - Training epoch 16/20
+2025-12-01 23:34:14,525 - INFO - TQDM progress bars initialized
+2025-12-01 23:35:08,907 - INFO - Validation | val_accuracy: 0.615 | val_loss: 1.0971 | val_feature_output_loss: 0.0652 | val_loss: 1.0971
+2025-12-01 23:35:08,909 - INFO - Training epoch 17/20
+2025-12-01 23:35:08,955 - INFO - TQDM progress bars initialized
+2025-12-01 23:36:03,523 - INFO - Validation | val_accuracy: 0.667 | val_loss: 0.9853 | val_feature_output_loss: 0.0648 | val_loss: 0.9853
+2025-12-01 23:36:03,580 - INFO - Training epoch 18/20
+2025-12-01 23:36:03,649 - INFO - TQDM progress bars initialized
+2025-12-01 23:36:57,499 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.0365 | val_feature_output_loss: 0.0657 | val_loss: 1.0365
+2025-12-01 23:36:57,502 - INFO - Training epoch 19/20
+2025-12-01 23:36:57,559 - INFO - TQDM progress bars initialized
+2025-12-01 23:37:51,458 - INFO - Validation | val_accuracy: 0.667 | val_loss: 0.9706 | val_feature_output_loss: 0.0626 | val_loss: 0.9706
+2025-12-01 23:37:51,515 - INFO - Training epoch 20/20
+2025-12-01 23:37:51,582 - INFO - TQDM progress bars initialized
+2025-12-01 23:38:45,898 - INFO - Validation | val_accuracy: 0.646 | val_loss: 0.9613 | val_feature_output_loss: 0.0634 | val_loss: 0.9613
+2025-12-01 23:38:45,953 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 23:38:45,953 - INFO - Evaluating model on test set...
+2025-12-01 23:38:46,210 - INFO - Evaluating model on test set...
+2025-12-01 23:38:52,412 - INFO - Evaluation results saved to models/vgg16
+2025-12-01 23:38:52,475 - INFO - Model saved to models/vgg16/wound_classifier.pkl
+2025-12-01 23:38:52,475 - INFO - Model saved to models/vgg16/wound_classifier.pkl
+2025-12-01 23:38:52,480 - INFO - Training summary saved to models/vgg16/training_summary.json
+2025-12-01 23:38:52,480 - INFO - Testing feature extraction...
+2025-12-01 23:38:52,483 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 23:38:52,637 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 23:38:52,637 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 23:38:52,637 - INFO - Sample features (first 5): [0.4092889  0.28523457 0.         0.07122279 0.        ]
+2025-12-01 23:38:52,637 - INFO - Training completed successfully!
+2025-12-01 23:38:52,637 - INFO - Model saved in: models/vgg16
+2025-12-01 23:38:52,637 - INFO - Training logs saved in: training.log
+2025-12-01 23:42:14,018 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 23:42:14,018 - INFO - Logging setup with level INFO
+2025-12-01 23:42:14,018 - INFO - Application initialized
+2025-12-01 23:42:14,018 - INFO - Database: dl-postgres:5432
+2025-12-01 23:42:14,018 - INFO - Vector dimension: 1536
+2025-12-01 23:42:14,018 - INFO - Upload directory: /tmp/uploads
+2025-12-01 23:42:14,018 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 23:42:14,018 - INFO - Starting manual CNN training
+2025-12-01 23:42:14,019 - INFO - Architecture: efficientnet
+2025-12-01 23:42:14,019 - INFO - Dataset: ./files/train_dataset
+2025-12-01 23:42:14,019 - INFO - Epochs: 20
+2025-12-01 23:42:14,019 - INFO - Batch size: 64
+2025-12-01 23:42:14,019 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:42:14,024 - INFO - Total images: 1531
+2025-12-01 23:42:14,024 - INFO -   Abrasions: 82 images
+2025-12-01 23:42:14,024 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 23:42:14,024 - INFO -   Surgical Wounds: 210 images
+2025-12-01 23:42:14,024 - INFO -   Bruises: 121 images
+2025-12-01 23:42:14,024 - INFO -   Cut: 50 images
+2025-12-01 23:42:14,024 - INFO -   Venous Wounds: 247 images
+2025-12-01 23:42:14,024 - INFO -   Normal: 100 images
+2025-12-01 23:42:14,024 - INFO -   Pressure Wounds: 301 images
+2025-12-01 23:42:14,024 - INFO -   Laseration: 122 images
+2025-12-01 23:42:14,024 - INFO -   Burns: 67 images
+2025-12-01 23:42:14,024 - INFO - Created output directory: models/efficientnet
+2025-12-01 23:42:14,024 - INFO - Building CNN model...
+2025-12-01 23:42:14,026 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 23:42:14,448 - INFO - Built efficientnet model with features: Base -> 1536 -> 10 classes
+2025-12-01 23:42:14,448 - INFO - Creating data generators...
+2025-12-01 23:42:14,448 - INFO - No data augmentation enabled
+2025-12-01 23:42:14,465 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 23:42:14,465 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:42:14,472 - INFO - Training samples: 1029
+2025-12-01 23:42:14,472 - INFO - Validation samples: 113
+2025-12-01 23:42:14,472 - INFO - Starting training...
+2025-12-01 23:42:14,472 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 23:42:14,472 - INFO - TQDM progress bar callback added
+2025-12-01 23:42:14,472 - INFO - Total callbacks configured: 2
+2025-12-01 23:42:14,472 - INFO - Training epoch 1/20
+2025-12-01 23:42:14,594 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:24,631 - INFO - Validation | val_accuracy: 0.609 | val_loss: 1.1157 | val_feature_output_loss: 0.1485 | val_loss: 1.1157
+2025-12-01 23:42:24,843 - INFO - Training epoch 2/20
+2025-12-01 23:42:24,951 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:29,660 - INFO - Validation | val_accuracy: 0.672 | val_loss: 0.8131 | val_feature_output_loss: 0.1824 | val_loss: 0.8131
+2025-12-01 23:42:29,851 - INFO - Training epoch 3/20
+2025-12-01 23:42:29,945 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:34,678 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6244 | val_feature_output_loss: 0.1997 | val_loss: 0.6244
+2025-12-01 23:42:34,869 - INFO - Training epoch 4/20
+2025-12-01 23:42:34,976 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:39,871 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.6035 | val_feature_output_loss: 0.2058 | val_loss: 0.6035
+2025-12-01 23:42:40,071 - INFO - Training epoch 5/20
+2025-12-01 23:42:40,173 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:44,999 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7152 | val_feature_output_loss: 0.2170 | val_loss: 0.7152
+2025-12-01 23:42:45,001 - INFO - Training epoch 6/20
+2025-12-01 23:42:45,084 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:49,823 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7536 | val_feature_output_loss: 0.2281 | val_loss: 0.7536
+2025-12-01 23:42:49,825 - INFO - Training epoch 7/20
+2025-12-01 23:42:49,912 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:54,717 - INFO - Validation | val_accuracy: 0.672 | val_loss: 0.8694 | val_feature_output_loss: 0.2305 | val_loss: 0.8694
+2025-12-01 23:42:54,719 - INFO - Training epoch 8/20
+2025-12-01 23:42:54,821 - INFO - TQDM progress bars initialized
+2025-12-01 23:42:59,535 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.7226 | val_feature_output_loss: 0.2314 | val_loss: 0.7226
+2025-12-01 23:42:59,538 - INFO - Training epoch 9/20
+2025-12-01 23:42:59,647 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:04,521 - INFO - Validation | val_accuracy: 0.812 | val_loss: 0.6507 | val_feature_output_loss: 0.2377 | val_loss: 0.6507
+2025-12-01 23:43:04,522 - INFO - Training epoch 10/20
+2025-12-01 23:43:04,612 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:09,401 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6979 | val_feature_output_loss: 0.2457 | val_loss: 0.6979
+2025-12-01 23:43:09,403 - INFO - Training epoch 11/20
+2025-12-01 23:43:09,486 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:14,322 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6997 | val_feature_output_loss: 0.2542 | val_loss: 0.6997
+2025-12-01 23:43:14,324 - INFO - Training epoch 12/20
+2025-12-01 23:43:14,441 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:19,191 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.6299 | val_feature_output_loss: 0.2626 | val_loss: 0.6299
+2025-12-01 23:43:19,193 - INFO - Training epoch 13/20
+2025-12-01 23:43:19,296 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:24,071 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7429 | val_feature_output_loss: 0.2634 | val_loss: 0.7429
+2025-12-01 23:43:24,073 - INFO - Training epoch 14/20
+2025-12-01 23:43:24,155 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:28,924 - INFO - Validation | val_accuracy: 0.812 | val_loss: 0.6208 | val_feature_output_loss: 0.2693 | val_loss: 0.6208
+2025-12-01 23:43:28,926 - INFO - Training epoch 15/20
+2025-12-01 23:43:29,033 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:33,841 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.6547 | val_feature_output_loss: 0.2728 | val_loss: 0.6547
+2025-12-01 23:43:33,843 - INFO - Training epoch 16/20
+2025-12-01 23:43:33,923 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:38,693 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6790 | val_feature_output_loss: 0.2796 | val_loss: 0.6790
+2025-12-01 23:43:38,697 - INFO - Training epoch 17/20
+2025-12-01 23:43:38,779 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:43,594 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.6785 | val_feature_output_loss: 0.2805 | val_loss: 0.6785
+2025-12-01 23:43:43,596 - INFO - Training epoch 18/20
+2025-12-01 23:43:43,679 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:48,453 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6474 | val_feature_output_loss: 0.2848 | val_loss: 0.6474
+2025-12-01 23:43:48,455 - INFO - Training epoch 19/20
+2025-12-01 23:43:48,544 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:53,382 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7153 | val_feature_output_loss: 0.2877 | val_loss: 0.7153
+2025-12-01 23:43:53,384 - INFO - Training epoch 20/20
+2025-12-01 23:43:53,487 - INFO - TQDM progress bars initialized
+2025-12-01 23:43:58,294 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.7199 | val_feature_output_loss: 0.2932 | val_loss: 0.7199
+2025-12-01 23:43:58,297 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 23:43:58,297 - INFO - Evaluating model on test set...
+2025-12-01 23:43:58,472 - INFO - Evaluating model on test set...
+2025-12-01 23:44:01,036 - INFO - Evaluation results saved to models/efficientnet
+2025-12-01 23:44:01,227 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 23:44:01,227 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 23:44:01,232 - INFO - Training summary saved to models/efficientnet/training_summary.json
+2025-12-01 23:44:01,232 - INFO - Testing feature extraction...
+2025-12-01 23:44:01,234 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 23:44:01,935 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 23:44:01,935 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 23:44:01,936 - INFO - Sample features (first 5): [0.5166521 0.        0.        0.        0.       ]
+2025-12-01 23:44:01,936 - INFO - Training completed successfully!
+2025-12-01 23:44:01,936 - INFO - Model saved in: models/efficientnet
+2025-12-01 23:44:01,936 - INFO - Training logs saved in: training.log
+2025-12-01 23:45:00,802 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 23:45:00,802 - INFO - Logging setup with level INFO
+2025-12-01 23:45:00,802 - INFO - Application initialized
+2025-12-01 23:45:00,802 - INFO - Database: dl-postgres:5432
+2025-12-01 23:45:00,802 - INFO - Vector dimension: 1536
+2025-12-01 23:45:00,802 - INFO - Upload directory: /tmp/uploads
+2025-12-01 23:45:00,802 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 23:45:00,802 - INFO - Starting manual CNN training
+2025-12-01 23:45:00,802 - INFO - Architecture: efficientnet
+2025-12-01 23:45:00,802 - INFO - Dataset: ./files/train_dataset
+2025-12-01 23:45:00,802 - INFO - Epochs: 100
+2025-12-01 23:45:00,802 - INFO - Batch size: 64
+2025-12-01 23:45:00,803 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:45:00,812 - INFO - Total images: 1531
+2025-12-01 23:45:00,812 - INFO -   Abrasions: 82 images
+2025-12-01 23:45:00,812 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 23:45:00,812 - INFO -   Surgical Wounds: 210 images
+2025-12-01 23:45:00,812 - INFO -   Bruises: 121 images
+2025-12-01 23:45:00,812 - INFO -   Cut: 50 images
+2025-12-01 23:45:00,812 - INFO -   Venous Wounds: 247 images
+2025-12-01 23:45:00,812 - INFO -   Normal: 100 images
+2025-12-01 23:45:00,812 - INFO -   Pressure Wounds: 301 images
+2025-12-01 23:45:00,812 - INFO -   Laseration: 122 images
+2025-12-01 23:45:00,812 - INFO -   Burns: 67 images
+2025-12-01 23:45:00,812 - INFO - Created output directory: models/efficientnet
+2025-12-01 23:45:00,812 - INFO - Building CNN model...
+2025-12-01 23:45:00,813 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 23:45:01,246 - INFO - Built efficientnet model with features: Base -> 1536 -> 10 classes
+2025-12-01 23:45:01,246 - INFO - Creating data generators...
+2025-12-01 23:45:01,246 - INFO - No data augmentation enabled
+2025-12-01 23:45:01,262 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 23:45:01,262 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:45:01,270 - INFO - Training samples: 1029
+2025-12-01 23:45:01,270 - INFO - Validation samples: 113
+2025-12-01 23:45:01,270 - INFO - Starting training...
+2025-12-01 23:45:01,270 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 23:45:01,270 - INFO - TQDM progress bar callback added
+2025-12-01 23:45:01,270 - INFO - Total callbacks configured: 2
+2025-12-01 23:45:01,270 - INFO - Training epoch 1/100
+2025-12-01 23:45:01,373 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:11,133 - INFO - Validation | val_accuracy: 0.609 | val_loss: 1.0147 | val_feature_output_loss: 0.1408 | val_loss: 1.0147
+2025-12-01 23:45:11,336 - INFO - Training epoch 2/100
+2025-12-01 23:45:11,443 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:16,132 - INFO - Validation | val_accuracy: 0.656 | val_loss: 0.8534 | val_feature_output_loss: 0.1751 | val_loss: 0.8534
+2025-12-01 23:45:16,312 - INFO - Training epoch 3/100
+2025-12-01 23:45:16,412 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:21,125 - INFO - Validation | val_accuracy: 0.703 | val_loss: 0.7088 | val_feature_output_loss: 0.1944 | val_loss: 0.7088
+2025-12-01 23:45:21,321 - INFO - Training epoch 4/100
+2025-12-01 23:45:21,427 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:26,127 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6355 | val_feature_output_loss: 0.2024 | val_loss: 0.6355
+2025-12-01 23:45:26,312 - INFO - Training epoch 5/100
+2025-12-01 23:45:26,411 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:31,148 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.6727 | val_feature_output_loss: 0.2170 | val_loss: 0.6727
+2025-12-01 23:45:31,149 - INFO - Training epoch 6/100
+2025-12-01 23:45:31,233 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:35,948 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.6895 | val_feature_output_loss: 0.2266 | val_loss: 0.6895
+2025-12-01 23:45:35,950 - INFO - Training epoch 7/100
+2025-12-01 23:45:36,038 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:40,779 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.7765 | val_feature_output_loss: 0.2340 | val_loss: 0.7765
+2025-12-01 23:45:40,780 - INFO - Training epoch 8/100
+2025-12-01 23:45:40,883 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:45,583 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6251 | val_feature_output_loss: 0.2392 | val_loss: 0.6251
+2025-12-01 23:45:45,769 - INFO - Training epoch 9/100
+2025-12-01 23:45:45,880 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:50,678 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7378 | val_feature_output_loss: 0.2418 | val_loss: 0.7378
+2025-12-01 23:45:50,680 - INFO - Training epoch 10/100
+2025-12-01 23:45:50,771 - INFO - TQDM progress bars initialized
+2025-12-01 23:45:55,872 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.7160 | val_feature_output_loss: 0.2459 | val_loss: 0.7160
+2025-12-01 23:45:55,874 - INFO - Training epoch 11/100
+2025-12-01 23:45:55,956 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:00,820 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.7470 | val_feature_output_loss: 0.2501 | val_loss: 0.7470
+2025-12-01 23:46:00,822 - INFO - Training epoch 12/100
+2025-12-01 23:46:00,937 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:05,695 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7846 | val_feature_output_loss: 0.2536 | val_loss: 0.7846
+2025-12-01 23:46:05,698 - INFO - Training epoch 13/100
+2025-12-01 23:46:05,796 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:10,687 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7070 | val_feature_output_loss: 0.2577 | val_loss: 0.7070
+2025-12-01 23:46:10,689 - INFO - Training epoch 14/100
+2025-12-01 23:46:10,770 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:15,498 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7223 | val_feature_output_loss: 0.2624 | val_loss: 0.7223
+2025-12-01 23:46:15,501 - INFO - Training epoch 15/100
+2025-12-01 23:46:15,606 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:20,399 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7575 | val_feature_output_loss: 0.2644 | val_loss: 0.7575
+2025-12-01 23:46:20,401 - INFO - Training epoch 16/100
+2025-12-01 23:46:20,481 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:25,200 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.6421 | val_feature_output_loss: 0.2678 | val_loss: 0.6421
+2025-12-01 23:46:25,203 - INFO - Training epoch 17/100
+2025-12-01 23:46:25,283 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:30,189 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6891 | val_feature_output_loss: 0.2707 | val_loss: 0.6891
+2025-12-01 23:46:30,191 - INFO - Training epoch 18/100
+2025-12-01 23:46:30,276 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:35,075 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.7899 | val_feature_output_loss: 0.2736 | val_loss: 0.7899
+2025-12-01 23:46:35,077 - INFO - Training epoch 19/100
+2025-12-01 23:46:35,162 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:40,100 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7736 | val_feature_output_loss: 0.2770 | val_loss: 0.7736
+2025-12-01 23:46:40,102 - INFO - Training epoch 20/100
+2025-12-01 23:46:40,189 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:44,959 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7859 | val_feature_output_loss: 0.2801 | val_loss: 0.7859
+2025-12-01 23:46:44,962 - INFO - Training epoch 21/100
+2025-12-01 23:46:45,064 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:49,938 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7909 | val_feature_output_loss: 0.2833 | val_loss: 0.7909
+2025-12-01 23:46:49,940 - INFO - Training epoch 22/100
+2025-12-01 23:46:50,018 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:54,713 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.6616 | val_feature_output_loss: 0.2870 | val_loss: 0.6616
+2025-12-01 23:46:54,715 - INFO - Training epoch 23/100
+2025-12-01 23:46:54,797 - INFO - TQDM progress bars initialized
+2025-12-01 23:46:59,690 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6842 | val_feature_output_loss: 0.2892 | val_loss: 0.6842
+2025-12-01 23:46:59,692 - INFO - Training epoch 24/100
+2025-12-01 23:46:59,801 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:04,495 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7353 | val_feature_output_loss: 0.2875 | val_loss: 0.7353
+2025-12-01 23:47:04,498 - INFO - Training epoch 25/100
+2025-12-01 23:47:04,609 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:09,462 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7556 | val_feature_output_loss: 0.2903 | val_loss: 0.7556
+2025-12-01 23:47:09,464 - INFO - Training epoch 26/100
+2025-12-01 23:47:09,582 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:14,291 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7297 | val_feature_output_loss: 0.2931 | val_loss: 0.7297
+2025-12-01 23:47:14,294 - INFO - Training epoch 27/100
+2025-12-01 23:47:14,380 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:19,218 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9815 | val_feature_output_loss: 0.2936 | val_loss: 0.9815
+2025-12-01 23:47:19,220 - INFO - Training epoch 28/100
+2025-12-01 23:47:19,339 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:24,046 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9227 | val_feature_output_loss: 0.2929 | val_loss: 0.9227
+2025-12-01 23:47:24,049 - INFO - Training epoch 29/100
+2025-12-01 23:47:24,127 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:28,915 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.8319 | val_feature_output_loss: 0.2998 | val_loss: 0.8319
+2025-12-01 23:47:28,917 - INFO - Training epoch 30/100
+2025-12-01 23:47:29,044 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:33,775 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.8614 | val_feature_output_loss: 0.2944 | val_loss: 0.8614
+2025-12-01 23:47:33,777 - INFO - Training epoch 31/100
+2025-12-01 23:47:33,857 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:38,601 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7318 | val_feature_output_loss: 0.2992 | val_loss: 0.7318
+2025-12-01 23:47:38,603 - INFO - Training epoch 32/100
+2025-12-01 23:47:38,716 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:43,438 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.8292 | val_feature_output_loss: 0.3028 | val_loss: 0.8292
+2025-12-01 23:47:43,440 - INFO - Training epoch 33/100
+2025-12-01 23:47:43,530 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:48,336 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7822 | val_feature_output_loss: 0.3019 | val_loss: 0.7822
+2025-12-01 23:47:48,338 - INFO - Training epoch 34/100
+2025-12-01 23:47:48,440 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:53,167 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9993 | val_feature_output_loss: 0.3013 | val_loss: 0.9993
+2025-12-01 23:47:53,168 - INFO - Training epoch 35/100
+2025-12-01 23:47:53,250 - INFO - TQDM progress bars initialized
+2025-12-01 23:47:58,114 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.8097 | val_feature_output_loss: 0.3100 | val_loss: 0.8097
+2025-12-01 23:47:58,116 - INFO - Training epoch 36/100
+2025-12-01 23:47:58,232 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:02,956 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.9974 | val_feature_output_loss: 0.3133 | val_loss: 0.9974
+2025-12-01 23:48:02,958 - INFO - Training epoch 37/100
+2025-12-01 23:48:03,040 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:07,896 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.7967 | val_feature_output_loss: 0.3109 | val_loss: 0.7967
+2025-12-01 23:48:07,898 - INFO - Training epoch 38/100
+2025-12-01 23:48:07,986 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:12,694 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.9423 | val_feature_output_loss: 0.3130 | val_loss: 0.9423
+2025-12-01 23:48:12,696 - INFO - Training epoch 39/100
+2025-12-01 23:48:12,780 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:17,570 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7326 | val_feature_output_loss: 0.3151 | val_loss: 0.7326
+2025-12-01 23:48:17,572 - INFO - Training epoch 40/100
+2025-12-01 23:48:17,651 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:22,391 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9010 | val_feature_output_loss: 0.3149 | val_loss: 0.9010
+2025-12-01 23:48:22,394 - INFO - Training epoch 41/100
+2025-12-01 23:48:22,506 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:27,241 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.8449 | val_feature_output_loss: 0.3188 | val_loss: 0.8449
+2025-12-01 23:48:27,243 - INFO - Training epoch 42/100
+2025-12-01 23:48:27,350 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:32,090 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.9338 | val_feature_output_loss: 0.3213 | val_loss: 0.9338
+2025-12-01 23:48:32,092 - INFO - Training epoch 43/100
+2025-12-01 23:48:32,196 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:36,912 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7386 | val_feature_output_loss: 0.3247 | val_loss: 0.7386
+2025-12-01 23:48:36,916 - INFO - Training epoch 44/100
+2025-12-01 23:48:37,027 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:41,905 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.9005 | val_feature_output_loss: 0.3313 | val_loss: 0.9005
+2025-12-01 23:48:41,906 - INFO - Training epoch 45/100
+2025-12-01 23:48:42,013 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:46,747 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.8218 | val_feature_output_loss: 0.3311 | val_loss: 0.8218
+2025-12-01 23:48:46,750 - INFO - Training epoch 46/100
+2025-12-01 23:48:46,851 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:51,564 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.8758 | val_feature_output_loss: 0.3391 | val_loss: 0.8758
+2025-12-01 23:48:51,566 - INFO - Training epoch 47/100
+2025-12-01 23:48:51,666 - INFO - TQDM progress bars initialized
+2025-12-01 23:48:56,356 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7516 | val_feature_output_loss: 0.3402 | val_loss: 0.7516
+2025-12-01 23:48:56,359 - INFO - Training epoch 48/100
+2025-12-01 23:48:56,483 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:01,306 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.8443 | val_feature_output_loss: 0.3393 | val_loss: 0.8443
+2025-12-01 23:49:01,308 - INFO - Training epoch 49/100
+2025-12-01 23:49:01,391 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:06,117 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.0595 | val_feature_output_loss: 0.3344 | val_loss: 1.0595
+2025-12-01 23:49:06,119 - INFO - Training epoch 50/100
+2025-12-01 23:49:06,220 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:11,062 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.9925 | val_feature_output_loss: 0.3394 | val_loss: 0.9925
+2025-12-01 23:49:11,064 - INFO - Training epoch 51/100
+2025-12-01 23:49:11,177 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:15,905 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.8409 | val_feature_output_loss: 0.3467 | val_loss: 0.8409
+2025-12-01 23:49:15,908 - INFO - Training epoch 52/100
+2025-12-01 23:49:16,009 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:20,744 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.9161 | val_feature_output_loss: 0.3484 | val_loss: 0.9161
+2025-12-01 23:49:20,746 - INFO - Training epoch 53/100
+2025-12-01 23:49:20,827 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:25,544 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.1895 | val_feature_output_loss: 0.3522 | val_loss: 1.1895
+2025-12-01 23:49:25,547 - INFO - Training epoch 54/100
+2025-12-01 23:49:25,634 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:30,359 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.9702 | val_feature_output_loss: 0.3609 | val_loss: 0.9702
+2025-12-01 23:49:30,361 - INFO - Training epoch 55/100
+2025-12-01 23:49:30,450 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:35,150 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.9946 | val_feature_output_loss: 0.3597 | val_loss: 0.9946
+2025-12-01 23:49:35,152 - INFO - Training epoch 56/100
+2025-12-01 23:49:35,244 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:40,179 - INFO - Validation | val_accuracy: 0.797 | val_loss: 0.8927 | val_feature_output_loss: 0.3693 | val_loss: 0.8927
+2025-12-01 23:49:40,181 - INFO - Training epoch 57/100
+2025-12-01 23:49:40,297 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:45,088 - INFO - Validation | val_accuracy: 0.734 | val_loss: 1.0529 | val_feature_output_loss: 0.3723 | val_loss: 1.0529
+2025-12-01 23:49:45,090 - INFO - Training epoch 58/100
+2025-12-01 23:49:45,192 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:49,913 - INFO - Validation | val_accuracy: 0.719 | val_loss: 0.8658 | val_feature_output_loss: 0.3648 | val_loss: 0.8658
+2025-12-01 23:49:49,915 - INFO - Training epoch 59/100
+2025-12-01 23:49:49,991 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:54,842 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2260 | val_feature_output_loss: 0.3680 | val_loss: 1.2260
+2025-12-01 23:49:54,844 - INFO - Training epoch 60/100
+2025-12-01 23:49:54,940 - INFO - TQDM progress bars initialized
+2025-12-01 23:49:59,791 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.0633 | val_feature_output_loss: 0.3772 | val_loss: 1.0633
+2025-12-01 23:49:59,793 - INFO - Training epoch 61/100
+2025-12-01 23:49:59,882 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:04,638 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.1255 | val_feature_output_loss: 0.3841 | val_loss: 1.1255
+2025-12-01 23:50:04,641 - INFO - Training epoch 62/100
+2025-12-01 23:50:04,734 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:09,634 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.1222 | val_feature_output_loss: 0.3881 | val_loss: 1.1222
+2025-12-01 23:50:09,636 - INFO - Training epoch 63/100
+2025-12-01 23:50:09,726 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:14,443 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.1757 | val_feature_output_loss: 0.3899 | val_loss: 1.1757
+2025-12-01 23:50:14,445 - INFO - Training epoch 64/100
+2025-12-01 23:50:14,562 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:19,392 - INFO - Validation | val_accuracy: 0.734 | val_loss: 1.4002 | val_feature_output_loss: 0.3924 | val_loss: 1.4002
+2025-12-01 23:50:19,394 - INFO - Training epoch 65/100
+2025-12-01 23:50:19,490 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:24,193 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.0593 | val_feature_output_loss: 0.3957 | val_loss: 1.0593
+2025-12-01 23:50:24,196 - INFO - Training epoch 66/100
+2025-12-01 23:50:24,301 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:29,025 - INFO - Validation | val_accuracy: 0.703 | val_loss: 1.0351 | val_feature_output_loss: 0.3868 | val_loss: 1.0351
+2025-12-01 23:50:29,027 - INFO - Training epoch 67/100
+2025-12-01 23:50:29,117 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:33,821 - INFO - Validation | val_accuracy: 0.703 | val_loss: 1.1610 | val_feature_output_loss: 0.3958 | val_loss: 1.1610
+2025-12-01 23:50:33,823 - INFO - Training epoch 68/100
+2025-12-01 23:50:33,912 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:38,753 - INFO - Validation | val_accuracy: 0.641 | val_loss: 1.3411 | val_feature_output_loss: 0.4105 | val_loss: 1.3411
+2025-12-01 23:50:38,755 - INFO - Training epoch 69/100
+2025-12-01 23:50:38,849 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:43,582 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.3387 | val_feature_output_loss: 0.4226 | val_loss: 1.3387
+2025-12-01 23:50:43,584 - INFO - Training epoch 70/100
+2025-12-01 23:50:43,675 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:48,394 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2865 | val_feature_output_loss: 0.4380 | val_loss: 1.2865
+2025-12-01 23:50:48,396 - INFO - Training epoch 71/100
+2025-12-01 23:50:48,485 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:53,620 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.0632 | val_feature_output_loss: 0.4491 | val_loss: 1.0632
+2025-12-01 23:50:53,623 - INFO - Training epoch 72/100
+2025-12-01 23:50:53,711 - INFO - TQDM progress bars initialized
+2025-12-01 23:50:58,574 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.3200 | val_feature_output_loss: 0.4687 | val_loss: 1.3200
+2025-12-01 23:50:58,576 - INFO - Training epoch 73/100
+2025-12-01 23:50:58,653 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:03,356 - INFO - Validation | val_accuracy: 0.734 | val_loss: 1.3185 | val_feature_output_loss: 0.4659 | val_loss: 1.3185
+2025-12-01 23:51:03,358 - INFO - Training epoch 74/100
+2025-12-01 23:51:03,443 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:08,251 - INFO - Validation | val_accuracy: 0.781 | val_loss: 1.2296 | val_feature_output_loss: 0.4746 | val_loss: 1.2296
+2025-12-01 23:51:08,253 - INFO - Training epoch 75/100
+2025-12-01 23:51:08,335 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:13,049 - INFO - Validation | val_accuracy: 0.797 | val_loss: 1.2407 | val_feature_output_loss: 0.4823 | val_loss: 1.2407
+2025-12-01 23:51:13,052 - INFO - Training epoch 76/100
+2025-12-01 23:51:13,153 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:17,986 - INFO - Validation | val_accuracy: 0.672 | val_loss: 1.2647 | val_feature_output_loss: 0.4959 | val_loss: 1.2647
+2025-12-01 23:51:17,988 - INFO - Training epoch 77/100
+2025-12-01 23:51:18,072 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:22,761 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.7911 | val_feature_output_loss: 0.4744 | val_loss: 1.7911
+2025-12-01 23:51:22,764 - INFO - Training epoch 78/100
+2025-12-01 23:51:22,874 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:27,573 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.7080 | val_feature_output_loss: 0.4794 | val_loss: 1.7080
+2025-12-01 23:51:27,575 - INFO - Training epoch 79/100
+2025-12-01 23:51:27,667 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:32,387 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.6110 | val_feature_output_loss: 0.4841 | val_loss: 1.6110
+2025-12-01 23:51:32,390 - INFO - Training epoch 80/100
+2025-12-01 23:51:32,480 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:37,259 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.3524 | val_feature_output_loss: 0.4921 | val_loss: 1.3524
+2025-12-01 23:51:37,261 - INFO - Training epoch 81/100
+2025-12-01 23:51:37,352 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:42,120 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.6370 | val_feature_output_loss: 0.4900 | val_loss: 1.6370
+2025-12-01 23:51:42,123 - INFO - Training epoch 82/100
+2025-12-01 23:51:42,211 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:46,940 - INFO - Validation | val_accuracy: 0.734 | val_loss: 1.5109 | val_feature_output_loss: 0.5031 | val_loss: 1.5109
+2025-12-01 23:51:46,941 - INFO - Training epoch 83/100
+2025-12-01 23:51:47,043 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:51,846 - INFO - Validation | val_accuracy: 0.656 | val_loss: 2.1507 | val_feature_output_loss: 0.5011 | val_loss: 2.1507
+2025-12-01 23:51:51,848 - INFO - Training epoch 84/100
+2025-12-01 23:51:51,929 - INFO - TQDM progress bars initialized
+2025-12-01 23:51:56,685 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.3864 | val_feature_output_loss: 0.5036 | val_loss: 1.3864
+2025-12-01 23:51:56,687 - INFO - Training epoch 85/100
+2025-12-01 23:51:56,784 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:01,513 - INFO - Validation | val_accuracy: 0.672 | val_loss: 2.0579 | val_feature_output_loss: 0.4970 | val_loss: 2.0579
+2025-12-01 23:52:01,516 - INFO - Training epoch 86/100
+2025-12-01 23:52:01,602 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:06,363 - INFO - Validation | val_accuracy: 0.703 | val_loss: 1.5883 | val_feature_output_loss: 0.4991 | val_loss: 1.5883
+2025-12-01 23:52:06,365 - INFO - Training epoch 87/100
+2025-12-01 23:52:06,473 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:11,409 - INFO - Validation | val_accuracy: 0.703 | val_loss: 1.9346 | val_feature_output_loss: 0.5076 | val_loss: 1.9346
+2025-12-01 23:52:11,411 - INFO - Training epoch 88/100
+2025-12-01 23:52:11,503 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:16,236 - INFO - Validation | val_accuracy: 0.672 | val_loss: 1.6796 | val_feature_output_loss: 0.5351 | val_loss: 1.6796
+2025-12-01 23:52:16,238 - INFO - Training epoch 89/100
+2025-12-01 23:52:16,337 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:21,027 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.2005 | val_feature_output_loss: 0.5470 | val_loss: 1.2005
+2025-12-01 23:52:21,030 - INFO - Training epoch 90/100
+2025-12-01 23:52:21,135 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:25,851 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.7270 | val_feature_output_loss: 0.5257 | val_loss: 1.7270
+2025-12-01 23:52:25,853 - INFO - Training epoch 91/100
+2025-12-01 23:52:25,945 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:30,652 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.5031 | val_feature_output_loss: 0.5295 | val_loss: 1.5031
+2025-12-01 23:52:30,655 - INFO - Training epoch 92/100
+2025-12-01 23:52:30,750 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:35,471 - INFO - Validation | val_accuracy: 0.672 | val_loss: 1.7231 | val_feature_output_loss: 0.5376 | val_loss: 1.7231
+2025-12-01 23:52:35,473 - INFO - Training epoch 93/100
+2025-12-01 23:52:35,588 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:40,300 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.4236 | val_feature_output_loss: 0.5436 | val_loss: 1.4236
+2025-12-01 23:52:40,302 - INFO - Training epoch 94/100
+2025-12-01 23:52:40,405 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:45,139 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.7561 | val_feature_output_loss: 0.5500 | val_loss: 1.7561
+2025-12-01 23:52:45,141 - INFO - Training epoch 95/100
+2025-12-01 23:52:45,248 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:49,968 - INFO - Validation | val_accuracy: 0.719 | val_loss: 1.5101 | val_feature_output_loss: 0.5531 | val_loss: 1.5101
+2025-12-01 23:52:49,971 - INFO - Training epoch 96/100
+2025-12-01 23:52:50,066 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:54,809 - INFO - Validation | val_accuracy: 0.703 | val_loss: 1.5808 | val_feature_output_loss: 0.5540 | val_loss: 1.5808
+2025-12-01 23:52:54,811 - INFO - Training epoch 97/100
+2025-12-01 23:52:54,926 - INFO - TQDM progress bars initialized
+2025-12-01 23:52:59,954 - INFO - Validation | val_accuracy: 0.750 | val_loss: 1.4999 | val_feature_output_loss: 0.5425 | val_loss: 1.4999
+2025-12-01 23:52:59,957 - INFO - Training epoch 98/100
+2025-12-01 23:53:00,038 - INFO - TQDM progress bars initialized
+2025-12-01 23:53:04,767 - INFO - Validation | val_accuracy: 0.672 | val_loss: 1.6942 | val_feature_output_loss: 0.5453 | val_loss: 1.6942
+2025-12-01 23:53:04,769 - INFO - Training epoch 99/100
+2025-12-01 23:53:04,878 - INFO - TQDM progress bars initialized
+2025-12-01 23:53:09,686 - INFO - Validation | val_accuracy: 0.688 | val_loss: 1.5102 | val_feature_output_loss: 0.5614 | val_loss: 1.5102
+2025-12-01 23:53:09,688 - INFO - Training epoch 100/100
+2025-12-01 23:53:09,788 - INFO - TQDM progress bars initialized
+2025-12-01 23:53:14,542 - INFO - Validation | val_accuracy: 0.656 | val_loss: 1.7139 | val_feature_output_loss: 0.5602 | val_loss: 1.7139
+2025-12-01 23:53:14,544 - INFO - Feature extraction training completed. Model ready for vector similarity search.
+2025-12-01 23:53:14,545 - INFO - Evaluating model on test set...
+2025-12-01 23:53:14,745 - INFO - Evaluating model on test set...
+2025-12-01 23:53:17,319 - INFO - Evaluation results saved to models/efficientnet
+2025-12-01 23:53:17,548 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 23:53:17,548 - INFO - Model saved to models/efficientnet/wound_classifier.pkl
+2025-12-01 23:53:17,551 - INFO - Training summary saved to models/efficientnet/training_summary.json
+2025-12-01 23:53:17,551 - INFO - Testing feature extraction...
+2025-12-01 23:53:17,555 - INFO - Extracting features from image array with shape: (1, 224, 224, 3)
+2025-12-01 23:53:18,261 - INFO - Feature extraction completed. Feature vector shape: (1536,)
+2025-12-01 23:53:18,261 - INFO - Feature extraction successful. Feature shape: (1536,)
+2025-12-01 23:53:18,262 - INFO - Sample features (first 5): [0.2796119  0.46764466 0.         0.         0.40285155]
+2025-12-01 23:53:18,262 - INFO - Training completed successfully!
+2025-12-01 23:53:18,262 - INFO - Model saved in: models/efficientnet
+2025-12-01 23:53:18,262 - INFO - Training logs saved in: training.log
+2025-12-01 23:54:09,090 - INFO - Auto-selected augmentation_factor=8 (exact_rotations=enabled)
+2025-12-01 23:54:09,090 - INFO - Logging setup with level INFO
+2025-12-01 23:54:09,090 - INFO - Application initialized
+2025-12-01 23:54:09,090 - INFO - Database: dl-postgres:5432
+2025-12-01 23:54:09,090 - INFO - Vector dimension: 1536
+2025-12-01 23:54:09,090 - INFO - Upload directory: /tmp/uploads
+2025-12-01 23:54:09,090 - INFO - Ollama API: http://localhost:11434 (model: all-minilm:l6-v2)
+2025-12-01 23:54:09,090 - INFO - Starting manual CNN training
+2025-12-01 23:54:09,090 - INFO - Architecture: efficientnet
+2025-12-01 23:54:09,090 - INFO - Dataset: ./files/train_dataset
+2025-12-01 23:54:09,090 - INFO - Epochs: 50
+2025-12-01 23:54:09,090 - INFO - Batch size: 64
+2025-12-01 23:54:09,090 - INFO - Found 10 classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:54:09,099 - INFO - Total images: 1531
+2025-12-01 23:54:09,099 - INFO -   Abrasions: 82 images
+2025-12-01 23:54:09,099 - INFO -   Diabetic Wounds: 231 images
+2025-12-01 23:54:09,099 - INFO -   Surgical Wounds: 210 images
+2025-12-01 23:54:09,099 - INFO -   Bruises: 121 images
+2025-12-01 23:54:09,099 - INFO -   Cut: 50 images
+2025-12-01 23:54:09,099 - INFO -   Venous Wounds: 247 images
+2025-12-01 23:54:09,099 - INFO -   Normal: 100 images
+2025-12-01 23:54:09,099 - INFO -   Pressure Wounds: 301 images
+2025-12-01 23:54:09,099 - INFO -   Laseration: 122 images
+2025-12-01 23:54:09,099 - INFO -   Burns: 67 images
+2025-12-01 23:54:09,099 - INFO - Created output directory: models/efficientnet
+2025-12-01 23:54:09,099 - INFO - Building CNN model...
+2025-12-01 23:54:09,100 - INFO - MPS/GPU not detected on macOS, using CPU
+2025-12-01 23:54:09,507 - INFO - Built efficientnet model with features: Base -> 1536 -> 10 classes
+2025-12-01 23:54:09,507 - INFO - Creating data generators...
+2025-12-01 23:54:09,507 - INFO - No data augmentation enabled
+2025-12-01 23:54:09,524 - INFO - Stratified split: 1029 training samples, 113 test samples
+2025-12-01 23:54:09,524 - INFO - Classes: ['Abrasions', 'Diabetic Wounds', 'Surgical Wounds', 'Bruises', 'Cut', 'Venous Wounds', 'Normal', 'Pressure Wounds', 'Laseration', 'Burns']
+2025-12-01 23:54:09,531 - INFO - Training samples: 1029
+2025-12-01 23:54:09,531 - INFO - Validation samples: 113
+2025-12-01 23:54:09,531 - INFO - Starting training...
+2025-12-01 23:54:09,531 - INFO - TQDM progress bars enabled - training progress will be displayed
+2025-12-01 23:54:09,532 - INFO - TQDM progress bar callback added
+2025-12-01 23:54:09,532 - INFO - Total callbacks configured: 2
+2025-12-01 23:54:09,532 - INFO - Training epoch 1/50
+2025-12-01 23:54:09,631 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:19,382 - INFO - Validation | val_accuracy: 0.625 | val_loss: 1.0226 | val_feature_output_loss: 0.1449 | val_loss: 1.0226
+2025-12-01 23:54:19,599 - INFO - Training epoch 2/50
+2025-12-01 23:54:19,704 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:24,959 - INFO - Validation | val_accuracy: 0.688 | val_loss: 0.8069 | val_feature_output_loss: 0.1745 | val_loss: 0.8069
+2025-12-01 23:54:25,298 - INFO - Training epoch 3/50
+2025-12-01 23:54:25,396 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:30,347 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6676 | val_feature_output_loss: 0.1934 | val_loss: 0.6676
+2025-12-01 23:54:30,548 - INFO - Training epoch 4/50
+2025-12-01 23:54:30,659 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:35,450 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.7187 | val_feature_output_loss: 0.2049 | val_loss: 0.7187
+2025-12-01 23:54:35,452 - INFO - Training epoch 5/50
+2025-12-01 23:54:35,547 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:40,563 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.7172 | val_feature_output_loss: 0.2190 | val_loss: 0.7172
+2025-12-01 23:54:40,565 - INFO - Training epoch 6/50
+2025-12-01 23:54:40,650 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:45,489 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.7212 | val_feature_output_loss: 0.2295 | val_loss: 0.7212
+2025-12-01 23:54:45,490 - INFO - Training epoch 7/50
+2025-12-01 23:54:45,576 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:50,425 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.8429 | val_feature_output_loss: 0.2384 | val_loss: 0.8429
+2025-12-01 23:54:50,427 - INFO - Training epoch 8/50
+2025-12-01 23:54:50,532 - INFO - TQDM progress bars initialized
+2025-12-01 23:54:55,250 - INFO - Validation | val_accuracy: 0.734 | val_loss: 0.7511 | val_feature_output_loss: 0.2440 | val_loss: 0.7511
+2025-12-01 23:54:55,252 - INFO - Training epoch 9/50
+2025-12-01 23:54:55,362 - INFO - TQDM progress bars initialized
+2025-12-01 23:55:00,214 - INFO - Validation | val_accuracy: 0.766 | val_loss: 0.6650 | val_feature_output_loss: 0.2498 | val_loss: 0.6650
+2025-12-01 23:55:00,406 - INFO - Training epoch 10/50
+2025-12-01 23:55:00,509 - INFO - TQDM progress bars initialized
+2025-12-01 23:55:05,369 - INFO - Validation | val_accuracy: 0.781 | val_loss: 0.6816 | val_feature_output_loss: 0.2535 | val_loss: 0.6816
+2025-12-01 23:55:05,371 - INFO - Training epoch 11/50
+2025-12-01 23:55:05,461 - INFO - TQDM progress bars initialized
+2025-12-01 23:55:10,777 - INFO - Validation | val_accuracy: 0.750 | val_loss: 0.6535 | val_feature_output_loss: 0.2571 | val_loss: 0.6535
+2025-12-01 23:55:10,977 - INFO - Training epoch 12/50
+2025-12-01 23:55:11,113 - INFO - TQDM progress bars initialized

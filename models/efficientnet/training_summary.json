@@ -1,5 +1,5 @@
 {
-  "training_date": "2025-11-17T10:00:14.422681",
+  "training_date": "2025-12-01T23:53:17.548180",
   "model_name": "wound_classifier",
   "architecture": "efficientnet",
   "num_classes": 10,
@@ -16,21 +16,27 @@
     "Burns": 67
   },
   "training_config": {
-    "epochs": 200,
-    "batch_size": 32,
-    "learning_rate": 0.0001,
-    "test_split": 0.05,
+    "epochs": 100,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "test_split": 0.1,
     "feature_dim": 1536,
     "augmentation": false,
-    "exact_rotations": false,
-    "augmentation_factor": 1,
+    "exact_rotations": true,
+    "augmentation_factor": 8,
     "fine_tuning": false
   },
   "final_metrics": {
-    "train_accuracy": 0.9831578731536865,
-    "val_accuracy": 0.671875,
-    "train_loss": 0.05235757678747177,
-    "val_loss": 2.3060765266418457
+    "train_accuracy": 0.99609375,
+    "val_accuracy": 0.65625,
+    "train_loss": 0.00737067312002182,
+    "val_loss": 1.7138662338256836
+  },
+  "evaluation_metrics": {
+    "accuracy": 0.7079646017699115,
+    "precision": 0.7191896598976246,
+    "recall": 0.7079646017699115,
+    "f1_score": 0.7009824590061019
   },
   "model_paths": {
     "model_file": "models/efficientnet/wound_classifier.pkl",

@@ -1,0 +1,11 @@
+,Abrasions,Bruises,Burns,Cut,Diabetic Wounds,Laseration,Normal,Pressure Wounds,Surgical Wounds,Venous Wounds
+Abrasions,3,2,0,1,1,0,0,0,0,1
+Bruises,0,11,0,0,0,0,1,0,0,0
+Burns,0,2,2,0,0,1,0,0,0,1
+Cut,1,1,1,1,0,1,0,0,0,0
+Diabetic Wounds,1,0,0,0,10,0,1,1,0,2
+Laseration,0,1,0,0,0,11,0,0,0,0
+Normal,0,0,0,0,0,0,10,0,0,0
+Pressure Wounds,0,0,0,0,4,0,0,6,3,2
+Surgical Wounds,0,1,0,0,2,0,0,4,8,0
+Venous Wounds,1,0,0,0,0,0,0,2,0,12
