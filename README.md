@@ -24,6 +24,45 @@ The repository organizes functionality into clear components:
 - `generate_vectors.py`, `train_model.py` — Utilities to produce embeddings and train models
 - `models/`, `files/` — Trained model artifacts and dataset layout
 
+## 📸 UI Demo Screenshots
+
+The Streamlit interface provides an intuitive workflow for wound classification and similarity search:
+
+### Home & Navigation
+![Home Page](images/Deep_Learning_1.jpg)
+*Main dashboard with navigation and overview*
+
+### Dataset Summary & Analysis
+![Dataset Summary](images/Deep_Learning_2.jpg)
+*Dataset distribution and statistics*
+
+![Data Exploration](images/Deep_Learning_3.jpg)
+*Interactive data exploration tools*
+
+### Model Training
+![Training Interface](images/Deep_Learning_4.jpg)
+*Model training configuration and progress*
+
+![Training Progress](images/Deep_Learning_5.jpg)
+*Real-time training metrics and visualization*
+
+### Model Evaluation
+![Model Summary](images/Deep_Learning_6.jpg)
+*Model performance metrics and evaluation*
+
+![Classification Results](images/Deep_Learning_7.jpg)
+*Detailed classification results and confusion matrix*
+
+### Similarity Search
+![Similarity Search](images/Deep_Learning_8.jpg)
+*Vector-based similarity search interface*
+
+![Search Results](images/Deep_Learning_9.jpg)
+*Similar images with distance metrics*
+
+![Advanced Search](images/Deep_Learning_10.jpg)
+*Advanced search features and filtering*
+
 ## 🚀 Quick Start
 
 ### Prerequisites
