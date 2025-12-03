@@ -46,24 +46,24 @@ The Streamlit interface provides an intuitive workflow for wound classification 
 ![Confusion Matrix](images/Deep_Learning_5.jpg)
 *Real-time training metrics and visualization*
 
-### Model Evaluation
-![Treatment 1](images/Deep_Learning_8.jpg)
-*Vector-based similarity search interface*
-
-![Treatment 2](images/Deep_Learning_7.jpg)
-*Detailed classification results and confusion matrix*
-
-![Treatment 3](images/Deep_Learning_6.jpg)
-*Model performance metrics and evaluation*
-
 ### Similarity Search
-
-
-![Search Results](images/Deep_Learning_9.jpg)
+![Similarity Insights](images/Deep_Learning_9.jpg)
 *Similar images with distance metrics*
 
-![Similarity Insights](images/Deep_Learning_10.jpg)
+![Search Results](images/Deep_Learning_10.jpg)
 *Advanced search features and filtering*
+
+
+### Treatment Recommandation from LLM
+![Treatment 1](images/Deep_Learning_8.jpg)
+*Trement recommadation for first prediction*
+
+![Treatment 2](images/Deep_Learning_7.jpg)
+*Trement recommadation for second prediction*
+
+![Treatment 3](images/Deep_Learning_6.jpg)
+*Trement recommadation for third prediction*
+
 
 ## 🚀 Quick Start
 
