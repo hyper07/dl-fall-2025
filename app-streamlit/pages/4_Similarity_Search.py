@@ -307,7 +307,7 @@ with st.expander("AI Medical Analysis", expanded=True):
 
         # Model selection (hidden - using default)
         selected_model = "gpt-oss:20b"
-        api_url = "http://hyper07.ddns.net:11434"
+        api_url = "{use_your_gpt_api_url}"
         
         if st.button("Get AI Medical Opinion", type="primary", use_container_width=True):
             with st.spinner("Consulting AI medical assistant..."):
