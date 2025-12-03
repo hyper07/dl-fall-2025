@@ -181,13 +181,12 @@ The platform supports three primary architectures, each serving different needs:
 
 ---
 
-## 🤝 Contributing
+## 👥 Team & Contributors
 
-Contributions are welcome! Please follow these steps:
-1.  Fork the repo.
-2.  Create a feature branch (`git checkout -b feature/NewFeature`).
-3.  Commit your changes.
-4.  Push to the branch and open a Pull Request.
+*   **Sally Park** ([@sallyp0318](https://github.com/sallyp0318))
+*   **Wendy Luu** ([@wendyluu01](https://github.com/wendyluu01))
+*   **Kibaek Kim** ([@hyper07](https://github.com/hyper07))
+
 
 ## 📄 License
 
