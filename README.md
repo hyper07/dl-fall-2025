@@ -47,12 +47,12 @@ The Streamlit interface provides an intuitive workflow for wound classification 
 *Real-time training metrics and visualization*
 
 ### Similarity Search
+![Search Results](images/Deep_Learning_10.jpg)
+*Similarity score by vector search*
+
+### AI Medical Opinion
 ![Similarity Insights](images/Deep_Learning_9.jpg)
 *Similar images with distance metrics*
-
-![Search Results](images/Deep_Learning_10.jpg)
-*Advanced search features and filtering*
-
 
 ### Treatment Recommandation from LLM
 ![Treatment 1](images/Deep_Learning_8.jpg)
