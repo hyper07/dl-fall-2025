@@ -164,7 +164,7 @@ python generate_vectors.py
 Open the Streamlit app and navigate to **Similarity Search**.
 *   Upload a wound image.
 *   The system will predict the wound class.
-*   It will search for the top 5 most similar past cases.
+*   It will search for the top 10 most similar past cases.
 *   The LLM will generate a preliminary assessment.
 
 ---
@@ -173,11 +173,11 @@ Open the Streamlit app and navigate to **Similarity Search**.
 
 The platform supports three primary architectures, each serving different needs:
 
-*   **ResNet50** (Default): Balanced performance and speed. Excellent feature extractor for embeddings.
-*   **EfficientNet**: High accuracy with lower parameter count. Best for resource-constrained environments.
+*   **ResNet50**: Balanced performance and speed. Excellent feature extractor for embeddings.
+*   **EfficientNet** (Default): High accuracy with lower parameter count. Best for resource-constrained environments.
 *   **VGG16**: Simple, deep architecture. Good for educational purposes and feature visualization.
 
-*Current benchmarks show **90%+ accuracy** on the standard wound dataset for ResNet50.*
+*Current benchmarks show **77%+ accuracy** on the standard wound dataset for EfficientNet.*
 
 ---
 
